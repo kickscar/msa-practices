@@ -1,0 +1,39 @@
+# Mac
+**/.DS_Store
+
+# JavaScript Project
+**/node_modules
+**/public/bundle.js
+**/public/main.js
+**/public/assets
+
+# IDE directories and files
+**/target
+**/build
+
+### STS/Eclipse ###
+**/.apt_generated
+**/.classpath
+**/.mvn
+**/.factorypath
+**/.project
+**/.settings
+**/.springBeans
+**/.sts4-cache
+
+### IntelliJ IDEA ###
+**/.idea
+**/*.iws
+**/*.iml
+**/*.ipr
+
+### VS Code ###
+**/.vscode
+**/.suo
+**/.ntvs*
+**/.njsproj
+**/.sln
+**/.sw?
+
+# private resources
+**/PrivateResources

@@ -1,0 +1,21 @@
+---
+# Tomcat Server
+server:
+   port: 8761
+
+---
+# Eureka
+eureka:
+   instance:
+      hostname: localhost
+   server:
+      #
+      enableSelfPreservation: false        
+   client:
+      #       
+      fetchRegistry: false
+      #
+      registerWithEureka: false
+      #
+      serviceUrl:
+         defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
