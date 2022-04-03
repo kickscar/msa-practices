@@ -8,15 +8,14 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class Emaillist8Application {
+	
+	public static void main(String[] args) {
+		SpringApplication.run(Emaillist8Application.class, args);
+	}
 
 	@LoadBalanced
 	@Bean
 	public RestTemplate restTemplte() {
 		return new RestTemplate();
 	}
-	
-	public static void main(String[] args) {
-		SpringApplication.run(Emaillist8Application.class, args);
-	}
-
 }

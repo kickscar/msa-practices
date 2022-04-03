@@ -1,10 +1,15 @@
+#
 # active spring boot profile
+#
 spring:
    profiles:
       active: development
 
+
 ---
-# common spring boot configuration
+#
+# common configuration
+#
 spring:
    mvc:
       # Path pattern used for static resources
@@ -16,35 +21,12 @@ spring:
       resources:
          # Locations of static resources
          static-locations: classpath:/static/
-
    thymeleaf:
       prefix : classpath:templates/
       check-template-location: true
       mode: HTML
       suffix : .html
       cache : false
-
----
-# development profile - spring boot configuration
-spring:
-   config:
-      activate:
-         on-profile: development
-
-   # devtools enabled
-   devtools:
-      livereload:
-         enabled: true
-         
----
-# server
-server:
-   port: 8080
-   servlet:
-      context-path: /
-      encoding:
-         charset: UTF-8
-         enabled: true
 
 # Eureka
 eureka:
@@ -56,4 +38,44 @@ eureka:
       #
       serviceUrl:
          defaultZone: http://localhost:8761/eureka
+         
+
+---
+#
+# development configuration
+#
+spring:
+   config:
+      activate:
+         on-profile: development
+   # devtools enabled
+   devtools:
+      livereload:
+         enabled: true         
+# server
+server:
+   port: 8080
+   servlet:
+      context-path: /
+      encoding:
+         charset: UTF-8
+         enabled: true
+
+
+---
+#
+# production configuration
+#
+spring:
+   config:
+      activate:
+         on-profile: production    
+# server
+server:
+   port: 8881
+   servlet:
+      context-path: /
+      encoding:
+         charset: UTF-8
+         enabled: true
 

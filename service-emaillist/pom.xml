@@ -7,13 +7,12 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.6.5</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath />
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>service-emaillist</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>service-emaillist</name>
-	<description>Demo project for Spring Boot</description>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,10 +22,16 @@
 	</properties>
 	
 	<dependencies>	
-		<!-- Spring Cloud Discovery Client(Eureka) -->
+		<!-- Spring Cloud Discovery: Netflix Eureka Client -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+		<!-- Spring Cloud Config Client -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 
 		<!-- Core Starter -->
@@ -89,6 +94,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>service-emaillist</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -99,10 +105,13 @@
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
+						<exclude>
+							<groupId>org.springframework.boot</groupId>
+							<artifactId>spring-boot-devtools</artifactId>
+						</exclude>
 					</excludes>
 				</configuration>				
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

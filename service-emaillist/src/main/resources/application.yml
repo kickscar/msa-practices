@@ -1,0 +1,9 @@
+spring:
+   # application name
+   application:
+      name: service-emaillist
+   profiles:
+      # active profile
+      active: development
+   config:
+      import: optional:configserver:http://localhost:8880

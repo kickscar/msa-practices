@@ -1,9 +1,7 @@
----
 # Tomcat Server
 server:
    port: 8761
 
----
 # Eureka
 eureka:
    instance:

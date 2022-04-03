@@ -1,32 +1,26 @@
-#
-# git based
-#
-#server:
-#   port: 8880
-
-#spring:
-#   cloud:
-#      config:
-#         server:
-#            encrypt.enabled: false
-#            git:
-#               uri: https://github.com/habuma/tacocloud-config/
-
-
-  
-#
-# file system based
-#
 server:
    port: 8880
 
+#
+# git based
+#
 spring:
-  profiles:
-    active: native
-  cloud:
-     config:
-       server:
-           native:
-              searchLocations: file://<chapter 3>/confsvr/src/main/resources/config/licensingservice,
-                               file://<chapter 3>confsvr/src/main/resources/config/organizationservice
-##              #searchLocations: classpath:config/,classpath:config/licensingservice
+   cloud:
+      config:
+         server:
+            encrypt.enabled: false
+            git:
+               uri: https://github.com/kickscar/msa-practices/service-configs
+
+  
+#
+# file-system based(native)
+#
+#spring:
+#  profiles:
+#    active: native
+#  cloud:
+#     config:
+#       server:
+#           native:
+#              searchLocations: file:///Users/kickscar/DoWork/STS-Workspace/msa-practices/service-configs/service-emaillist
