@@ -2,13 +2,13 @@
 
 
 #### 1. service-emaillist
-1.	active profile: default
+1.	default<br/>
 	http://{server}:8880/service-emaillist/default
 	
-2.	active profile: development
+2.	development<br/>
 	http://{server}:8880/service-emaillist/development	
 
-3.	active profile: production
+3.	production<br/>
 	http://{server}:8880/service-emaillist/production
 
 

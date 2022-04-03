@@ -1,0 +1,32 @@
+server:
+   port: 8880
+
+encrypt:
+  key-store:
+    alias: selfsigned
+    location: classpath:keystore.jks
+    password: password
+
+#
+# git based
+#
+spring:
+   cloud:
+      config:
+         server:
+            encrypt.enabled: true
+            git:
+               uri: https://github.com/kickscar/msa-practices-config-repo
+               searchPaths: service-emaillist
+
+#
+# file-system based(native)
+#
+#spring:
+#  profiles:
+#    active: native
+#  cloud:
+#     config:
+#       server:
+#           native:
+#              searchLocations: file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-emaillist
