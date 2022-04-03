@@ -10,7 +10,7 @@ spring:
          server:
             encrypt.enabled: false
             git:
-               uri: https://github.com/kickscar/msa-practices/service-configs
+               uri: https://github.com/kickscar/msa-practices/service-config-repo/
 
   
 #
