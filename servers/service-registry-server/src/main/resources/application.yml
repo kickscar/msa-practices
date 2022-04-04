@@ -1,19 +1,83 @@
-# Tomcat Server
+spring:
+  profiles:
+    active: development
+    
+
+---
+#
+# development configuration
+#
+spring:
+   application:
+      name: service-registry-server(eureka)
+   config:
+      activate:
+         on-profile: development
+
 server:
    port: 8761
-
-# Eureka
+   
 eureka:
    instance:
       hostname: localhost
    server:
-      #
-      enableSelfPreservation: false        
+      enableSelfPreservation: false
+      waitTimeInMsWhenSyncEmpty: 5        
    client:
-      #       
       fetchRegistry: false
-      #
       registerWithEureka: false
-      #
       serviceUrl:
          defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+
+
+---
+#
+# eureka1 configuration: peer awareness
+#
+spring:
+   application:
+      name: service-registry-server01(eureka)
+   config:
+      activate:
+         on-profile: eureka1
+
+server:
+   port: 8761
+   
+eureka:
+   instance:
+      hostname: eureka1.kickscar.me
+   server:
+      enableSelfPreservation: true
+   client:
+      fetchRegistry: true
+      registerWithEureka: true
+      serviceUrl:
+         defaultZone: http://eureka2.kickscar.me:${server.port}/eureka
+
+
+---
+#
+# eureka2 configuration: peer awareness
+#
+spring:
+   application:
+      name: service-registry-server02(eureka)
+   config:
+      activate:
+         on-profile: eureka2
+
+server:
+   port: 8762
+   
+eureka:
+   instance:
+      hostname: eureka2.kickscar.me
+   server:
+      enableSelfPreservation: true
+   client:
+      fetchRegistry: true
+      registerWithEureka: true
+      serviceUrl:
+         defaultZone: http://eureka1.kickscar.me:${server.port}/eureka
+         

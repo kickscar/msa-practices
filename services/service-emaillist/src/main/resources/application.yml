@@ -6,4 +6,5 @@ spring:
       # active profile
       active: development
    config:
+      # Config Server 
       import: optional:configserver:http://localhost:8880

@@ -13,10 +13,12 @@ import com.example.demo.vo.EmaillistVo;
 public class EmaillistConsumer {
 	
 	@Autowired
-	@LoadBalanced
+	// @LoadBalanced
 	private RestTemplate restTemplate;
 
 	public Iterable<EmaillistVo> getAllEmail() {
-		return Arrays.asList(restTemplate.getForObject("http://service-emaillist/api", EmaillistVo[].class));
+		// return Arrays.asList(restTemplate.getForObject("http://service-emaillist/api", EmaillistVo[].class));
+		// return Arrays.asList(restTemplate.getForObject("http://service-gateway-server/emaillist/api", EmaillistVo[].class));
+		return Arrays.asList(restTemplate.getForObject("http://localhost:5555/emaillist/api", EmaillistVo[].class));
 	}
 }

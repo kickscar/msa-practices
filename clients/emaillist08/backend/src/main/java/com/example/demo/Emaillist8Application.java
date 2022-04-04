@@ -13,7 +13,7 @@ public class Emaillist8Application {
 		SpringApplication.run(Emaillist8Application.class, args);
 	}
 
-	@LoadBalanced
+	// @LoadBalanced
 	@Bean
 	public RestTemplate restTemplte() {
 		return new RestTemplate();
