@@ -16,7 +16,7 @@
 
 ```yml
 server:
-   port: 8761
+   port: 7777
 ```
 
 
@@ -35,6 +35,7 @@ eureka:
       serviceUrl:
          defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
 ```
+
 - eureka.server.enableSelfPreservation<br>
   네트워크 장애시 정상적인 서비스가 등록 해제되는 상황을 막을 수 있는 자기보존 옵션이다. 서비스 변경이 빈번히 일어나는 개발시에는 false로 설정하는 것이 좋다.
   
