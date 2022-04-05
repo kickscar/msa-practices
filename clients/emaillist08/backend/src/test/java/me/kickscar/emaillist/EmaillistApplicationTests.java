@@ -1,10 +1,10 @@
-package com.example.demo;
+package me.kickscar.emaillist;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Emaillist8ApplicationTests {
+class EmaillistApplicationTests {
 
 	@Test
 	void contextLoads() {

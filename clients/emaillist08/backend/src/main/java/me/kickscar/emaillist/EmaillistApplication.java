@@ -1,4 +1,4 @@
-package com.example.demo;
+package me.kickscar.emaillist;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-public class Emaillist8Application {
+public class EmaillistApplication {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(Emaillist8Application.class, args);
+		SpringApplication.run(EmaillistApplication.class, args);
 	}
 
-	// @LoadBalanced
+	@LoadBalanced
 	@Bean
 	public RestTemplate restTemplte() {
 		return new RestTemplate();

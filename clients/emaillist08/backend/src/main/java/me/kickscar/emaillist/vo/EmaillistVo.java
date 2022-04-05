@@ -1,4 +1,4 @@
-package com.example.demo.vo;
+package me.kickscar.emaillist.vo;
 
 import lombok.Getter;
 import lombok.Setter;

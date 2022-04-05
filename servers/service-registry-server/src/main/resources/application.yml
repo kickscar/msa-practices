@@ -1,21 +1,21 @@
 spring:
-  profiles:
-    active: development
+   application:
+      name: service-registry-server
+   profiles:
+      active: development
     
+server:
+   port: 8761
 
+   
 ---
 #
 # development configuration
 #
 spring:
-   application:
-      name: service-registry-server(eureka)
    config:
       activate:
          on-profile: development
-
-server:
-   port: 8761
    
 eureka:
    instance:
@@ -29,55 +29,47 @@ eureka:
       serviceUrl:
          defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
 
+logging:
+   pattern:
+      console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   level:
+      root: INFO
 
+      
 ---
 #
-# eureka1 configuration: peer awareness
+# production configuration
 #
 spring:
-   application:
-      name: service-registry-server01(eureka)
    config:
       activate:
-         on-profile: eureka1
-
-server:
-   port: 8761
+         on-profile: production
    
 eureka:
    instance:
-      hostname: eureka1.kickscar.me
+      hostname: 49.247.9.194
    server:
-      enableSelfPreservation: true
+      enableSelfPreservation: false
+      waitTimeInMsWhenSyncEmpty: 5        
    client:
-      fetchRegistry: true
-      registerWithEureka: true
+      fetchRegistry: false
+      registerWithEureka: false
       serviceUrl:
-         defaultZone: http://eureka2.kickscar.me:${server.port}/eureka
+         defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
 
-
----
-#
-# eureka2 configuration: peer awareness
-#
-spring:
-   application:
-      name: service-registry-server02(eureka)
-   config:
-      activate:
-         on-profile: eureka2
-
-server:
-   port: 8762
-   
-eureka:
-   instance:
-      hostname: eureka2.kickscar.me
-   server:
-      enableSelfPreservation: true
-   client:
-      fetchRegistry: true
-      registerWithEureka: true
-      serviceUrl:
-         defaultZone: http://eureka1.kickscar.me:${server.port}/eureka
+logging:
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
+   file:
+      name: logs/${spring.application.name}.log
+      max-history: 30
+   level:
+      root: INFO
+      me:
+         kickscar:
+            emaillist:
+               exception: ERROR
          

@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package me.kickscar.emaillist.dto;
 
 public class JsonResult {
 	private String result;  /* "success" or "fail"  */

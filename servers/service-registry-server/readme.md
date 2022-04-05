@@ -16,7 +16,7 @@
 
 ```yml
 server:
-   port: 7777
+   port: 8761
 ```
 
 
@@ -54,6 +54,8 @@ eureka:
 
 #### 3. Dashboard
 
-1.	접근<br>
-	http://{server}:8761
+1.	서비스 등록 상태를 확인 할 수 있다.
+2.	접근<br>
+	http://server:8761
+
 	

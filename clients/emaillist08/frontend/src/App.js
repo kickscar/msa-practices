@@ -43,7 +43,7 @@ export default function App() {
 
     const notifyEmailAdd = async function(email) {
         try {
-            const response = await fetch(`/api?kw=${keyword}`, {
+            const response = await fetch('/api', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -94,6 +94,7 @@ export default function App() {
                 throw new Error(`${json.result} ${json.message}`);
             }
             
+            console.log(json.data);
             setEmails(json.data);
             setKeyword(keyword);
         } catch (err) {

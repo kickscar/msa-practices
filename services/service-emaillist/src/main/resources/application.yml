@@ -1,10 +1,7 @@
 spring:
-   # application name
    application:
       name: service-emaillist
    profiles:
-      # active profile
       active: development
    config:
-      # Config Server 
-      import: optional:configserver:http://localhost:8880
+      import: optional:configserver:http://localhost:7777

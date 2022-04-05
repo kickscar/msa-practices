@@ -14,8 +14,8 @@ server:
   port: 5555
 
 eureka:
-#  instance:
-#    preferIpAddress: true
+  instance:
+    preferIpAddress: true
   client:
     registerWithEureka: false
     fetchRegistry: false
