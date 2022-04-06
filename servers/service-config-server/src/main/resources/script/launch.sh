@@ -1,6 +1,6 @@
 #! /bin/bash
 
-SERVER_NAME=service-gateway-server
+SERVER_NAME=service-config-server
 SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
 PID=$(ps -ef | grep java | grep $SERVER_NAME.jar | awk '{print $2}')
 

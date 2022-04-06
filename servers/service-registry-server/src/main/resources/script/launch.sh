@@ -1,16 +1,16 @@
 #! /bin/bash
 
-SERVICE_NAME=service-registry-server
+SERVER_NAME=service-registry-server
 SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
-PID=$(ps -ef | grep java | grep $SERVICE_NAME.jar | awk '{print $2}')
+PID=$(ps -ef | grep java | grep $SERVER_NAME.jar | awk '{print $2}')
 
-if  [ ! -z "$PID" ] 
+if  [ -n "$PID" ]
 then
-	echo "stopping [$SERVICE_NAME]"
-	kill -9 $PID
+	echo "stopping [$SERVER_NAME]"
+	kill -9 $"PID"
 	sleep 10
 fi
 
-echo "starting [$SERVICE_NAME]"
-cd $SCRIPT_DIR
-nohup java -Dspring.profiles.active=production -jar $SCRIPT_DIR/$SERVICE_NAME.jar >> $SCRIPT_DIR/launch.log &
+echo "starting [$SERVER_NAME]"
+cd $"SCRIPT_DIR" || exit
+nohup java -Dspring.profiles.active=production -jar $"SCRIPT_DIR"/$SERVER_NAME.jar >> $"SCRIPT_DIR"/launch.log &
