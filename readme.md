@@ -63,8 +63,9 @@
 		+ Hystrix(circuit breaker, fallback, bulkhead)
 		+ Ribbon(load balance)*
 
-	- Spring Cloud Zuul: 라우팅 패턴(단일 진입점)*
-		+ Zuul*
+	- Spring Cloud Gateway: 라우팅 패턴(단일 진입점)*
+		+ Spring Cloud Zuul(Integrated with Netflix Zuul)*
+		+ Repalced With Zuul*
 	
 	- Spring Cloud Stream: 핵심 개발 패턴(서비스간 이벤트 프로세싱)
 		+ RabbitMQ
@@ -79,5 +80,5 @@
 		+ oAuth2/JWT(자격 증명 관리)*
 
 	- Provisioning: 빌드 및 배포 패턴 
-		+ Travis CI(빌드), Jenkins(빌드)*
+		+ Travis CI(빌드), Jenkins(빌드,배포)*
 		+ Docker(배포)

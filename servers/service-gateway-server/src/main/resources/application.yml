@@ -56,6 +56,5 @@ logging:
       file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
    file:
       name: logs/${spring.application.name}.log
-      max-history: 10
    level:
       root: WARN
