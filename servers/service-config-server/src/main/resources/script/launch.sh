@@ -13,4 +13,4 @@ fi
 
 echo "starting [$SERVER_NAME]"
 cd $"SCRIPT_DIR" || exit
-nohup java -Dspring.profiles.active=production -jar $"SCRIPT_DIR"/$SERVER_NAME.jar >> $"SCRIPT_DIR"/launch.log &
+nohup java -Dspring.profiles.active=git -jar $"SCRIPT_DIR"/$SERVER_NAME.jar >> $"SCRIPT_DIR"/launch.log &
