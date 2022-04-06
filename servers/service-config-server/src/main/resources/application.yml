@@ -1,16 +1,25 @@
+spring:
+   application:
+      name: service-config-server
+   profiles:
+      active: native 
 server:
    port: 7777
-
 encrypt:
   key-store:
     alias: selfsigned
     location: classpath:keystore.jks
     password: password
-
-#
-# git based
+    
+    
+---
+#                 
+# configuration based on git
 #
 spring:
+   config:
+      activate:
+         on-profile: git   
    cloud:
       config:
          server:
@@ -18,15 +27,37 @@ spring:
             git:
                uri: https://github.com/kickscar/msa-practices-config-repo
                searchPaths: service-emaillist
+logging:
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
+         max-file-size: 10MB
+   file:
+      name: logs/${spring.application.name}.log
+      max-history: 10
+   level:
+      root: WARN
+               
 
+---
 #
-# file-system based(native)
+# configuration based on file-system(native)
 #
-#spring:
-#  profiles:
-#    active: native
-#  cloud:
-#     config:
-#       server:
-#           native:
-#              searchLocations: file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-emaillist
+spring:
+   config:
+      activate:
+         on-profile: native   
+   cloud:
+     config:
+       server:
+          encrypt.enabled: true
+          native:
+              searchLocations: file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-emaillist
+logging:
+   pattern:
+      console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   level:
+      root: INFO
+     
