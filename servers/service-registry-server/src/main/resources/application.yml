@@ -63,9 +63,5 @@ logging:
    file:
       name: logs/${spring.application.name}.log
    level:
-      root: INFO
-      me:
-         kickscar:
-            emaillist:
-               exception: ERROR
+      root: WARN
          
