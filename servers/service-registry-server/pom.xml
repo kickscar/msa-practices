@@ -9,7 +9,7 @@
 		<version>2.6.5</version>
 		<relativePath />
 	</parent>
-	<groupId>me.kickscar</groupId>
+	<groupId>me.kickscar.msa</groupId>
 	<artifactId>service-registry-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>service-registry-server</name>

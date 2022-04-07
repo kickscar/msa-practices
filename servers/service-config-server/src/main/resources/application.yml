@@ -26,7 +26,7 @@ spring:
             encrypt.enabled: true
             git:
                uri: https://github.com/kickscar/msa-practices-config-repo
-               searchPaths: service-emaillist
+               searchPaths: service-emaillist, service-storage, service-gallery, service-guestbook
 logging:
    pattern:
       file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
@@ -54,7 +54,10 @@ spring:
        server:
           encrypt.enabled: true
           native:
-              searchLocations: file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-emaillist
+              searchLocations: file:///Users/kickscar/DoWork/IdeaProjects/msa-practices-config-repo/service-emaillist,
+                               file:///Users/kickscar/DoWork/IdeaProjects/msa-practices-config-repo/service-storage,
+                               file:///Users/kickscar/DoWork/IdeaProjects/msa-practices-config-repo/service-gallery,
+                               file:///Users/kickscar/DoWork/IdeaProjects/msa-practices-config-repo/service-guestbook
 logging:
    pattern:
       console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"

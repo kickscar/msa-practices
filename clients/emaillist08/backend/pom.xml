@@ -11,7 +11,7 @@
 	<groupId>me.kickscar</groupId>
 	<artifactId>emaillist08</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>emaillist8</name>
+	<name>emaillist08</name>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,12 +21,6 @@
 	</properties>
 	
 	<dependencies>
-		<!-- Core Starter -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-	
 		<!-- Spring Boot Devtools: Live Reload -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -64,7 +58,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
 	</dependencies>
 	
 	<dependencyManagement>
@@ -85,6 +78,18 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+						<exclude>
+							<groupId>org.springframework.boot</groupId>
+							<artifactId>spring-boot-devtools</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>

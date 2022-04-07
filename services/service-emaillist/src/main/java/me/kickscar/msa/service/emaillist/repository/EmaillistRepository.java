@@ -11,9 +11,12 @@ import me.kickscar.msa.service.emaillist.vo.EmaillistVo;
 @Repository
 public class EmaillistRepository {
 	
-	@Autowired
-	private SqlSession sqlSession;
-	
+	private final SqlSession sqlSession;
+
+	public EmaillistRepository(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+
 	public List<EmaillistVo> findAll(String keyword) {
 		return sqlSession.selectList("emaillist.findAll", keyword);
 	}

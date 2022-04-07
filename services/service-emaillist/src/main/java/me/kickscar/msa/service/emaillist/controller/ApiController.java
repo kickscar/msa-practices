@@ -19,18 +19,21 @@ import me.kickscar.msa.service.emaillist.vo.EmaillistVo;
 @RequestMapping("/api")
 public class ApiController {
 	
-	@Autowired
-	private EmaillistRepository emaillistRepository;
-	
+	private final EmaillistRepository emaillistRepository;
+
+	public ApiController(EmaillistRepository emaillistRepository) {
+		this.emaillistRepository = emaillistRepository;
+	}
+
 	@GetMapping
-	public ResponseEntity<Object> read(@RequestParam(value="kw", required=true, defaultValue="") String keyword) {
+	public ResponseEntity<?> read(@RequestParam(value="kw", required=true, defaultValue="") String keyword) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(emaillistRepository.findAll(keyword));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Object> create(@RequestBody EmaillistVo vo) {
+	public ResponseEntity<?> create(@RequestBody EmaillistVo vo) {
 		emaillistRepository.insert(vo);
 		return ResponseEntity
 				.status(HttpStatus.OK)

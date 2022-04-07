@@ -1,0 +1,27 @@
+spring:
+   application:
+      name: service-guestbook
+   profiles:
+      active: development
+
+
+---
+#
+# development configuration
+#
+spring:
+   config:
+      activate:
+         on-profile: development
+      import: optional:configserver:http://localhost:7777
+
+
+---
+#
+# production configuration
+#
+spring:
+   config:
+      activate:
+         on-profile: production
+      import: optional:configserver:http://49.247.9.194:7777
