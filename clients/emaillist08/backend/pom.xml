@@ -17,11 +17,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>	
 		<java.version>11</java.version>
+		<!-- Zuul Gateway
 		<spring-cloud.version>2021.0.1</spring-cloud.version>
+		-->
 	</properties>
-	
-	<dependencies>
-		<!-- Spring Boot Devtools: Live Reload -->
+
+<dependencies>
+<!-- Spring Boot Devtools: Live Reload -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -34,10 +36,12 @@
 		</dependency>
 
 		<!-- Spring Cloud Discovery Client -->
+		<!-- Zuul Gateway
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		-->
 
 		<!-- Thymeleaf Starter -->
 		<dependency>
@@ -59,81 +63,83 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>	
 
-	<build>
-		<finalName>emaillist08</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-						<exclude>
-							<groupId>org.springframework.boot</groupId>
-							<artifactId>spring-boot-devtools</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>3.0.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<executable>npm</executable>
-					<workingDirectory>../frontend</workingDirectory>
-					<arguments>
-						<argument>run</argument>
-						<argument>build</argument>
-					</arguments>
-					<environmentVariables>
-					</environmentVariables>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target</outputDirectory>
-							<resources>
-								<resource>
-									<directory>src/main/resources/script</directory>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+	<!-- Zuul Gateway
+	<dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dependencies</artifactId>
+			<version>${spring-cloud.version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+	</dependencies>
+	</dependencyManagement>
+	-->
+
+<build>
+<finalName>emaillist08</finalName>
+<plugins>
+    <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+            <excludes>
+                <exclude>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                </exclude>
+                <exclude>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                </exclude>
+            </excludes>
+        </configuration>
+    </plugin>
+    <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <executable>npm</executable>
+            <workingDirectory>../frontend</workingDirectory>
+            <arguments>
+                <argument>run</argument>
+                <argument>build</argument>
+            </arguments>
+            <environmentVariables>
+            </environmentVariables>
+        </configuration>
+    </plugin>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+            <execution>
+                <id>copy-resources</id>
+                <phase>validate</phase>
+                <goals>
+                    <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                    <outputDirectory>${basedir}/target</outputDirectory>
+                    <resources>
+                        <resource>
+                            <directory>src/main/resources/script</directory>
+                        </resource>
+                    </resources>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+</plugins>
+</build>
 </project>
