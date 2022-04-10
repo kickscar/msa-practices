@@ -40,12 +40,9 @@ server:
       encoding:
          charset: UTF-8
          enabled: true
-eureka:
-   client:
-      fetchRegistry: true
-      registerWithEureka: false
-      serviceUrl:
-         defaultZone: http://localhost:8761/eureka
+gateway:
+   name: zuul
+   endpoint: http://localhost:9999
 logging:
    pattern:
       console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
@@ -69,12 +66,9 @@ server:
       encoding:
          charset: UTF-8
          enabled: true
-eureka:
-   client:
-      fetchRegistry: true
-      registerWithEureka: false
-      serviceUrl:
-         defaultZone: http://49.247.9.194:8761/eureka
+gateway:
+   name: zuul
+   endpoint: http://localhost:9999
 logging:
    pattern:
       file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
