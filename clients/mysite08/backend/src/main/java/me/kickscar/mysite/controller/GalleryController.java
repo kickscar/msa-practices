@@ -30,7 +30,7 @@ public class GalleryController {
 
 	@GetMapping("")
 	public ResponseEntity<?> readAll() {
-		GalleryVo[] response = restTemplate.getForObject(String.format("$s/gallery/api", gatewayEndpoint), GalleryVo[].class);
+		GalleryVo[] response = restTemplate.getForObject(String.format("%s/gallery/api", gatewayEndpoint), GalleryVo[].class);
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(Arrays.asList(response)));
 	}
 	
@@ -58,7 +58,7 @@ public class GalleryController {
 
 			// Multipart Request
 			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-			Map<String, String> responseUpload = restTemplate.postForObject(String.format("%s/gallery/api", gatewayEndpoint), requestEntity, HashMap.class);
+			Map<String, String> responseUpload = restTemplate.postForObject(String.format("%s/storage/api", gatewayEndpoint), requestEntity, HashMap.class);
 
 			galleryVo.setUrl(responseUpload.get("url"));
 			response = restTemplate.postForObject(String.format("%s/gallery/api", gatewayEndpoint), galleryVo, GalleryVo.class);

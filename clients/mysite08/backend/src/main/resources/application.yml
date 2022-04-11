@@ -20,7 +20,7 @@ spring:
          enabled: true
          max-file-size: 20MB
          max-request-size: 100MB
-         
+
 
 ---
 #
@@ -42,7 +42,7 @@ server:
          enabled: true
 gateway:
    name: zuul
-   endpoint: http://localhost:9999
+   endpoint: http://localhost:5555
 logging:
    pattern:
       console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
@@ -68,7 +68,7 @@ server:
          enabled: true
 gateway:
    name: zuul
-   endpoint: http://localhost:9999
+   endpoint: http://localhost:5555
 logging:
    pattern:
       file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"

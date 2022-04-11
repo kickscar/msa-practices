@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: service-gateway-server
+  profiles:
+    active: development
+
+---
+#
+# development configuration
+#
+spring:
+   profiles: development
+   cloud:
+      config:
+         enabled: true
+         uri: http://localhost:7777
+
+
+---
+#
+# production configuration
+#
+spring:
+   profiles: production
+   cloud:
+      config:
+        enabled: true
+        uri: http://49.247.9.194:7777

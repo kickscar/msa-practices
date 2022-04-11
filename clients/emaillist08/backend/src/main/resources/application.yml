@@ -46,7 +46,7 @@ server:
 #         defaultZone: http://localhost:8761/eureka
 gateway:
    name: zuul
-   endpoint: http://localhost:9999
+   endpoint: http://localhost:5555
 logging:
    pattern:
       console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
@@ -80,7 +80,7 @@ server:
 #         defaultZone: http://49.247.9.194:8761/eureka
 gateway:
    name: zuul
-   endpoint: http://49.247.9.194:9999
+   endpoint: http://49.247.9.194:5555
 logging:
    pattern:
       file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
