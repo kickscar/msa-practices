@@ -1,6 +1,6 @@
 spring:
    application:
-      name: mysite
+      name: mysite08
    profiles:
       active: development
    mvc:

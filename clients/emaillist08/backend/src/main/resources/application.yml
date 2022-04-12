@@ -1,6 +1,6 @@
 spring:
    application:
-      name: emaillist
+      name: emaillist08
    profiles:
       active: development
    mvc:
