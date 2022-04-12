@@ -54,7 +54,6 @@ logging:
       root: INFO
 
 
-
 ---
 #
 # production configuration
