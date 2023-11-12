@@ -1,0 +1,20 @@
+
+
+Spring Cloud Release         Spring Boot Version
+
+2021.0.x(Jubilee)            2.6.x, 2.7.x (Starting with 2021.0.3)
+2020.0.x(Ilford)             2.4.x, 2.5.x (Starting with 2020.0.3)
+Hoxton                       2.2.x, 2.3.x (Starting with SR5)
+Greenwich                    2.1.x
+Finchley                     2.0.x
+Edgware	1.5.x
+Dalston	1.5.x
+
+===================================================================
+
+this example
+
+spring boot     : 2.7.17   (2.x.x last)
+spring          : 5.3.30   (5.x.x last) 
+spring security : 5.8.8    (5.x.x last)
+spring cloud    : 2021.0.8 (last) 

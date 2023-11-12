@@ -1,0 +1,97 @@
+spring:
+  application:
+    name: service-gateway-server
+  profiles:
+    active: development
+
+
+---
+# common configuration
+
+server:
+   port: 8888
+
+management:
+   endpoint:
+      gateway:
+         enabled: true    # default value
+   endpoints:
+      web:
+         exposure:
+            include: "*"
+
+spring:
+   cloud:
+      gateway:
+         globalcors:
+            cors-configurations:
+               '[/**]':
+                  allowedOrigins: 'http://localhost:9090'
+                  allowedHeaders: '*'
+                  allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE                   
+      
+         discovery.locator:
+            enabled: true
+            lowerCaseServiceId: true
+         routes:
+         - id: service-emaillist
+           uri: lb://service-emaillist/api/emaillist
+           predicates:
+           - Path=/**
+           filters:
+           - RewritePath=/api/emaillist(?<path>.*), /$\{path}
+
+
+---
+# development configuration
+spring:
+   config:
+      activate:
+         on-profile: development
+eureka:
+   instance:
+      preferIpAddress: true
+   client:
+      registerWithEureka: true
+      fetchRegistry: true
+      serviceUrl:
+         defaultZone: http://localhost:8761/eureka/
+logging:
+   pattern:
+      console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   level:
+      root: INFO
+
+
+---
+# production configuration
+spring:
+   config:
+      activate:
+         on-profile: production
+
+eureka:
+   instance:
+      preferIpAddress: true
+   client:
+      registerWithEureka: false
+      fetchRegistry: true
+      serviceUrl:
+         defaultZone: http://115.71.238.205:8761/eureka
+         
+logging:
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
+         max-file-size: 10MB
+         max-history: 10
+   file:
+      name: logs/${spring.application.name}.log
+   level:
+      root: WARN
