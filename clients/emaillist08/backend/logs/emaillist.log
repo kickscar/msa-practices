@@ -16737,3 +16737,56 @@ Unconditional classes:
 21:15:25.542 [RMI TCP Connection(96)-127.0.0.1] DEBUG s.r.t.tcp - RMI TCP Connection(96)-127.0.0.1: accepted socket from [127.0.0.1:52680]
 21:15:25.543 [RMI TCP Connection(96)-127.0.0.1] DEBUG s.r.t.tcp - RMI TCP Connection(96)-127.0.0.1: (port 51496) op = 80
 21:15:25.543 [RMI TCP Connection(96)-127.0.0.1] DEBUG j.m.r.rmi - connectionId=rmi://127.0.0.1  6
+21:15:35.291 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.s.w.c.RestTemplate - HTTP GET http://localhost:8761/eureka/apps/delta
+21:15:35.292 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.s.w.c.RestTemplate - Accept=[application/json, application/*+json]
+21:15:35.292 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.c.p.RequestAddCookies - CookieSpec selected: default
+21:15:35.292 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.c.p.RequestAuthCache - Auth cache not set in the context
+21:15:35.292 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.i.c.PoolingHttpClientConnectionManager - Connection request: [route: {}->http://localhost:8761][total available: 1; route allocated: 1 of 2; total allocated: 1 of 20]
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 << "[read] I/O error: Read timed out"
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.i.c.PoolingHttpClientConnectionManager - Connection leased: [id: 7][route: {}->http://localhost:8761][total available: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.i.c.DefaultManagedHttpClientConnection - http-outgoing-7: set socket timeout to 0
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.i.e.MainClientExec - Executing request GET /eureka/apps/delta HTTP/1.1
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.i.e.MainClientExec - Target auth state: UNCHALLENGED
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.i.e.MainClientExec - Proxy auth state: UNCHALLENGED
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 >> GET /eureka/apps/delta HTTP/1.1
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 >> Accept: application/json, application/*+json
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 >> Host: localhost:8761
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 >> Connection: Keep-Alive
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 >> User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 >> Accept-Encoding: gzip,deflate
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 >> "GET /eureka/apps/delta HTTP/1.1[\r][\n]"
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 >> "Accept: application/json, application/*+json[\r][\n]"
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 >> "Host: localhost:8761[\r][\n]"
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 >> "Connection: Keep-Alive[\r][\n]"
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 >> "User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)[\r][\n]"
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+21:15:35.294 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 >> "[\r][\n]"
+21:15:35.295 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 << "HTTP/1.1 200 [\r][\n]"
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 << "Content-Encoding: gzip[\r][\n]"
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 << "Content-Type: application/json[\r][\n]"
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 << "Content-Length: 86[\r][\n]"
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 << "Date: Tue, 14 Nov 2023 12:15:35 GMT[\r][\n]"
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 << "Keep-Alive: timeout=60[\r][\n]"
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 << "Connection: keep-alive[\r][\n]"
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 << "[\r][\n]"
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.wire - http-outgoing-7 << "[0x1f][0x8b][0x8][0x0][0x0][0x0][0x0][0x0][0x0][0xff][0xab]VJ,([0xc8][0xc9]LN,[0xc9][0xcc][0xcf]+V[0xb2][0xaa]V*K-*[0x6][0xb1][0xe3][0xe3]SRsJ[0x12][0x95][0xac][0x94]L[0x8c][0x94]t@[0xca][0x80]B[0x19][0x89][0xc5][0x19][0xc9][0xf9])[0xa9]@[0xd1][0xd0][0x80]x[0xc3]x[0x88][0x4]L[0xbf][0x92]Utlm-[0x0]<A[0xb2][0xed]S[0x0][0x0][0x0]"
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 << HTTP/1.1 200 
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 << Content-Encoding: gzip
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 << Content-Type: application/json
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 << Content-Length: 86
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 << Date: Tue, 14 Nov 2023 12:15:35 GMT
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 << Keep-Alive: timeout=60
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.headers - http-outgoing-7 << Connection: keep-alive
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.i.e.MainClientExec - Connection can be kept alive for 60000 MILLISECONDS
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.s.w.c.RestTemplate - Response 200 OK
+21:15:35.296 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.s.w.c.RestTemplate - Reading to [org.springframework.cloud.netflix.eureka.http.EurekaApplications]
+21:15:35.297 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.i.c.PoolingHttpClientConnectionManager - Connection [id: 7][route: {}->http://localhost:8761] can be kept alive for 60.0 seconds
+21:15:35.297 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.i.c.DefaultManagedHttpClientConnection - http-outgoing-7: set socket timeout to 0
+21:15:35.297 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG o.a.h.i.c.PoolingHttpClientConnectionManager - Connection released: [id: 7][route: {}->http://localhost:8761][total available: 1; route allocated: 1 of 2; total allocated: 1 of 20]
+21:15:35.297 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG c.n.d.DiscoveryClient - Got delta update with apps hashcode UP_1_
+21:15:35.297 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG c.n.d.DiscoveryClient - The total number of instances fetched by the delta processor : 0
+21:15:35.297 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG c.n.d.DiscoveryClient - The total number of all instances in the client now is 1
+21:15:35.297 [DiscoveryClient-CacheRefreshExecutor-0] DEBUG c.n.d.DiscoveryClient - Completed cache refresh task for discovery. All Apps hash code is Local region apps hashcode: UP_1_, is fetching remote regions? false 
+21:15:40.548 [RMI TCP Connection(96)-127.0.0.1] DEBUG s.r.t.tcp - RMI TCP Connection(96)-127.0.0.1: (port 51496) connection closed
+21:15:40.548 [RMI TCP Connection(96)-127.0.0.1] DEBUG s.r.t.tcp - RMI TCP Connection(96)-127.0.0.1: close connection, socket: Socket[addr=/127.0.0.1,port=52680,localport=51496]
+21:15:40.549 [RMI TCP Connection(96)-127.0.0.1] DEBUG s.r.t.tcp - RMI TCP Connection(96)-127.0.0.1: socket close: Socket[addr=/127.0.0.1,port=52680,localport=51496]
