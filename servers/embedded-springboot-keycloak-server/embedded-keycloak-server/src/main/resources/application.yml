@@ -12,7 +12,6 @@ server:
   servlet:
     context-path: "/"
 
-
 logging:
   level:
     '[org.jgroups]': INFO

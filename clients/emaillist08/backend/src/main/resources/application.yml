@@ -43,13 +43,26 @@ spring:
          enabled: true
    
 server:
-   port: 8081
+   port: 8080
    servlet:
       context-path: /
       encoding:
          charset: utf-8
          enabled: true
 
+logging:
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
+         max-file-size: 10MB
+         max-history: 10
+   file:
+      name: logs/${spring.application.name}.log
+   level:
+      root: DEBUG
+               
 eureka:
    client:
       fetchRegistry: true
@@ -95,4 +108,4 @@ eureka:
       fetchRegistry: true
       registerWithEureka: false
       serviceUrl:
-         defaultZone: http://localhost:8761/eureka
+         defaultZone: http://192.168.0.172:8761/eureka

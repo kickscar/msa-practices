@@ -11,7 +11,7 @@
 	</parent>
 		
 	<groupId>com.poscodx.msa</groupId>
-	<artifactId>service-emaillist-poscodx</artifactId>
+	<artifactId>service-emaillist</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	
 	<packaging>jar</packaging>
@@ -83,7 +83,7 @@
 		
 	
 	<build>
-		<finalName>service-emaillist-poscodx</finalName>
+		<finalName>service-emaillist</finalName>
 		<plugins>
 			
 			<plugin>

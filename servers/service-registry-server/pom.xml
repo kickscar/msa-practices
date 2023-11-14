@@ -10,7 +10,7 @@
 	</parent>
 		
 	<groupId>com.poscodx.msa</groupId>
-	<artifactId>service-registry-server-poscodx</artifactId>
+	<artifactId>service-registry-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	
 	<properties>
@@ -56,7 +56,7 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>service-registry-server-poscodx</finalName>
+		<finalName>service-registry-server</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
