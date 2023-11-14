@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.github.thomasdarimont.keycloak</groupId>
-    <artifactId>embedded-keycloak-server-spring-boot-parent</artifactId>
+    <artifactId>embedded-keycloak-server-springboot</artifactId>
     <version>999-SNAPSHOT</version>
 
     <packaging>pom</packaging>
@@ -24,23 +24,20 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-
         <keycloak.version>18.0.0</keycloak.version>
         <resteasy.version>4.7.4.Final</resteasy.version>
         <infinispan.version>13.0.8.Final</infinispan.version>
         <jgroups.version>4.2.20.Final</jgroups.version>
         <smallrye-metrics.version>3.0.3</smallrye-metrics.version>
         <liquibase.version>4.8.0</liquibase.version>
-
         <auto-service.version>1.0.1</auto-service.version>
-
         <git-commit-id-plugin.version>4.0.4</git-commit-id-plugin.version>
         <httpclient.version>4.5.13</httpclient.version>
     </properties>
 
     <modules>
-        <module>embedded-keycloak-server-spring-boot-support</module>
-        <module>embedded-keycloak-server-spring-boot-starter</module>
+        <module>embedded-keycloak-server-springboot-support</module>
+        <module>embedded-keycloak-server-springboot-starter</module>
         <module>embedded-keycloak-server</module>
     </modules>
 
