@@ -10,7 +10,7 @@ function App() {
 
     const addEmail = async (email) => {
         try {
-            const response = await fetch('/api/emaillist', {
+            const response = await fetch('http://localhost:8888/api/emaillist', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ function App() {
 
     const fetchEmails = async (keyword) => {
         try {
-            const response = await fetch(`/api/emaillist?kw=${keyword ? keyword : ''}`, {
+            const response = await fetch(`http://localhost:8888/api/emaillist?kw=${keyword ? keyword : ''}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',

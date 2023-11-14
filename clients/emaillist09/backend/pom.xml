@@ -11,7 +11,7 @@
 	</parent>
 
 	<groupId>com.poscodx</groupId>
-	<artifactId>emaillist08</artifactId>
+	<artifactId>emaillist09</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	
@@ -74,7 +74,7 @@
 	</dependencyManagement>
 		
 	<build>
-		<finalName>emaillist08</finalName>
+		<finalName>emaillist09</finalName>
 		<plugins>
 			
 			<plugin>
