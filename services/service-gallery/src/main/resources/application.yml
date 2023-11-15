@@ -1,0 +1,100 @@
+spring:
+   application:
+      name: service-gallery
+   profiles:
+      active: development
+
+---
+# configuration: common
+mybatis:
+   config-location: classpath:mybatis/configuration.xml
+
+server:
+   port: 0
+   servlet:
+      context-path: /
+      encoding:
+         charset: utf-8
+         enabled: true
+
+---
+# configuration: development
+
+spring:
+   config:
+      activate:
+         on-profile: development
+
+   devtools:
+      livereload:
+         enabled: true
+                     
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mariadb://localhost:3306/webdb?charset=utf8
+      username: webdb
+      password: webdb
+      hikari:
+         minimum-idle: 10
+         maximum-pool-size: 20
+
+logging:
+   pattern:
+      console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   level:
+      root: INFO
+
+eureka:
+   instance:
+      preferIpAddress: true
+   client:
+      fetchRegistry: true
+      registerWithEureka: true
+      serviceUrl:
+         defaultZone: http://localhost:8761/eureka
+
+
+---
+#  configuration: production
+
+spring:
+   config:
+      activate:
+         on-profile: production
+
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mariadb://localhost:3306/webdb?charset=utf8
+      username: webdb
+      password: webdb
+      hikari:
+         minimum-idle: 10
+         maximum-pool-size: 20
+
+logging:
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
+         max-file-size: 10MB
+         max-history: 10
+   file:
+      name: logs/${spring.application.name}.log
+   level:
+      root: WARN
+      com:
+         poscodx:
+            msa:
+               service:
+                  gallery:
+                     exception: ERROR
+                              
+eureka:
+   instance:
+      preferIpAddress: true
+   client:
+      fetchRegistry: true
+      registerWithEureka: true
+      serviceUrl:
+         defaultZone: http://192,168.0.172:8761/eureka

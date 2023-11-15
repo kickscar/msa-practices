@@ -8,14 +8,6 @@ spring:
             
 ---
 # configuration: common
-spring:
-   mvc:
-      static-path-pattern: /assets/**
-      throw-exception-if-no-handler-found: true
-   web:
-      resources:
-         static-locations: classpath:/assets/
-         
 mybatis:
    config-location: classpath:mybatis/configuration.xml
 
