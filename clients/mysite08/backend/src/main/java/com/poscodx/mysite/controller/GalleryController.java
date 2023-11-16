@@ -36,6 +36,7 @@ public class GalleryController {
 	@GetMapping
 	public ResponseEntity<?> readAll() {
 		Map<String, Object> response = restTemplate.getForObject("http://service-gallery/", Map.class);
+		System.out.print(response);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
@@ -87,6 +88,7 @@ public class GalleryController {
 		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 		
 		ResponseEntity<?> response = restTemplate.exchange(String.format("http://service-gallery/%d", no), HttpMethod.DELETE, requestEntity, Map.class);
+		System.out.print(response.getBody());
 		return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
 	}
 }

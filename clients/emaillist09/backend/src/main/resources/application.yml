@@ -7,7 +7,7 @@ spring:
       
       
 ---
-# common spring boot configuration
+# configuration: common
 spring:
    mvc:
       static-path-pattern: /assets/**
@@ -30,9 +30,8 @@ logging:
       root: INFO
 
 
-
 ---
-# development profile: spring boot configuration
+# configuration: development
 spring:
    config:
       activate:
@@ -43,30 +42,22 @@ spring:
          enabled: true
    
 server:
-   port: 8081
+   port: 8080
    servlet:
       context-path: /
       encoding:
          charset: utf-8
-         enabled: true
-
-eureka:
-   client:
-      fetchRegistry: true
-      registerWithEureka: false
-      serviceUrl:
-         defaultZone: http://localhost:8761/eureka         
-
+         enabled: true     
 
 ---
-# production profile: spring boot configuration
+# configuration: production
 spring:
    config:
       activate:
          on-profile: production
 
 server:
-   port: 8081
+   port: 8083
    servlet:
       context-path: /
       encoding:
@@ -89,10 +80,3 @@ logging:
          poscodx:
             emaillist:
                exception: ERROR
-         
-eureka:
-   client:
-      fetchRegistry: true
-      registerWithEureka: false
-      serviceUrl:
-         defaultZone: http://localhost:8761/eureka

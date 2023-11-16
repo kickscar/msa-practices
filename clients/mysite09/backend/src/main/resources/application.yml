@@ -21,11 +21,6 @@ spring:
       mode: HTML
       suffix : .html
       cache : false
-   servlet:
-      multipart:
-         enabled: true
-         max-file-size: 20MB
-         max-request-size: 100MB
 
 
 ---
@@ -53,13 +48,6 @@ logging:
    level:
       root: INFO
 
-eureka:
-   client:
-      fetchRegistry: true
-      registerWithEureka: false
-      serviceUrl:
-         defaultZone: http://localhost:8761/eureka  
-
 ---
 # configuration: production
 
@@ -69,7 +57,7 @@ spring:
          on-profile: production             
 
 server:
-   port: 8082
+   port: 8083
    servlet:
       context-path: /
       encoding:
@@ -93,10 +81,4 @@ logging:
             mysite:
                exception: ERROR
 
-eureka:
-   client:
-      fetchRegistry: true
-      registerWithEureka: false
-      serviceUrl:
-         defaultZone: http://192.168.0.172:8761/eureka
                

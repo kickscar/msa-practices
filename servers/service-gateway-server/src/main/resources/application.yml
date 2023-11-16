@@ -9,7 +9,7 @@ spring:
 # common configuration
 
 server:
-   port: 8080
+   port: 8888
 
 management:
    endpoint:
@@ -26,62 +26,77 @@ spring:
          globalcors:
             cors-configurations:
                '[/**]':
-                  allowedOrigins: 'http://localhost:9090'
+                  allowedOrigins: '*'
                   allowedHeaders: '*'
                   allowedMethods:
                   - GET
                   - POST
                   - PUT
-                  - DELETE                   
+                  - DELETE
+                  - OPTIONS                   
       
          discovery.locator:
             enabled: true
             lowerCaseServiceId: true
          routes:
+         
          - id: service-emaillist
-           uri: lb://service-emaillist/api/emaillist
+           uri: lb://service-emaillist
            predicates:
-           - Path=/**
+           - Path=/api/emaillist/**
            filters:
-           - RewritePath=/api/emaillist(?<path>.*), /$\{path}
+           - RewritePath=/api/emaillist/?(?<remaining>.*), /$\{remaining}
 
+         - id: service-guestbook
+           uri: lb://service-guestbook
+           predicates:
+           - Path=/api/guestbook/**
+           filters:
+           - RewritePath=/api/guestbook/?(?<remaining>.*), /$\{remaining}
+
+         - id: service-gallery
+           uri: lb://service-gallery
+           predicates:
+           - Path=/api/gallery/**
+           filters:
+           - RewritePath=/api/gallery/?(?<remaining>.*), /$\{remaining}
+
+         - id: service-storage
+           uri: lb://service-storage
+           predicates:
+           - Path=/api/storage/**
+           filters:
+           - RewritePath=/api/storage/?(?<remaining>.*), /$\{remaining}
 
 ---
 # development configuration
+
 spring:
    config:
       activate:
          on-profile: development
-eureka:
-   instance:
-      preferIpAddress: true
-   client:
-      registerWithEureka: true
-      fetchRegistry: true
-      serviceUrl:
-         defaultZone: http://localhost:8761/eureka/
+
 logging:
    pattern:
       console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
    level:
       root: INFO
 
-
----
-# production configuration
-spring:
-   config:
-      activate:
-         on-profile: production
-
 eureka:
-   instance:
-      preferIpAddress: true
    client:
       registerWithEureka: false
       fetchRegistry: true
       serviceUrl:
-         defaultZone: http://115.71.238.205:8761/eureka
+         defaultZone: http://localhost:8761/eureka/
+
+
+---
+# production configuration
+
+spring:
+   config:
+      activate:
+         on-profile: production
          
 logging:
    pattern:
@@ -95,3 +110,11 @@ logging:
       name: logs/${spring.application.name}.log
    level:
       root: WARN
+
+eureka:
+   client:
+      registerWithEureka: false
+      fetchRegistry: true
+      serviceUrl:
+         defaultZone: http://192.168.0.172:8761/eureka
+               

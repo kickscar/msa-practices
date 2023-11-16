@@ -1,10 +1,10 @@
 #! /bin/bash
 
-APPLICATION_NAME=emaillist09
+APPLICATION_NAME=mysite09
 SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
 PID=$(ps -ef | grep java | grep $APPLICATION_NAME.jar | awk '{print $2}')
 
-if  [ ! -z "$PID" ] 
+if  [ ! -z "$PID" ]
 then
 	echo "stopping [$APPLICATION_NAME]"
 	kill -9 $PID
@@ -12,5 +12,5 @@ then
 fi
 
 echo "starting [$APPLICATION_NAME]"
-cd $SCRIPT_DIR
+cd $SCRIPT_DIR || exit
 nohup java -Dspring.profiles.active=production -jar $SCRIPT_DIR/$APPLICATION_NAME.jar >> $SCRIPT_DIR/launch.log &
