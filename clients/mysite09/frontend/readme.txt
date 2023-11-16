@@ -1,4 +1,4 @@
-mysite08: frontend
+mysite09: frontend
 
 1.  설치
     1)  개발툴

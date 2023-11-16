@@ -9,7 +9,7 @@ export default function Index() {
     useEffect(() => {
         (async () => {
             try {
-                const response = await fetch('/api/gallery', {
+                const response = await fetch(`${process.env.API_URL}/api/gallery`, {
                     method: 'get',
                     headers: {
                         'Content-Type': 'application/json',
@@ -35,13 +35,12 @@ export default function Index() {
 
     const addImage = async (comment, file) => {
         try {
-            // Create FormData
+
+            // 1. upload file image
             const formData = new FormData();
-            formData.append('comment', comment);
             formData.append('file', file);
 
-            // Post
-            const response = await fetch(`/api/gallery`, {
+            let response = await fetch(`${process.env.API_URL}/api/storage`, {
                 method: 'post',
                 headers: {'Accept': 'application/json'},
                 body: formData
@@ -51,13 +50,34 @@ export default function Index() {
                 throw `${response.status} ${response.statusText}`;
             }
 
-            // API success?
-            const json = await response.json();
+            let json = await response.json();
             if (json.result !== 'success') {
                 throw json.message;
             }
 
-            // Rendering(Update)
+            // 2. insert gallery
+            response = await fetch(`${process.env.API_URL}/api/gallery`, {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    comment,
+                    imageUrl: json.data
+                })
+            });
+
+            if (!response.ok) {
+                throw `${response.status} ${response.statusText}`;
+            }
+
+            json = await response.json();
+            if (json.result !== 'success') {
+                throw json.message;
+            }
+
+            // 3. rendering(update)
             setImageList([json.data, ...imageList]);
         } catch (err) {
             console.error(err);
@@ -67,7 +87,7 @@ export default function Index() {
     const deleteImage = async (no) => {
         try {
             // Delete
-            const response = await fetch(`/api/gallery/${no}`, {
+            const response = await fetch(`${process.env.API_URL}/api/gallery/${no}`, {
                 method: 'delete',
                 headers: {
                     'Accept': 'application/json'
