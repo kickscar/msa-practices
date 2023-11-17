@@ -6,115 +6,27 @@ spring:
 
 
 ---
-# common configuration
-
-server:
-   port: 8888
-
-management:
-   endpoint:
-      gateway:
-         enabled: true    # default value
-   endpoints:
-      web:
-         exposure:
-            include: "*"
-
+# configuration: common
 spring:
    cloud:
-      gateway:
-         globalcors:
-            cors-configurations:
-               '[/**]':
-                  allowedOrigins: '*'
-                  allowedHeaders: '*'
-                  allowedMethods:
-                  - GET
-                  - POST
-                  - PUT
-                  - DELETE
-                  - OPTIONS                   
-      
-         discovery.locator:
-            enabled: true
-            lowerCaseServiceId: true
-         routes:
-         
-         - id: service-emaillist
-           uri: lb://service-emaillist
-           predicates:
-           - Path=/api/emaillist/**
-           filters:
-           - RewritePath=/api/emaillist/?(?<remaining>.*), /$\{remaining}
+      config:
+         enabled: true
+         uri: http://localhost:7777
 
-         - id: service-guestbook
-           uri: lb://service-guestbook
-           predicates:
-           - Path=/api/guestbook/**
-           filters:
-           - RewritePath=/api/guestbook/?(?<remaining>.*), /$\{remaining}
-
-         - id: service-gallery
-           uri: lb://service-gallery
-           predicates:
-           - Path=/api/gallery/**
-           filters:
-           - RewritePath=/api/gallery/?(?<remaining>.*), /$\{remaining}
-
-         - id: service-storage
-           uri: lb://service-storage
-           predicates:
-           - Path=/api/storage/**
-           filters:
-           - RewritePath=/api/storage/?(?<remaining>.*), /$\{remaining}
 
 ---
-# development configuration
-
+# configuration: development
 spring:
    config:
       activate:
          on-profile: development
-
-logging:
-   pattern:
-      console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
-   level:
-      root: INFO
-
-eureka:
-   client:
-      registerWithEureka: false
-      fetchRegistry: true
-      serviceUrl:
-         defaultZone: http://localhost:8761/eureka/
-
-
+      import: optional:configserver:http://localhost:7777
+           
+                            
 ---
-# production configuration
-
+# configuration: production
 spring:
    config:
       activate:
          on-profile: production
-         
-logging:
-   pattern:
-      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
-   logback:
-      rollingpolicy:
-         file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
-         max-file-size: 10MB
-         max-history: 10
-   file:
-      name: logs/${spring.application.name}.log
-   level:
-      root: WARN
-
-eureka:
-   client:
-      registerWithEureka: false
-      fetchRegistry: true
-      serviceUrl:
-         defaultZone: http://192.168.0.172:8761/eureka
-               
+      import: optional:configserver:http://192.168.0.172:7777            

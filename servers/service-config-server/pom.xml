@@ -9,61 +9,23 @@
 		<version>2.7.17</version>
 		<relativePath />
 	</parent>
-	<groupId>com.poscodx.msa</groupId>
-	<artifactId>service-guestbook</artifactId>
+	<groupId>me.kickscar.msa</groupId>
+	<artifactId>service-config-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>service-config</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<spring-cloud.version>2021.0.8</spring-cloud.version>
 		<java.version>17</java.version>
+		<spring-cloud.version>2021.0.8</spring-cloud.version>
 	</properties>
 
 	<dependencies>
-		<!-- Spring Cloud Discovery: Netflix Eureka Client -->
+		<!-- Spring Cloud Config Server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
-
-		<!-- Spring Cloud Config Client -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
-		
-		<!-- Spring Boot DevTools: Live Reload -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-		</dependency>
-
-		<!-- Web Starter -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<!-- MyBatis Starter -->
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>2.2.2</version>
-		</dependency>
-
-		<!-- Mariadb JDBC Driver -->
-		<dependency>
-			<groupId>org.mariadb.jdbc</groupId>
-			<artifactId>mariadb-java-client</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!-- Lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<artifactId>spring-cloud-config-server</artifactId>
 		</dependency>
 
 		<!-- Spring Boot Test Integration -->
@@ -87,23 +49,11 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>service-guestbook</finalName>
+		<finalName>service-config-server</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-						<exclude>
-							<groupId>org.springframework.boot</groupId>
-							<artifactId>spring-boot-devtools</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
