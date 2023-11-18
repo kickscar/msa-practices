@@ -9,7 +9,20 @@
 </dependency>
 ```
 
-#### 2. Configuration
+#### 2. Config Server Annotation
+```java
+@SpringBootApplication
+@EnableConfigServer
+public class ServiceConfigServer {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ServiceConfigServer.class, args);
+	}
+
+}
+```
+
+#### 3. Configuration
 
 1. Tomcat Server
 
@@ -44,7 +57,7 @@ spring:
                searchPaths: service-emaillist
 ```
 
-#### 3. Encrypot(암호화)
+#### 4. Encrypot(암호화)
 
 1. keystore 생성
 
@@ -89,9 +102,6 @@ AQC3QkSYiQPShNYRPR7Yqg8DbGvEo2jC+VEf8XL1naBtSvw4YyC5n7JPCaKgqQMgZE9ksm59myUAt5WW
 ```
 
 6. Endpoit로 확인
-
-
-
 
 
 	

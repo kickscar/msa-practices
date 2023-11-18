@@ -11,6 +11,8 @@
     <artifactId>embedded-keycloak-server</artifactId>
 
     <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.outputEncoding>UTF-8</project.build.outputEncoding>		
         <java.version>11</java.version>
         <start-class>com.github.thomasdarimont.keycloak.embedded.runner.Main</start-class>
     </properties>
@@ -21,6 +23,11 @@
             <artifactId>embedded-keycloak-server-springboot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+		<dependency>
+		    <groupId>org.mariadb.jdbc</groupId>
+		    <artifactId>mariadb-java-client</artifactId>
+		</dependency>        
     </dependencies>
 
     <build>

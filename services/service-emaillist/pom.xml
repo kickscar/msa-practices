@@ -47,7 +47,26 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- Spring OAUTH2 Client Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+        
+		<!-- Spring Security Starter -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		
+		<!-- Spring Security Resource Server -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+		
+						
 		<!-- MyBatis Starter -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>

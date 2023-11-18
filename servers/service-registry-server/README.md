@@ -1,7 +1,7 @@
 ## Spring Cloud Discovery Server: Neflix Eureka
 
 
-#### 1. Spring Cloud Starter
+#### 1. Spring Cloud Dependency
 
 ```XML
 <dependency>
@@ -10,7 +10,20 @@
 </dependency>
 ```
 
-#### 2. Configuration
+
+#### 2. Eureka Server Annotation
+```java
+@SpringBootApplication
+@EnableEurekaServer
+public class ServiceRegistryServer {
+	public static void main(String[] args) {
+		SpringApplication.run(ServiceRegistryServer.class, args);
+	}
+}
+```
+
+
+#### 3. Configuration
 
 1. Tomcat Server
 
@@ -57,5 +70,3 @@ eureka:
 1.	서비스 등록 상태를 확인 할 수 있다.
 2.	접근<br>
 	http://server:8761
-
-	

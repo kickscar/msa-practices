@@ -2,7 +2,7 @@ spring:
    application:
       name: service-config-server
    profiles:
-      active: git
+      active: native
 
 ---
 # configuration: common       

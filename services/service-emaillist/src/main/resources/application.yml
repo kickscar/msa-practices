@@ -14,7 +14,6 @@ spring:
          enabled: true
          uri: http://localhost:7777
 
-
 ---
 # configuration: development
 spring:
