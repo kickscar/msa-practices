@@ -22,6 +22,9 @@ public class EmaillistApplication {
 		SpringApplication.run(EmaillistApplication.class, args);
 	}
 	
+	//
+	// Test Security Filters...
+	//
 	@Bean
     ApplicationRunner applicationRunner() {
         return new ApplicationRunner () {
@@ -29,9 +32,13 @@ public class EmaillistApplication {
         	@Autowired
         	WebApplicationContext context;
         	
+        	//
+        	// oAuth2 Client Registration
+        	//
         	@Autowired
         	ClientRegistrationRepository clientRegistrationRepository;
 
+        	
             @Override
             public void run(ApplicationArguments args) throws Exception {
             	FilterChainProxy filterChainProxy = (FilterChainProxy)context.getBean("springSecurityFilterChain", Filter.class);

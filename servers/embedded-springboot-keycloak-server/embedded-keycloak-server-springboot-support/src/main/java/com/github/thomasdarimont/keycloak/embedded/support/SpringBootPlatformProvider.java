@@ -2,6 +2,8 @@ package com.github.thomasdarimont.keycloak.embedded.support;
 
 import com.google.auto.service.AutoService;
 import lombok.extern.slf4j.Slf4j;
+
+import org.keycloak.Config.Scope;
 import org.keycloak.platform.PlatformProvider;
 import org.keycloak.services.ServicesLogger;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

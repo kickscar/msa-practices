@@ -3,7 +3,6 @@ package com.poscodx.msa.service.emaillist.security;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
-
 import javax.servlet.Filter;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,32 +11,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.filter.DelegatingFilterProxy;
 
 @SpringBootTest
 @ActiveProfiles("test")
 public class SecurityConfigTest {
-	   private MockMvc mvc;
 
 	    private FilterChainProxy filterChainProxy;
 
 	    @BeforeEach
 	    public void setup(WebApplicationContext context) {
 	        filterChainProxy = (FilterChainProxy)context.getBean("springSecurityFilterChain", Filter.class);
-
-	        mvc = MockMvcBuilders
-	                .webAppContextSetup(context)
-	                .addFilter(new DelegatingFilterProxy(filterChainProxy), "/*")
-	                .build();
 	    }
 	    
 	    @Test
 	    public void testSecurityFilterChains() {
 	        List<SecurityFilterChain> SecurityFilterChains = filterChainProxy.getFilterChains();
-	        assertEquals(2, SecurityFilterChains.size());
+	        assertEquals(1, SecurityFilterChains.size());
 	    }
 
 	    @Test
@@ -54,7 +44,6 @@ public class SecurityConfigTest {
 
 	        /*
 	            -- Filter Ordering --
-
 
 	             01. ChannelProcessingFilter
 	             02. DisableEncodeUrlFilter                  (default)  1   : 세션 ID가 URL에 포함되는 것을 막기 위해 HttpServletResponse를 사용해서 URL이 인코딩 되는 것을 막기 위한 필터

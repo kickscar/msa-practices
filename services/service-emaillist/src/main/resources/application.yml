@@ -34,6 +34,7 @@ spring:
 
       
 ---
+# configuration: test
 spring:
    config:
       activate:
