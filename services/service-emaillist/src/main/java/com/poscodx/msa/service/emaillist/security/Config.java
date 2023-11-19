@@ -42,184 +42,159 @@ import lombok.extern.slf4j.Slf4j;
 @EnableWebSecurity
 public class Config {
 
-	@Bean	
-    SecurityFilterChain scurityFilterChain(HttpSecurity http, Converter<Jwt, JwtAuthenticationToken> jwtAuthenticationConverter, LogoutHandler keycloakLogoutHandler) throws Exception {
-    
-	    http
-	    	.csrf(csrf -> csrf.disable())
-	    	
-	    	.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-	    	
-	    	.logout()	
-	        .addLogoutHandler(keycloakLogoutHandler)	
-	        .logoutSuccessUrl("/")	
-	    	.and()
+	@Bean
+	SecurityFilterChain scurityFilterChain(HttpSecurity http,
+			Converter<Jwt, JwtAuthenticationToken> jwtAuthenticationConverter, LogoutHandler keycloakLogoutHandler)
+			throws Exception {
 
-	    	//
-	    	// OAuth2LoginAuthenticationFilter enable
-	    	// This filter intercepts requests and applies the needed logic for OAuth2 authentication  
-	    	//
-	    	// .oauth2Login() 	
-	        // .and()
-	    	//
-	    	
-	    	.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-	    		authorizationManagerRequestMatcherRegistry
-	    		
-	    		.requestMatchers(
-	    				new RegexRequestMatcher("^/admin$", null)
-	    		).hasRole("ADMIN")
-	    			
-	    		.requestMatchers(
-	    				new RegexRequestMatcher("^/$", "POST")
-                ).hasAnyRole("USER")
-	    		
-	    		.anyRequest().permitAll();
-        });
-        
-	    // The oauth2ResourceServer method will validate the bound JWT token against Keycloak server
-        http.oauth2ResourceServer((oauth2) -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
-        
-        return http.build();	
-    }
-    
+		http
+			.csrf(csrf -> csrf.disable())
+			.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			
+			.logout().addLogoutHandler(keycloakLogoutHandler).logoutSuccessUrl("/").and()
+
+				//
+				// OAuth2LoginAuthenticationFilter enable
+				// This filter intercepts requests and applies the needed logic for OAuth2
+				// authentication
+				//
+				// .oauth2Login()
+				// .and()
+				//
+			.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
+				authorizationManagerRequestMatcherRegistry
+					.requestMatchers(new RegexRequestMatcher("^/admin$", null)).hasRole("ADMIN")
+					.requestMatchers(new RegexRequestMatcher("^/$", "POST")).hasAnyRole("USER")
+					.anyRequest().permitAll();
+			});
+
+		// The oauth2ResourceServer method will validate the bound JWT token against Keycloak Server
+		http.oauth2ResourceServer((oauth2) -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
+
+		return http.build();
+	}
+
 	@LoadBalanced
-    @Bean
-    RestTemplate restTemplte() {
+	@Bean
+	RestTemplate restTemplte() {
 		return new RestTemplate();
-	} 
-	
+	}
+
 	@Component
 	@RequiredArgsConstructor
 	static private class JwtAuthenticationConverter implements Converter<Jwt, JwtAuthenticationToken> {
-		
+
 		private final Converter<Jwt, Collection<? extends GrantedAuthority>> jwtGrantedAuthoritiesConverter;
-		
+
 		@Override
 		public JwtAuthenticationToken convert(Jwt jwt) {
-	        final var authorities = jwtGrantedAuthoritiesConverter.convert(jwt);
-	        final String username = JsonPath.read(jwt.getClaims(), "preferred_username");
-	        
-	        System.out.println("authorities--->" + authorities);
-	        System.out.println("username--->" + username);
-	        
-	        JwtAuthenticationToken token = new JwtAuthenticationToken(jwt, authorities, username);
-	        
-	        System.out.println("token-->" + token);
+			final var authorities = jwtGrantedAuthoritiesConverter.convert(jwt);
+			final String username = JsonPath.read(jwt.getClaims(), "preferred_username");
 
-	        return token;
+			System.out.println("authorities--->" + authorities);
+			System.out.println("username--->" + username);
+
+			JwtAuthenticationToken token = new JwtAuthenticationToken(jwt, authorities, username);
+
+			System.out.println("token-->" + token);
+
+			return token;
 		}
-		
+
 		@Component
 		static private class JwtGrantedAuthoritiesConverter implements Converter<Jwt, Collection<? extends GrantedAuthority>> {
 
 			@Override
-			@SuppressWarnings({"rawtypes", "unchecked"})
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public Collection<? extends GrantedAuthority> convert(Jwt jwt) {
-				
+
 				return Stream.of("$.realm_access.roles", "$.resource_access.*.roles").flatMap(claimPaths -> {
-					
+
 					Object claim = null;
-					
+
 					try {
 						claim = JsonPath.read(jwt.getClaims(), claimPaths);
 					} catch (PathNotFoundException e) {
 						/* handle nothing */
 					}
-					
-					if(claim == null) {
-						return Stream.empty();						
+
+					if (claim == null) {
+						return Stream.empty();
 					}
-					
-					if(claim instanceof String strClaim) {
+
+					if (claim instanceof String strClaim) {
 						return Stream.of(strClaim.split(","));
 					}
-					
-					if(claim instanceof String[] strClaim) {
+
+					if (claim instanceof String[] strClaim) {
 						return Stream.of(strClaim);
 					}
-					
-					if(!Collection.class.isAssignableFrom(claim.getClass())) {
+
+					if (!Collection.class.isAssignableFrom(claim.getClass())) {
 						return Stream.empty();
 					}
-					
+
 					final var iter = ((Collection) claim).iterator();
-					
-					if(!iter.hasNext()) {
+
+					if (!iter.hasNext()) {
 						return Stream.empty();
 					}
-						
+
 					final var firstItem = iter.next();
-						
-					if(firstItem instanceof String) {
-						return (Stream<String>)((Collection)claim).stream();
+
+					if (firstItem instanceof String) {
+						return (Stream<String>) ((Collection) claim).stream();
 					}
-						
-					if(Collection.class.isAssignableFrom(firstItem.getClass())) {
-						return (Stream<String>)((Collection)claim)
-							.stream()
-							.flatMap(colItem -> ((Collection)colItem).stream())
-							.map(String.class::cast);
+
+					if (Collection.class.isAssignableFrom(firstItem.getClass())) {
+						return (Stream<String>) ((Collection) claim).stream()
+								.flatMap(colItem -> ((Collection) colItem).stream()).map(String.class::cast);
 					}
-					
+
 					return Stream.empty();
-				})
-					.map(strAuthority -> {
-						System.out.println(strAuthority);
-						return "ROLE_" + strAuthority;
-					})
-					.map(SimpleGrantedAuthority::new)
-					.map(GrantedAuthority.class::cast).toList();
+					
+				}).map(strAuthority -> {
+					System.out.println(strAuthority);
+					return "ROLE_" + strAuthority;
+				}).map(SimpleGrantedAuthority::new).map(GrantedAuthority.class::cast).toList();
 			}
-		}	
-	}	
-	
-	
+		}
+	}
+
 	@Slf4j
 	@Component
 	@RequiredArgsConstructor
 	static private class KeycloakLogoutHandler implements LogoutHandler {
-	    private final RestTemplate restTemplate;
+		private final RestTemplate restTemplate;
 
-	    @Override
-	    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication auth) {
-	        logoutFromKeycloak((OidcUser) auth.getPrincipal());
-	    }
+		@Override
+		public void logout(HttpServletRequest request, HttpServletResponse response, Authentication auth) {
+			logoutFromKeycloak((OidcUser) auth.getPrincipal());
+		}
 
-	    private void logoutFromKeycloak(OidcUser user) {
-	        String endSessionEndpoint = user.getIssuer() + "/protocol/openid-connect/logout";
-	        
-	        UriComponentsBuilder builder = UriComponentsBuilder
-	          .fromUriString(endSessionEndpoint)
-	          .queryParam("id_token_hint", user.getIdToken().getTokenValue());
+		private void logoutFromKeycloak(OidcUser user) {
+			String endSessionEndpoint = user.getIssuer() + "/protocol/openid-connect/logout";
 
-	        ResponseEntity<String> logoutResponse = restTemplate.getForEntity(
-	        builder.toUriString(), String.class);
-	        if (logoutResponse.getStatusCode().is2xxSuccessful()) {
-	            log.info("Successfulley logged out from Keycloak");
-	        } else {
-	            log.error("Could not propagate logout to Keycloak");
-	        }
-	    }
+			UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(endSessionEndpoint)
+					.queryParam("id_token_hint", user.getIdToken().getTokenValue());
 
-	}	
-	
-	
-	
-	
-	
-    @Bean
-    @ConditionalOnProperty(prefix="spring.config.activate", name="on-profile", havingValue = "test")
-    ClientRegistrationRepository clientRegistrationRepository() {
-        ClientRegistration dummyRegistration = ClientRegistration.withRegistrationId("dummy")
-                .clientId("dummy")
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("/")
-                .scope("openid")
-                .authorizationUri("/")
-                .tokenUri("/")
-                .build();
+			ResponseEntity<String> logoutResponse = restTemplate.getForEntity(builder.toUriString(), String.class);
+			if (logoutResponse.getStatusCode().is2xxSuccessful()) {
+				log.info("Successfulley logged out from Keycloak");
+			} else {
+				log.error("Could not propagate logout to Keycloak");
+			}
+		}
 
-        return new InMemoryClientRegistrationRepository(dummyRegistration);
-    }    
+	}
+
+	@Bean
+	@ConditionalOnProperty(prefix = "spring.config.activate", name = "on-profile", havingValue = "test")
+	ClientRegistrationRepository clientRegistrationRepository() {
+		ClientRegistration dummyRegistration = ClientRegistration.withRegistrationId("dummy").clientId("dummy")
+				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE).redirectUri("/").scope("openid")
+				.authorizationUri("/").tokenUri("/").build();
+
+		return new InMemoryClientRegistrationRepository(dummyRegistration);
+	}
 }
