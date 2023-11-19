@@ -14,6 +14,7 @@ spring:
          enabled: true
          uri: http://localhost:7777
 
+
 ---
 # configuration: development
 spring:
@@ -21,7 +22,7 @@ spring:
       activate:
          on-profile: development
       import: optional:configserver:http://localhost:7777
-           
+    
                             
 ---
 # configuration: production
@@ -30,3 +31,30 @@ spring:
       activate:
          on-profile: production
       import: optional:configserver:http://192.168.0.172:7777
+
+      
+---
+spring:
+   config:
+      activate:
+         on-profile: test
+         
+   cloud:
+      config:
+         enabled: false         
+   security:
+      oauth2:
+         client:
+            registration:
+               keycloak:
+                  client-id: emaillist
+                  scope: openid
+                  authorization-grant-type: authorization_code
+            provider:
+                keycloak:
+                   issuer-uri: http://localhost:5555/realms/mysite-realm
+                   user-name-attribute: preferred_username
+         resourceserver:
+           jwt:
+              issuer-uri: http://localhost:5555/realms/mysite-realm
+                      
