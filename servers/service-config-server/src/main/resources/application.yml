@@ -32,6 +32,7 @@ spring:
                             service-storage,
                             service-gallery,
                             service-guestbook,
+                            service-user,
                             service-gateway-server
 logging:
    pattern:
@@ -62,6 +63,7 @@ spring:
                                file:///Users/kickscar/DoWork/STS-PoscoDx-Workspace/msa-practices-config-repo/service-storage,
                                file:///Users/kickscar/DoWork/STS-PoscoDx-Workspace/msa-practices-config-repo/service-gallery,
                                file:///Users/kickscar/DoWork/STS-PoscoDx-Workspace/msa-practices-config-repo/service-guestbook,
+                               file:///Users/kickscar/DoWork/STS-PoscoDx-Workspace/msa-practices-config-repo/service-user,
                                file:///Users/kickscar/DoWork/STS-PoscoDx-Workspace/msa-practices-config-repo/service-gateway-server
 logging:
    pattern:

@@ -24,7 +24,9 @@ public class ServiceStorage {
 
 			@Override
 			public void run(ApplicationArguments args) throws Exception {
-				httpd.start();
+				new Thread(() -> {
+					httpd.start();
+				}).run();
 			}
 		};
 	}

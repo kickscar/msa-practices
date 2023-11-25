@@ -28,11 +28,6 @@ public class SecurityConfig07 {
         http
                 .formLogin()
                 .loginPage("/login")
-
-                .and()
-
-                .httpBasic()
-
                 .and()
 
                 .authorizeHttpRequests()

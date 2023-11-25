@@ -61,10 +61,16 @@ public class Config {
 				// .oauth2Login()
 				// .and()
 				//
+			
+			// .formLogin().loginProcessingUrl("/user/auth").usernameParameter("email").passwordParameter("password")
+			// .and()
+			
 			.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
 				authorizationManagerRequestMatcherRegistry
 					.requestMatchers(new RegexRequestMatcher("^/admin$", null)).hasRole("ADMIN")
+					
 					.requestMatchers(new RegexRequestMatcher("^/$", "POST")).hasAnyRole("USER")
+					
 					.anyRequest().permitAll();
 			});
 

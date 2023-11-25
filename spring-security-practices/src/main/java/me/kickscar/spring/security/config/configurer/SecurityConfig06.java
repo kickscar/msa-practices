@@ -27,11 +27,9 @@ public class SecurityConfig06 {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-
                 .and()
 
                 .httpBasic()
-
                 .and()
 
                 // AuthorizationFilter
