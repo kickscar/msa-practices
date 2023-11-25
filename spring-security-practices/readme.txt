@@ -1,5 +1,5 @@
 ---
-1. Spring Security Architecture
+Spring Security Architecture
 
 
 +---------------------------------------------------------+
@@ -26,7 +26,7 @@
                                                                        +----------------------------------------------------------------------------------------+ 
 
 ---
-2. Security Filters
+Security Filters
 
 01. ChannelProcessingFilter
 
@@ -41,6 +41,7 @@
     SpringSecurityContextHolder는 기본적으로 ThreadLocal 기반으로 동작하는데, 비동기와 관련된 기능을 쓸 때 SecurityContext를 사용할 수 있도록 만들어주는 필터
 
 05. ConcurrentSessionFilter
+
 06. HeaderWriterFilter
     응답에 Security와 관련된 헤더 값을 설정해주는 필터
 
@@ -72,7 +73,9 @@
     서블릿 API 보안 메서드를 구현하는 요청 래퍼로 서블릿 요청을 채우는 필터
 
 16. JaasApiIntegrationFilter
+
 17. RememberMeAuthenticationFilter
+
 18. AnonymousAuthenticationFilter
     이 필터에 올 때까지 사용자가 인증되지 않았다면, 이 요청은 익명의 사용자가 보낸 것으로 판단할 수 있다. 이 익명 사용자에 관한 처리를 하는 필터
 
