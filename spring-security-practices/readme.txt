@@ -106,7 +106,7 @@ Security Filters
 
 
 ---
-2. Security Filters
+Security Filters Order: XML Default Configuration (me.kickscar.spring.security.config.configurer.SecurityConfig01.xml)
 
 01. ChannelProcessingFilter
 02. DisableEncodeUrlFilter                  (default)  1
@@ -129,3 +129,172 @@ Security Filters
 19. SessionManagementFilter                 (default)  14
 20. ExceptionTranslationFilter              (default)  15
 21. FilterSecurityInterceptor               (default)  16
+
+
+---
+Security Filters Order: SecurityBuilder Default Configuration (me.kickscar.spring.security.config.configurer.SecurityConfig02)
+
+01. ChannelProcessingFilter
+02. DisableEncodeUrlFilter                  (default)  1
+03. SecurityContextPersistenceFilter        (default)  2
+04. WebAsyncManagerIntegrationFilter        (default)  3
+05. ConcurrentSessionFilter
+06. HeaderWriterFilter                      (default)  4
+07. CsrfFilter                              (default)  5
+08. HeaderWriter                            (default)  6
+09. UsernamePasswordAuthenticationFilter    
+10. DefaultLoginPageGeneratingFilter        
+11. DefaultLogoutPageGeneratingFilter       
+12. CasAuthenticationFilter
+13. BasicAuthenticationFilter               
+14. RequestCacheAwareFilter                 (default)  7
+15. SecurityContextHolderAwareRequestFilter (default)  8
+16. JaasApiIntegrationFilter
+17. RememberMeAuthenticationFilter
+18. AnonymousAuthenticationFilter           (default)  9
+19. SessionManagementFilter                 (default)  10
+20. ExceptionTranslationFilter              (default)  11
+21. FilterSecurityInterceptor               
+
+
+---
+Security Filters Order: SecurityBuilder Configuration (me.kickscar.spring.security.config.configurer.SecurityConfig03)
++ formLogin()
+
+01. ChannelProcessingFilter
+02. DisableEncodeUrlFilter                  (default)  1
+03. SecurityContextPersistenceFilter        (default)  2
+04. WebAsyncManagerIntegrationFilter        (default)  3
+05. ConcurrentSessionFilter
+06. HeaderWriterFilter                      (default)  4
+07. CsrfFilter                              (default)  5
+08. HeaderWriter                            (default)  6
+09. UsernamePasswordAuthenticationFilter               7 *
+10. DefaultLoginPageGeneratingFilter                   8 *
+11. DefaultLogoutPageGeneratingFilter                  9 *
+12. CasAuthenticationFilter
+13. BasicAuthenticationFilter               
+14. RequestCacheAwareFilter                 (default)  10
+15. SecurityContextHolderAwareRequestFilter (default)  11
+16. JaasApiIntegrationFilter
+17. RememberMeAuthenticationFilter
+18. AnonymousAuthenticationFilter           (default)  12
+19. SessionManagementFilter                 (default)  13
+20. ExceptionTranslationFilter              (default)  14
+21. FilterSecurityInterceptor
+
+
+---
+Security Filters Order: SecurityBuilder Configuration (me.kickscar.spring.security.config.configurer.SecurityConfig04)
++ formLogin()
++ httpBasic()
+
+01. ChannelProcessingFilter
+02. DisableEncodeUrlFilter                  (default)  1
+03. SecurityContextPersistenceFilter        (default)  2
+04. WebAsyncManagerIntegrationFilter        (default)  3
+05. ConcurrentSessionFilter
+06. HeaderWriterFilter                      (default)  4
+07. CsrfFilter                              (default)  5
+08. HeaderWriter                            (default)  6
+09. UsernamePasswordAuthenticationFilter               7
+10. DefaultLoginPageGeneratingFilter                   8
+11. DefaultLogoutPageGeneratingFilter                  9
+12. CasAuthenticationFilter
+13. BasicAuthenticationFilter                          10 *
+14. RequestCacheAwareFilter                 (default)  11
+15. SecurityContextHolderAwareRequestFilter (default)  12
+16. JaasApiIntegrationFilter
+17. RememberMeAuthenticationFilter
+18. AnonymousAuthenticationFilter           (default)  13
+19. SessionManagementFilter                 (default)  14
+20. ExceptionTranslationFilter              (default)  15
+21. FilterSecurityInterceptor
+
+
+---
+Security Filters Order: SecurityBuilder Configuration (me.kickscar.spring.security.config.configurer.SecurityConfig05)
++ formLogin()
++ httpBasic()
++ authorizeRequests() [deprecated]
+
+01. ChannelProcessingFilter
+02. DisableEncodeUrlFilter                  (default)  1
+03. SecurityContextPersistenceFilter        (default)  2
+04. WebAsyncManagerIntegrationFilter        (default)  3
+05. ConcurrentSessionFilter
+06. HeaderWriterFilter                      (default)  4
+07. CsrfFilter                              (default)  5
+08. HeaderWriter                            (default)  6
+09. UsernamePasswordAuthenticationFilter               7
+10. DefaultLoginPageGeneratingFilter                   8
+11. DefaultLogoutPageGeneratingFilter                  9
+12. CasAuthenticationFilter
+13. BasicAuthenticationFilter                          10
+14. RequestCacheAwareFilter                 (default)  11
+15. SecurityContextHolderAwareRequestFilter (default)  12
+16. JaasApiIntegrationFilter
+17. RememberMeAuthenticationFilter
+18. AnonymousAuthenticationFilter           (default)  13
+19. SessionManagementFilter                 (default)  14
+20. ExceptionTranslationFilter              (default)  15
+21. FilterSecurityInterceptor                          16  *  [deprecated]
+
+
+---
+Security Filters Order: SecurityBuilder Configuration (me.kickscar.spring.security.config.configurer.SecurityConfig06)
++ formLogin()
++ httpBasic()
++ authorizeHttpRequests()
+
+01. ChannelProcessingFilter
+02. DisableEncodeUrlFilter                  (default)  1
+03. SecurityContextPersistenceFilter        (default)  2
+04. WebAsyncManagerIntegrationFilter        (default)  3
+05. ConcurrentSessionFilter
+06. HeaderWriterFilter                      (default)  4
+07. CsrfFilter                              (default)  5
+08. HeaderWriter                            (default)  6
+09. UsernamePasswordAuthenticationFilter               7
+10. DefaultLoginPageGeneratingFilter                   8
+11. DefaultLogoutPageGeneratingFilter                  9
+12. CasAuthenticationFilter
+13. BasicAuthenticationFilter                          10
+14. RequestCacheAwareFilter                 (default)  11
+15. SecurityContextHolderAwareRequestFilter (default)  12
+16. JaasApiIntegrationFilter
+17. RememberMeAuthenticationFilter
+18. AnonymousAuthenticationFilter           (default)  13
+19. SessionManagementFilter                 (default)  14
+20. ExceptionTranslationFilter              (default)  15
+21. AuthorizationFilter                                16  *
+
+
+
+---
+Security Filters Order: SecurityBuilder Configuration (me.kickscar.spring.security.config.configurer.SecurityConfig07)
++ formLogin()
++ loginPage(...)
++ authorizeHttpRequests()
+
+01. ChannelProcessingFilter
+02. DisableEncodeUrlFilter                  (default)  1
+03. SecurityContextPersistenceFilter        (default)  2
+04. WebAsyncManagerIntegrationFilter        (default)  3
+05. ConcurrentSessionFilter
+06. HeaderWriterFilter                      (default)  4
+07. CsrfFilter                              (default)  5
+08. HeaderWriter                            (default)  6
+09. UsernamePasswordAuthenticationFilter               7
+10. DefaultLoginPageGeneratingFilter                   x               
+11. DefaultLogoutPageGeneratingFilter                  x                  
+12. CasAuthenticationFilter
+13. BasicAuthenticationFilter                          x                          
+14. RequestCacheAwareFilter                 (default)  8
+15. SecurityContextHolderAwareRequestFilter (default)  9
+16. JaasApiIntegrationFilter
+17. RememberMeAuthenticationFilter
+18. AnonymousAuthenticationFilter           (default)  10
+19. SessionManagementFilter                 (default)  11
+20. ExceptionTranslationFilter              (default)  12
+21. AuthorizationFilter                                13
