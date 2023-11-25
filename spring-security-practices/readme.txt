@@ -25,6 +25,22 @@ Spring Security Architecture
                                                                        |                                                                                        |
                                                                        +----------------------------------------------------------------------------------------+ 
 
+[ex01]
+1. test
+me.kickscar.spring.security.config.explicit.SecurityConfig01Test
+
+2. configuration
+me.kickscar.spring.security.config.explicit.SecurityConfig01
+
+[ex02]
+1. test
+me.kickscar.spring.security.config.explicit.SecurityConfig02Test
+
+2. configuration
+me.kickscar.spring.security.config.explicit.SecurityConfig02
+
+
+
 ---
 Security Filters
 
