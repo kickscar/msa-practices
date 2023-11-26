@@ -298,3 +298,6 @@ Security Filters Order: SecurityBuilder Configuration (me.kickscar.spring.securi
 19. SessionManagementFilter                 (default)  11
 20. ExceptionTranslationFilter              (default)  12
 21. AuthorizationFilter                                13
+
+[practical example]
+monolithics/mysite06

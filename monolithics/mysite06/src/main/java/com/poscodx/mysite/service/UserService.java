@@ -32,6 +32,7 @@ public class UserService {
 	}
 
 	public void update(UserVo userVo) {
+		userVo.setPassword(userVo.getPassword().equals("") ? "" : passwordEncoder.encode(userVo.getPassword()));
 		userRepository.update(userVo);
 	}
 }
