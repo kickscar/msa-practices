@@ -30,7 +30,7 @@
 		<![CDATA[
 		insert
 		  into user
-	    values (null, #{name }, #{email }, password(#{password }), #{gender }, current_date(), 'USER')
+	    values (null, #{name }, #{email }, #{password }, #{gender }, current_date(), 'USER')
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[
@@ -48,7 +48,7 @@
 			</when>
 			<otherwise>
 				<![CDATA[
-				update user set name=#{name }, gender=#{gender }, password=password(#{password }) where no=#{no }
+				update user set name=#{name }, gender=#{gender }, password=#{password } where no=#{no }
 				]]>
 			</otherwise>
 		</choose>		
