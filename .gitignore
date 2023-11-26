@@ -38,3 +38,6 @@
 **/.njsproj
 **/.sln
 **/.sw?
+
+## application
+**/logs
