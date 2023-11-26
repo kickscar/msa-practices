@@ -1,0 +1,39 @@
+{
+  "name": "ex03-frontend",
+  "version": "1.0.0",
+  "description": "#### install packages ```sh $ npm i -D webpack webpack-cli webpack-dev-server style-loader css-loader node-sass sass-loader babel-loader @babel/core @babel/cli @babel/preset-env @babel/preset-react @babel/plugin-transform-runtime @babel/plugin-syntax-throw-expressions concurrently",
+  "main": "index.js",
+  "scripts": {
+    "dev:fe": "npx webpack serve --config config/webpack.config.js --progress --mode development",
+    "dev:be": "cd ../backend && npm run dev",
+    "dev": "concurrently \"npm run dev:be\" \"npm run dev:fe\" --kill-others"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.22.20",
+    "@babel/plugin-syntax-throw-expressions": "^7.22.5",
+    "@babel/plugin-transform-runtime": "^7.22.15",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
+    "babel-loader": "^9.1.3",
+    "concurrently": "^8.2.1",
+    "css-loader": "^6.8.1",
+    "node-sass": "^9.0.0",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "jwt-decode": "^3.1.2",
+    "react": "^18.2.0",
+    "react-cookie": "^6.1.1",
+    "react-dom": "^18.2.0",
+    "react-router": "^6.16.0",
+    "react-router-dom": "^6.16.0"
+  }
+}
