@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const PORT = 8080;
+const PORT = 9090;
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,7 +22,7 @@ app.post("/auth", (req, res) => {
 
     const generateAccessTokenOptions = {
         algorithm: 'HS256',
-        expiresIn: '30m'
+        expiresIn: '1m'
     };
 
     const generateRefreshTokenOptions = {
@@ -37,7 +37,7 @@ app.post("/auth", (req, res) => {
 });
 
 //
-//  request: /refresh
+//  request: /refresh-token
 //
 app.post("/refresh-token", async (req, res) => {
     try {
