@@ -36,5 +36,112 @@
    ```sh
    $ npm run dev
    ```
- 
 
+       [Client(Browser)]  |                                                   |  [JWT Server]
+                          |                                                   |
+                          |                                                   |
+                          |                                                   |
+                          |  1./auth                                          |
+                          | ------------------------------------------------> |
+                          |    {                                              |
+                          |       "username": "...",                          |
+                          |       "password": "..."                           |
+                          |    }                                              |  2.Validate Credentials
+                          |                                                   |  3.Issue Tokens(Access Token, Fresh Token) 
+                          |                                                   |
+                          |                                                   |
+                          |                                       4.res(200)  |
+                          | <------------------------------------------------ |
+                          |                        {                          |
+                          |                           "accessToken": "...",   |
+                          |                           "refreshToken": "..."   |
+                          |                        }                          |
+                          |                                                   |
+                          |                                                   |
+  5.Store Tokens Locally  |                                                   |
+                          |                                                   |
+                          |                                                   |
+                          |  6./profile (call apis)                           |
+                          | ------------------------------------------------> |
+                          |   Authorization: Bearer accessToken               |               
+                          |   Accept: application/json                        |
+                          |                                                   |
+                          |                                                   |  7-1.Verify Access Token(Validate Signature) 
+                          |                                                   |
+                          |                                     8-1.res(200)  |
+                          | <------------------------------------------------ |
+                          |                                  { json result }  |
+                          |                                                   |  
+                          |                                                   |  or 
+                          |                                                   |   
+                          |                                                   |
+                          |                                                   |  7-2. Access Token Expired
+                          |                                                   |
+                          |                                     8-2.res(401)  |  
+                          | <------------------------------------------------ |
+                          |                                                   |
+                          |                                                   |
+                          |                                                   |
+                          |                                                   |
+                          |                                                   |
+                          |  9./refresh-token                                 |
+                          | ------------------------------------------------> |
+                          |    {                                              |
+                          |       "refreshToken": "..."                       |
+                          |    }                                              |
+                          |                                                   |
+                          |                                                   |  10.Verify Refresh Token(Validate Signature)
+                          |                                                   |  11.Issue Tokens(Access Token, Fresh Token) 
+                          |                                                   |
+                          |                                       12.res(200) |
+                          | <------------------------------------------------ |
+                          |                        {                          |
+                          |                           "accessToken": "...",   |
+                          |                           "refreshToken": "..."   |
+                          |                        }                          |
+                          |                                                   |
+                          |                                                   |
+ 13.Store Tokens Locally  |                                                   |
+                          |                                                   |
+
+
+
+
+
+
+
+
++---------------------------------------------------------+
+|                                                         |          
+|  Servlet Context(Tomcat)                                |            +----------------------------------------------------------------------------------------+
+|                                                         |            |                                                                                        |
+|                                                         |            |  Application Context(Spring Container)                                                 |
+|      DelegatingFilterProxy: Filter                      |            |                                                                                        |
+|     +---------------------------------------------+     |            |                                                                                        |
+|     | urlPattern: "/*"                            |     |            |      FilterChainProxy("springSecurityFilterChain"): Filter                             |
+|     | targetBeanName: "springSecurityFilterChain" |     |            |     +---------------------------------------------------------------------------+      |
+|     |---------------------------------------------|     |  delegate  |     |                                                                           |      |
+|     | doFilter()                                  | ---------------------> | doFilter()                                                                |      |
+|     +---------------------------------------------+     |            |     |    |                                                                      |      |
+|                                                         |            |     |    |-> SecurityFilterChain1                                               |      |
+|                                                         |            |     |    |   "/assets/**": []                                                   |      |
++---------------------------------------------------------+            |     |    |                                                                      |      |
+                                                                       |     |    |-> SecurityFilterChain2                                               |      |
+                                                                       |     |        "/**": [SecurityFilter1, SecurittFilter2, SecurityFilter3, ...]    |      |     
+                                                                       |     |                                                                           |      |     
+                                                                       |     +---------------------------------------------------------------------------+      |
+                                                                       |                                                                                        |
+                                                                       |                                                                                        |
+                                                                       +----------------------------------------------------------------------------------------+
+
+
+
+
+
+
+
+
+
+
+
+   

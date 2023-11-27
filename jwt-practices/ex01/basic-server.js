@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.post("/auth", (req, res) => {
     const account = {
         id: 1,
-        name: 'bella',
+        name: 'kickscar',
         profileImage: ''
     };
 
@@ -39,7 +39,7 @@ app.post("/auth", (req, res) => {
 //
 //  request: /refresh
 //
-app.post("/refresh", async (req, res) => {
+app.post("/refresh-token", async (req, res) => {
     try {
         const refreshToken = req.body.refreshToken;
         if(!refreshToken) {
@@ -65,9 +65,9 @@ app.post("/refresh", async (req, res) => {
 
 
 //
-//  request: /dashboard/profile
+//  request: /profile
 //
-app.get("/dashboard/profile", async (req, res, next) => {
+app.get("/profile", async (req, res, next) => {
     try {
         const authHeader = req.headers["authorization"];
         const token = authHeader?.split(" ")[1];

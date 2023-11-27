@@ -1,20 +1,16 @@
 {
   "name": "ex01",
   "version": "1.0.0",
-  "description": "#### basic-jwt.js",
-  "main": "index.js",
+  "description": "1. (J)son (W)eb (T)oken 기본",
+  "main": "01.js",
   "scripts": {
-    "dev": "nodemon basic-server"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
   }
 }
