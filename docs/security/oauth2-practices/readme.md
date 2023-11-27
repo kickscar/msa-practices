@@ -1,4 +1,4 @@
-### 1. JWT Structure
+### 1. JWT Basics
 ### 2. JWT Server
 ### 3. JWT Client : React.js
 ### 4. OAuth2 Authorization Server : Embeded Keycloak 

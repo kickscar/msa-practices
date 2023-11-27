@@ -6,7 +6,7 @@
 #### 1. WorkFlow
 ![5f527d2634b5d4290e36177a37a463ee.png](../../../_resources/5f527d2634b5d4290e36177a37a463ee.png)
 
-#### 2. 간단 구현 서버(Node.js + Express) : ex02 
+#### 2. 간단 구현 서버(Node.js + Express) : /security/oauth2-practices/ex02 
 1. 설치 패키지
 
 	```sh

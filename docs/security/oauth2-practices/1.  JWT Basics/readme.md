@@ -1,9 +1,9 @@
-##  JWT Structure
+##  JWT Basics
 
 ![Json-Web-Token.jpg](../../../_resources/Json-Web-Token.jpg)
 (2), (4) 참고
 
-#### 1. Token
+#### 1. Structure
 <pre>
 +-----------+   +-----------+   +-----------+
 |   Header  |   | Playload  |   | Signature |
@@ -44,16 +44,16 @@
 	```
 
 3. sign & verify
-	- /jwt-practices/ex01/01.js
+	- /security/oauth2-practices/ex01/01.js
 		
 4.	JsonWebTokenError: invalid token
-	- /jwt-practices/ex01/02.js
+	- /security/oauth2-practices/ex01/02.js
 	
 5.	JsonWebTokenError: invalid signature
-	- /jwt-practices/ex01/03.js
+	- /security/oauth2-practices/ex01/03.js
 		
 6.	TokenExpiredError: jwt expired
-	- /jwt-practices/ex01/04.js
+	- /security/oauth2-practices/ex01/04.js
 
 #### 4. https://jwt.io 에서 decode 하기
 ![3391fb8e2dfc61f583fa56a64c5842dd.png](../../../_resources/3391fb8e2dfc61f583fa56a64c5842dd.png)
