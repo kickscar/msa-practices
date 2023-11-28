@@ -1,8 +1,8 @@
-## JWT Client : React.js
+## 3. JWT Client I : Storing JWT
 
 #### Storing JWT Locally
 1. JWT Client는 access token과 refresh token을 함께 저장한다.
-2. access token은 client application의 메모리(react context's state)에 저장한다. 
+2. access token은 client application의 메모리(react's state)에 저장한다. 
 3. access token은 휘발된다. 즉, 새로고침 또는 브라우저를 닫으면 사라진다.
 4. access token이 휘발되면 refresh token으로 access token을 재발급 받도록 한다.
 5. 단, refresh token이 휘발되지 않도록 하기 위해 cookie에 저장하되 httpOnly 옵션으로 구워 js가 접근하지 못하게 한다.
@@ -14,7 +14,7 @@
 2. component tree 최상위 component가 access token을 발급받고 이를 사용자 정보가 필요한 하위 component들에 전달하는 방법으로 전역(global) 접근이 가능한 react context를 사용
 
 3. 예제
-	1) &lt;AuthContext&gt; 작성
+	1) &lt;AuthContextProvider&gt; 작성
 	2)  /security/oauth2-practices/ex03
 
 4. 설치 패키지
@@ -35,4 +35,4 @@
 
 7. 작동원리
 
-![bfe5952518949c32f81fe602a4f95690.png](../../../_resources/bfe5952518949c32f81fe602a4f95690.png)
+![78375f9bc9593fed6781ae9fb7cb28a4.png](../../../_resources/78375f9bc9593fed6781ae9fb7cb28a4.png)

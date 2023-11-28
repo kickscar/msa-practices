@@ -1,5 +1,5 @@
-import { AuthContext, useAuthContext } from "./AuthContext";
+import { AuthContextProvider, useAuthContext } from "./AuthContextProvider";
 export {
-    AuthContext,
+    AuthContextProvider,
     useAuthContext
 }

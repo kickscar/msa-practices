@@ -1,5 +1,5 @@
 import React from 'react';
-import SidebarAccount from "./SidebarAccount";
+import Sidebar from "./Sidebar";
 
 export default function LayoutAccount({children}) {
     return (
@@ -7,7 +7,7 @@ export default function LayoutAccount({children}) {
             <div>
                 {children}
             </div>
-            <SidebarAccount/>
+            <Sidebar/>
         </>
     );
 }

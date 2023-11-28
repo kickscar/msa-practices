@@ -12,10 +12,9 @@ export default function Navigation() {
         <>
             <NavLink to={`/`}>홈</NavLink> 
             <ul>
-                <li><NavLink to={`/${accountName}/profile`}>Profile</NavLink></li>
-                <li><NavLink to={`/${accountName}/education`}>Education</NavLink></li>
-                <li><NavLink to={`/${accountName}/experience`}>Experience</NavLink></li>
-                <li><NavLink to={`/${accountName}/training`}>Training</NavLink></li>
+                <li><NavLink to={`/profile`}>프로필</NavLink></li>
+                <li><NavLink to={`/guestbook`}>방명록</NavLink></li>
+                <li><NavLink to={`/gallery`}>갤러리</NavLink></li>
             </ul>
             <p>
                 <button onClick={() => {

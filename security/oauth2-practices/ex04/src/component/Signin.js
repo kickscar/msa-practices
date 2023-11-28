@@ -1,9 +1,9 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
-import {useAuthContext} from '../../auth';
+import { NavLink } from "react-router-dom";
+import { useAuthContext } from '../auth';
 
 export default function Signin() {
-    const {storeToken} = useAuthContext();
+    const { storeToken } = useAuthContext();
 
     return (
             <div>
