@@ -22,11 +22,11 @@
 3. Signature
 	1) 서명
 	2) (header + ''." + payload) + secret 으로 지정한 암호알고리즘으로 암호화(서명) 한다.
-    3) token = header + "." + payload + "." + encypt(header, playload, secret)
+    3) token = header + "." + payload + "." + encrypt(header, playload, secret)
     4) JSON Web Signature (JWS) : JSON 서명 표준, RFC7515
     5) JSON Web Encryption (JWE): JSON 암호화 표준, RFC7516
     
-#### 3. 실습 예제: ex01
+#### 3. 실습 예제: /security/oauth2-practices/ex01
 1. 설치 패키지
 
 	```sh

@@ -56,7 +56,7 @@
 	
 #### 3. SecurityBuilder Custom Configuration 01
 1. me.kickscar.spring.security.config.configurer.SecurityConfig03
-2.  \+ formLogin()
+2. + formLogin()
 3. filters order
 	<pre>
 	01. ChannelProcessingFilter
@@ -84,8 +84,8 @@
 	
 #### 4. SecurityBuilder Custom Configuration 02
 1. me.kickscar.spring.security.config.configurer.SecurityConfig04
-2.  \+ formLogin()
-	 \+ httpBasic() 
+2. + formLogin()
+	+ httpBasic() 
 3. filters order
 	<pre>
 	01. ChannelProcessingFilter
@@ -113,9 +113,9 @@
 	
 #### 5. SecurityBuilder Custom Configuration 03
 1. me.kickscar.spring.security.config.configurer.SecurityConfig05
-2.  \+ formLogin()
-	 \+ httpBasic()
-	 \+ authorizeRequests() [deprecated]
+2. + formLogin()
+	+ httpBasic()
+	+ authorizeRequests() [deprecated]
 3. filters order
 	<pre>
 	01. ChannelProcessingFilter
@@ -143,9 +143,9 @@
 
 #### 6. SecurityBuilder Custom Configuration 04
 1. me.kickscar.spring.security.config.configurer.SecurityConfig06
-2.  \+ formLogin()
-	 \+ httpBasic()
-	 \+ authorizeHttpRequests()
+2. + formLogin()
+	+ httpBasic()
+	+ authorizeHttpRequests()
 3. filters order
 	<pre>
 	01. ChannelProcessingFilter
@@ -173,9 +173,9 @@
 
 #### 7. SecurityBuilder Custom Configuration 05
 1. me.kickscar.spring.security.config.configurer.SecurityConfig07
-2.  \+ formLogin()
-	 \+ loginpage(...)
-	 \+ authorizeHttpRequests()
+2. + formLogin()
+	+ loginpage(...)
+	+ authorizeHttpRequests()
 3. filters order
 	<pre>
 	01. ChannelProcessingFilter
