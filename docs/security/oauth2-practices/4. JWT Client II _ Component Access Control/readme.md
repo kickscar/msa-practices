@@ -54,7 +54,7 @@
 	</AuthContextRouter>
 	```
 
-&lt;Profile&gt;, &lt;Setting&gt; 컴포넌트는 토큰 존재 여부를 자신들이 각각 확인 하는 것이 아니라 &lt;AuthRequired&gt; 컴포넌트가 확인해주면 된다.  &lt;Signin&gt;, &lt;Signup&gt; 도 마찬가지로 반대 작업을 &lt;AuthNotRequired&gt;가 해주면 된다.
+	&lt;Profile&gt;, &lt;Setting&gt; 컴포넌트는 토큰 존재 여부를 자신들이 각각 확인 하는 것이 아니라 &lt;AuthRequired&gt; 컴포넌트가 확인해주면 된다.  &lt;Signin&gt;, &lt;Signup&gt; 도 마찬가지로 반대 작업을 &lt;AuthNotRequired&gt;가 해주면 된다.
 	
 2.	같은 Security 요구 사항을 부모 Nesting Route Component인 &lt;AuthRequired&gt;, &lt;AuthNotRequired&gt; 에서 하는 것이 횡단 관심 분리 차원에서 좋다.
 
