@@ -1,9 +1,9 @@
 ## 1. OAuth2 Basics
 
-#### OAuth2 (Open Authorization 2.0) ?
+#### 1. OAuth2 (Open Authorization 2.0) ?
 Token 기반의 보안 프레임워크으로 인증(Authentication)과 인가(Authorization)에 대한 패턴을 정의
 
-#### OAuth2 Security Terminolgy
+#### 2. OAuth2 Security Terminolgy
 1. 보호 자원(Resource)
 	<p>
 	자격(권한, Authority)이 있는 접근에 대해서만 제공되는 보호대상이 되는 자원을 의미한다. MSA에서는 서비스들의 API 이다. 
@@ -44,10 +44,10 @@ Token 기반의 보안 프레임워크으로 인증(Authentication)과 인가(Au
 	
 7. 인증/인가 서버 (Authorization Server)
 	<p>
-	인증/인가를 수행하는 서버로 클라이언트의 접근 자격을 확인하고 Access Token을 발급하여 권한을 부여하는 역할을 수행한다. 개념적으로 자원 소유자가 정의한 자원 접근에 대한 권한을 자원에 접근하는 클라이언트에게 실제 부여하는 수행 작업을 한다. MSA에서 클라이언트는 인증/인가 서버로의 한 번의 인증과 인가로 부여 받은 권한에 맞는 모든 서비스 접근이 가능해진다. 
+	인증을 수행하고 클라이언트의 접근 권한 확인을 위한 Access Token을 발급하는 역할을 수행한다. 개념적으로 자원 소유자가 정의한 자원 접근 권한을 자원에 접근하는 클라이언트에게 실제 부여하는 수행 작업을 한다. MSA에서 클라이언트는 인증/인가 서버로의 한 번의 인증과 인가로 부여 받은 권한에 맞는 모든 서비스 접근이 가능해진다. 
 	</p>
 
-#### Authorization Grant Flow
+#### 3. Authorization Grant Flows
 1. Authorization Code	
 	![c8e36370cf7eeb49dfb4d5be5ba3fcdc.png](../../../_resources/c8e36370cf7eeb49dfb4d5be5ba3fcdc.png)
 	- Grant Type: authorization_code, code
