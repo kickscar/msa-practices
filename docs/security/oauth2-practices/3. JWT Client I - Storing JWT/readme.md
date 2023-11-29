@@ -1,4 +1,4 @@
-## 3. JWT Client I : Storing JWT
+## 3. JWT Client I - Storing JWT
 
 #### Storing JWT Locally
 1. JWT Client는 access token과 refresh token을 함께 저장한다.

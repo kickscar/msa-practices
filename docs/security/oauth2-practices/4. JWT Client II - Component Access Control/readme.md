@@ -1,4 +1,4 @@
-## 4. JWT Client II : Component Access Control
+## 4. JWT Client II - Component Access Control
 
 #### 1. 개요
 1.	URL에 기반한 서버 사이드 API 접근 제어(Access Control)와 마찬가지로 클라이언트에서도 URL에 기반 React Component 접근 제어가 필요하다.
@@ -23,7 +23,7 @@
 		</BrowserRoter>
 	</AuthContextProvider>					
 	```
-	위와 같은 Router 작성을 &lt;AuthContextProvider&gt;를 사용하여 다음과 같이 간단히 작성할 수 있다.
+	위와 같은 Router 작성을 &lt;AuthContextRouter&gt;를 사용하여 다음과 같이 간단히 작성할 수 있다.
 
 	```jsx
 	<AuthContextRouter>
