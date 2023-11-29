@@ -1,4 +1,4 @@
-## 5. OAuth2 Authorization Server - Embedded Keycloak 
+## 1. OAuth2 Basics
 
 #### OAuth2 (Open Authorization 2.0) ?
 Token 기반의 보안 프레임워크으로 인증(Authentication)과 인가(Authorization)에 대한 패턴을 정의
@@ -23,9 +23,11 @@ Token 기반의 보안 프레임워크으로 인증(Authentication)과 인가(Au
 	<p>
 	자원에 접근하려는 클라이언트에게 접근 자격(Grant)을 부여하는 주체라는 다소 추상적인 개념이다. 실제, OAurth2 구현에서는 이 실제적 수행은 인증/인가 서버(Authorization Server)가 한다.  자원 소유자가 하는 개념적 역할 다음과 같은 것이 있다.
 	</p>	
+	
 	- 클라이언트(Client, Application)가 접근 가능한 자원(서비스) 정의
 	- 클라이언트의 사용자에 대한 접근 권한(Authority) 정의
 	- 클라이언트의 자원 접근에 대한 제어	
+	
 	<p>	 
 	 자원 소유자가 등록한 클라이언트는 이름과 비밀키(Secret Key)가 지정된다.  이름과 키 조합은 인증/인가 서버가 발급(issue)하는 Access Token의 자격 증명(Credential)의 일부가 된다. 앞에서도 언급했지만 자원 소유자가 실제 OAuth2 구현에서 실체가 있는 것이 아니다. 주 요 역할이 자원 접근에 대한 정의와 제어라 하였는데 이는 OAuth2 구현에서 자원 서버의 보안 코드 또는 인증/인가 서버의 설정 등으로 보여 질 수는 있는 OAuth2 권한 부여 플로우 상의 추상적인 개념일 뿐이다. 
 	</p>	 
@@ -46,15 +48,47 @@ Token 기반의 보안 프레임워크으로 인증(Authentication)과 인가(Au
 	</p>
 
 #### Authorization Grant Flow
-1. Authorization Code Grant
+1. Authorization Code	
+	![c8e36370cf7eeb49dfb4d5be5ba3fcdc.png](../../../_resources/c8e36370cf7eeb49dfb4d5be5ba3fcdc.png)
+	- Grant Type: authorization_code, code
+	- Response Type: code
+	- 권한 부여 승인을 위해 자체 생성한 Authorization Code를 전달하는 방식으로 많이 쓰이고 기본이 되는 방식
+	- 간편 로그인 기능에서 사용되는 방식
+	- 클라이언트가 사용자를 대신하여 특정 자원에 접근을 요청할 때 사용되는 방식
+	- 타사의 클라이언트에게 보호된 자원을 제공하기 위한 인증에 사용
+	- Refresh Token의 사용이 가능한 방식
+	- 권한 부여 승인 요청 시 response_type을 code로 지정하여 요청
+	- 클라이언트는 권한 서버에서 제공하는 로그인 페이지를 브라우저를 띄워 출력 (A), (B)
+	- 페이지를 통해 사용자가 로그인을 하면 권한 서버는 권한 부여 승인 코드 요청 시 전달받은 redirect_url로 Authorization Code를 전달 (B), (C)
+	-  Authorization Code는 권한 서버에서 제공하는 API를 통해 Access Token으로 교환 (D), (E)
+	
+2. Implicit
+	![25d9c46a1c18b23cc376e320ab11fa7d.png](../../../_resources/25d9c46a1c18b23cc376e320ab11fa7d.png)
+	- Grant Type: none
+	- Response Type: token
+	- 자격증명을 안전하게 저장하기 힘든 클라이언트에게 최적화된 방식
+	- 암시적 승인 방식에서는 권한 부여 승인 코드 없이 바로 Access Token이 발급
+	- Access Token이 바로 전달되므로 만료기간을 짧게 설정하여 누출의 위험을 줄인다.
+	- Refresh Token 사용이 불가능한 방식
+	- Access Token을 획득하기 위한 절차가 간소화
+	- Access Token이 URL로 전달된다는 단점
 
-2. Implicit Grant 
+3. Resource Owner Password Credentials ***
+	![2c3fd092fbfea793dc094baa3443f2cd.png](../../../_resources/2c3fd092fbfea793dc094baa3443f2cd.png)
+	- Grant Type: password
+	- Response Type: none
+	- 클라이언트가 타사의 외부 Application이 아닌 자신의 클라이언트 애플리케이션인 경우에만 사용
+	- Refresh Token의 사용 가능
+	- 간단하게 자격 인증 (Password Credention)로 Access Token을 받는 방식
 
-3. Resource Owner Password Credentials Grant
-
-4. Client Credentials Grant 
-
-
+4. Client Credentials
+	![beb47cba92bd6c856f7720558c05a0f1.png](../../../_resources/beb47cba92bd6c856f7720558c05a0f1.png)
+	- Grant Type: clinet_credentials
+	- Response Type: none
+	- 클라이언트의 자격 증명만으로 Access Token을 획득하는 방식
+	- 클라이언트 자신이 관리하는 리소스에만 접근 가능
+	- 자격 증명을 안전하게 보관할 수 있는 클라이언트에서만 사용
+	- Refresh Token은 사용할 수 없다.
 
 
 

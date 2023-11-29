@@ -26,7 +26,7 @@
     4) JSON Web Signature (JWS) : JSON 서명 표준, RFC7515
     5) JSON Web Encryption (JWE): JSON 암호화 표준, RFC7516
     
-#### 3. 실습 예제: /security/oauth2-practices/ex01
+#### 3. 실습 예제: /security/jwt-practices/ex01
 1. 설치 패키지
 
 	```sh
@@ -44,16 +44,16 @@
 	```
 
 3. sign & verify
-	- /security/oauth2-practices/ex01/01.js
+	- /security/jwt-practices/ex01/01.js
 		
 4.	JsonWebTokenError: invalid token
-	- /security/oauth2-practices/ex01/02.js
+	- /security/jwt-practices/ex01/02.js
 	
 5.	JsonWebTokenError: invalid signature
-	- /security/oauth2-practices/ex01/03.js
+	- /security/jwt-practices/ex01/03.js
 		
 6.	TokenExpiredError: jwt expired
-	- /security/oauth2-practices/ex01/04.js
+	- /security/jwt-practices/ex01/04.js
 
 #### 4. https://jwt.io 에서 decode 하기
 ![3391fb8e2dfc61f583fa56a64c5842dd.png](../../../_resources/3391fb8e2dfc61f583fa56a64c5842dd.png)

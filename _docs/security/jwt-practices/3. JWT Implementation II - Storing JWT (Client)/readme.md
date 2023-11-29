@@ -1,4 +1,4 @@
-## 3. JWT Client I - Storing JWT
+## 3. JWT Implementation II - Storing JWT (Client)
 
 #### Storing JWT Locally
 1. JWT Client는 access token과 refresh token을 함께 저장한다.
@@ -15,7 +15,7 @@
 
 3. 예제
 	1) &lt;AuthContextProvider&gt; 작성
-	2)  /security/oauth2-practices/ex03
+	2)  /security/jwt-practices/ex03
 
 4. 설치 패키지
 

@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>me.kickscar.spring.security</groupId>
-  <artifactId>spring-security-filters</artifactId>
+  <artifactId>spring-security-practices</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>

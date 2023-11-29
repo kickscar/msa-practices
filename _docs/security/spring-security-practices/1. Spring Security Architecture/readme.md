@@ -1,7 +1,7 @@
 ## 1. Spring Security Architecture
 ![c8d352e44262d2618cc7e8ee6a551c3b.png](../../../_resources/c8d352e44262d2618cc7e8ee6a551c3b.png)
 
-#### 예제 01: spring-security-filters
+#### 예제 01: /security/spring-security-practices
 1. FilterChainProxy Bean 명시적 생성
 2. SecurityFilterChain 직접 구현
 3. Security Configuration

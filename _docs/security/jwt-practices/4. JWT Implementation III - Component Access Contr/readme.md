@@ -1,4 +1,4 @@
-## 4. JWT Client II - Component Access Control
+## 4. JWT Implementation III - Component Access Control (Client) 
 
 #### 1. 개요
 1.	URL에 기반한 서버 사이드 API 접근 제어(Access Control)와 마찬가지로 클라이언트에서도 URL에 기반 React Component 접근 제어가 필요하다.
@@ -8,7 +8,7 @@
 	- &lt;AuthRoutes&gt;
 	- &lt;AuthRequired&gt;, &lt;AuthNotRequired&gt;
 	- &lt;AuthContextProvider&gt;
-4. 참고 예제 : /security/oauth2-practices/ex04/src/auth
+4. 참고 예제 : /security/jwt-practices/ex04/src/auth
 
 #### 2. &lt;AuthContextRouter&gt;
 1.	&lt;AuthContextProvider&gt;가 &lt;BrowserRouter&gt;를 nest하게 한다.
@@ -82,7 +82,7 @@
 7. 기존의 일반적인 중첩 라우팅도 가능하다. 
 
 #### 5. 적용하고 테스트 하기
-1. 예제 : /security/oauth2-practices/ex04
+1. 예제 : /security/jwt-practices/ex04
 2. 설치 패키지
 
 	```sh
