@@ -21,7 +21,7 @@ Token 기반의 보안 프레임워크으로 인증(Authentication)과 인가(Au
  
 4. 자원 소유자(Resource Owner)
 	<p>
-	자원에 접근하려는 클라이언트에게 접근 자격(Grant)을 부여하는 주체라는 다소 추상적인 개념이다. 실제, OAurth2 구현에서는 이 실제적 수행은 인증/인가 서버(Authorization Server)가 한다.  자원 소유자가 하는 개념적 역할 다음과 같은 것이 있다.
+	자원에 접근하려는 클라이언트에게 접근 자격(Grant)을 부여하는 주체라는 다소 추상적인 개념이다. 일반적인 애플리케이션 또는 서비스에서는 사용자(End User)로 통용된다. 자원 소유자가 하는 개념적인 역할은 다음과 같은 것이 있다.
 	</p>	
 	
 	- 클라이언트(Client, Application)가 접근 가능한 자원(서비스) 정의
@@ -29,29 +29,34 @@ Token 기반의 보안 프레임워크으로 인증(Authentication)과 인가(Au
 	- 클라이언트의 자원 접근에 대한 제어	
 	
 	<p>	 
-	 자원 소유자가 등록한 클라이언트는 이름과 비밀키(Secret Key)가 지정된다.  이름과 키 조합은 인증/인가 서버가 발급(issue)하는 Access Token의 자격 증명(Credential)의 일부가 된다. 앞에서도 언급했지만 자원 소유자가 실제 OAuth2 구현에서 실체가 있는 것이 아니다. 주 요 역할이 자원 접근에 대한 정의와 제어라 하였는데 이는 OAuth2 구현에서 자원 서버의 보안 코드 또는 인증/인가 서버의 설정 등으로 보여 질 수는 있는 OAuth2 권한 부여 플로우 상의 추상적인 개념일 뿐이다. 
+	 자원 소유자에 등록된 클라이언트는 이름과 비밀키(Secret Key)가 지정된다.  이름과 키 조합은 인증/인가 서버가 발급(issue)하는 Access Token의 자격 증명(Credential)의 일부가 된다. 
 	</p>	 
 
 5. 인가(Authorization) 
 	<p>
-	특정 자원에 대한 접근 권한(Authority)를 부여(Grant) 하는 것이다. 접근은 클라이언트 애플리케이션의 API 호출의 URL 그리고 HTTP Method의 조합으로 이루어지기 때문에 실제로는 애플리케이션의 사용자(Principal, 접근 주체) 들에게 부여된다 볼 수 있다. 따라서 사용자의 신원(Identity)을 확인하는 인증(Authentication)이 인가에서는 필수이고 먼저 선행된다. 따라서 개념적으로는 인가에는 인증이 어느정도 포함되어 있다.
+	특정 자원에 대한 접근 권한(Authority)를 부여(Grant) 하는 것이다. 접근이라는 것이 클라이언트 애플리케이션의 API URL과 HTTP Method의 조합으로 이루어지기 때문에 실제로 권한은 애플리케이션의 사용자(Principal, 접근 주체) 들에게 부여된다 볼 수 있다. 따라서 사용자의 신원(Identity)을 확인하는 인증(Authentication)이 인가 전에 선행된다. 따라서 개념적으로는 인가에는 인증이 포함되어 있다.
 	</p>	
 
 6. 인증(Authentication)
 	<p> 
-	특정 자원 접근에 인가(Authorization)되기 위해서는 접근 권한(Authority)을 부여(Grant) 받아야 하고 접근 주체(Principal)인 사용자는 자격 증명(Credentials)을 제출해 신원(Identity)을 먼저 확인 받아야 한다. 이를 인증이라 한다. 복잡하게 보안스럽게 얘기했지만 쉽게 말하면 로그인 또는 사인인(Sign-in)이다. 보안 측면에서 보면 sign-in이 더 맞는 말이다.
+	특정 자원에 접근하는 접근 주체(Principal)인 사용자는 자격 증명(Credentials)을 제출해 신원(Identity)을 먼저 확인받고 신원에 부여(Grant)된 접근 권한(Authority)으로 자원 서버에게 인가를 받아 보호된 자원에 접근하게 된다. 이 중에 맨 앞의 자격 증명(Credentials)을 제출해 신원(Identity)을 먼저 확인받는 것을 인증이라 한다. 애플리케이션 사용자 입장에서 보면 로그인 또는 사인인(Sign-in)이라 부르는기능이다. 보안 측면에서 보면 sign-in 이라는 말이 더 맞는 거 같다.
 	</p>
 	
 7. 인증/인가 서버 (Authorization Server)
 	<p>
-	인증을 수행하고 클라이언트의 접근 권한 확인을 위한 Access Token을 발급하는 역할을 수행한다. 개념적으로 자원 소유자가 정의한 자원 접근 권한을 자원에 접근하는 클라이언트에게 실제 부여하는 수행 작업을 한다. MSA에서 클라이언트는 인증/인가 서버로의 한 번의 인증과 인가로 부여 받은 권한에 맞는 모든 서비스 접근이 가능해진다. 
+	인증을 수행하고 클라이언트의 접근 권한 확인을 위한 Access Token을 발급하는 역할을 수행한다. 개념적으로 자원 소유자가 정의한 자원 접근 권한을 자원에 접근하는 클라이언트에게 실제 부여하는 수행 작업을 한다. MSA에서 클라이언트는 인증/인가 서버로의 단 한 번의 인증과 부여 받은 권한으로 인가된 서비스 접근이 가능해진다. 이를 SSO(Single Sign-On) 이라 한다. 
 	</p>
 
 #### 3. Authorization Grant Flows
+자원에 접근하려는 클라이언트가 인증을 받고 부여된 권한이 포함된 Access Token를 발급 받기 까지의 플로우를 OAuth2는 다음의 네가지 방식으로 상세하고 있다. 우리는 개발하려고 하는 애플리케이션 또는 서비스의 보안 인프라에 맞는 플로우를 먼저 이 중에서 선택해야 한다. 그리고 선택한 플로우의 표준 규격을 잘 이해하고 클라이언트, 리소스 서버 그리고 인증/인가 서버 이렇게 크게 세 부분으로 나눠 실제 보안 개발을 해야 한다.
+
+한편, OAuth2 표준 규격에는 Access Token의 상세, 인증 방식, 권한을 다루는 방법 그리고 인가 방식 등은 전혀 언급하지 않는다. 응용개발에서 다루어야 하는 것들이기 때문이다. 우리는 Access Token 상세는 JWT 표준 상세를 사용할 것이다. 인증 방식과 권한을 다루는 방법 등은 Spring Authorization Server  Framework도  좋은 선택이지만 JBoss의 Keycloak 솔루션을 사용한다. 인가 방식을 다루는 리소스 서버와 플로우를 수행하는 OAuth2 클라이언트는 Spring Security  Framework의 OAuth API를 사용한다.      
+
 1. Authorization Code	
 	![c8e36370cf7eeb49dfb4d5be5ba3fcdc.png](../../../_resources/c8e36370cf7eeb49dfb4d5be5ba3fcdc.png)
 	- Grant Type: authorization_code, code
 	- Response Type: code
+	- Standard Flow
 	- 권한 부여 승인을 위해 자체 생성한 Authorization Code를 전달하는 방식으로 많이 쓰이고 기본이 되는 방식
 	- 간편 로그인 기능에서 사용되는 방식
 	- 클라이언트가 사용자를 대신하여 특정 자원에 접근을 요청할 때 사용되는 방식
@@ -83,7 +88,7 @@ Token 기반의 보안 프레임워크으로 인증(Authentication)과 인가(Au
 
 4. Client Credentials
 	![beb47cba92bd6c856f7720558c05a0f1.png](../../../_resources/beb47cba92bd6c856f7720558c05a0f1.png)
-	- Grant Type: clinet_credentials
+	- Grant Type: client_credentials
 	- Response Type: none
 	- 클라이언트의 자격 증명만으로 Access Token을 획득하는 방식
 	- 클라이언트 자신이 관리하는 리소스에만 접근 가능
