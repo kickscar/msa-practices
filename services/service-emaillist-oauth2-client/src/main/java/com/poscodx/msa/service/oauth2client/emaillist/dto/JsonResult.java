@@ -1,4 +1,4 @@
-package com.poscodx.msa.service.user.dto;
+package com.poscodx.msa.service.oauth2client.emaillist.dto;
 
 public class JsonResult {
 	private String result;	//"success" or "fail"

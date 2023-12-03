@@ -1,16 +1,15 @@
-package com.poscodx.msa.service.user;
+package com.poscodx.msa.service.oauth2client.emaillist;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-public class ServiceUser {
+public class EmaillistOAuth2Client {
 
     public static void main(String[] args) {
-        SpringApplication.run(ServiceUser.class, args);
+        SpringApplication.run(EmaillistOAuth2Client.class, args);
     }
 
     @Bean

@@ -11,7 +11,7 @@
 	</parent>
 		
 	<groupId>com.poscodx.msa</groupId>
-	<artifactId>service-user</artifactId>
+	<artifactId>service-emaillist-oauth2-client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
@@ -23,16 +23,20 @@
 
 	<dependencies>
 		<!-- Spring Cloud Discovery: Netflix Eureka Client -->
+		<!--
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-
+		-->
+		
 		<!-- Spring Cloud Config Client -->
+		<!--
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+		-->
 		
 		<!-- Spring Boot DevTools: Live Reload -->
 		<dependency>
@@ -40,12 +44,24 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 
-		<!-- Web Starter -->
+		<!-- Spring Boot Web Starter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- Spring Security Starter -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		<!-- Spring OAuth2 Client Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+        		
 		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -74,7 +90,7 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>service-guestbook</finalName>
+		<finalName>service-emaillist-oauth2-client</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -1,13 +1,22 @@
 package com.poscodx.msa.service.emaillist.controller;
 
+
+import java.util.List;
+
+import javax.servlet.Filter;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.FilterChainProxy;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.poscodx.msa.service.emaillist.dto.JsonResult;
 import com.poscodx.msa.service.emaillist.repository.EmaillistRepository;
@@ -20,6 +29,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/")
 public class ApiController {
 
+	@Autowired
+	private WebApplicationContext context;
+	
 	private EmaillistRepository emaillistRepository;
 	
 	public ApiController(EmaillistRepository emaillistRepository) {
@@ -31,6 +43,14 @@ public class ApiController {
 	public ResponseEntity<?> read(@RequestParam(value="kw", required=true, defaultValue="") String keyword) {		
 		log.info("Request[GET /]:"+ keyword);
 		
+		FilterChainProxy filterChainProxy = (FilterChainProxy)context.getBean("springSecurityFilterChain", Filter.class);
+        SecurityFilterChain securityFilterChain = filterChainProxy.getFilterChains().get(0);
+        List<Filter> filters =  securityFilterChain.getFilters();
+
+        for(Filter filter : filters) {
+            System.out.println(filter.getClass());
+        }
+        
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(emaillistRepository.findAll(keyword)));

@@ -1,0 +1,66 @@
+spring:
+   application:
+      name: service-user
+   profiles:
+      active: development
+
+
+---
+# configuration: common
+#spring:
+#   cloud:
+#      config:
+#         enabled: true
+#         uri: http://localhost:7777
+
+
+---
+# configuration: development
+spring:
+   config:
+      activate:
+         on-profile: development
+#      import: optional:configserver:http://localhost:7777
+   devtools:
+      livereload:
+         enabled: true
+         
+   security:
+      oauth2:
+         client:
+            registration:
+               emaillist-oauth2-client:
+                  provider: keycloak-authorization-server                  
+                  authorization-grant-type: authorization_code
+                  redirect-uri: "http://localhost:8888/login/oauth2/code/{registrationId}"
+                  client-id: emaillist
+                  client-secret: XQklyMSQ5l2wmKK8wuoa0aV5Os5M2fY1
+                  scope: [openid, profile, email, roles]
+            provider:
+                keycloak-authorization-server:
+                   issuer-uri: http://localhost:5555/realms/poscodx2023-realm
+                   authorization-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/auth
+                   token-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/token
+                   user-name-attribute: preferred_username           
+
+server:
+   port: 8888 
+   servlet:
+      context-path: /
+      encoding:
+         charset: utf-8
+         enabled: true 
+         
+logging:
+   pattern:
+      console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   level:
+      root: DEBUG
+      
+---
+# configuration: production
+spring:
+   config:
+      activate:
+         on-profile: production
+      import: optional:configserver:http://192.168.0.172:7777

@@ -42,20 +42,22 @@ spring:
          
    cloud:
       config:
-         enabled: false         
+         enabled: false
+                  
    security:
       oauth2:
          client:
             registration:
-               keycloak:
+               keyclock:
                   client-id: emaillist
-                  scope: openid
+                  client-secret: XQklyMSQ5l2wmKK8wuoa0aV5Os5M2fY1
+                  scope: [ openid, profile, email ]
                   authorization-grant-type: authorization_code
+                  redirect-uri: "http://localhost:8888/api/emaillist/oauth2/code/{registrationId}"
             provider:
-                keycloak:
-                   issuer-uri: http://localhost:5555/realms/mysite-realm
+                keyclock:
+                   authorization-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/auth
+                   token-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/token
+                   issuer-uri: http://localhost:5555/realms/poscodx2023-realm
                    user-name-attribute: preferred_username
-         resourceserver:
-           jwt:
-              issuer-uri: http://localhost:5555/realms/mysite-realm
                       

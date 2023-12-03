@@ -1,5 +1,7 @@
 package com.poscodx.msa.service.emaillist.security;
 
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.stream.Stream;
 
@@ -7,27 +9,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -44,42 +42,81 @@ public class Config {
 
 	@Bean
 	SecurityFilterChain scurityFilterChain(HttpSecurity http,
-			Converter<Jwt, JwtAuthenticationToken> jwtAuthenticationConverter, LogoutHandler keycloakLogoutHandler)
+			Converter<Jwt, JwtAuthenticationToken> jwtAuthenticationConverter,
+			LogoutHandler keycloakLogoutHandler)
 			throws Exception {
 
-		http
-			.csrf(csrf -> csrf.disable())
-			.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+		//http
+			//.csrf(csrf -> csrf.disable())
+			//.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			
-			.logout().addLogoutHandler(keycloakLogoutHandler).logoutSuccessUrl("/").and()
+			//.logout().addLogoutHandler(keycloakLogoutHandler).logoutSuccessUrl("/");
 
-				//
-				// OAuth2LoginAuthenticationFilter enable
-				// This filter intercepts requests and applies the needed logic for OAuth2
-				// authentication
-				//
-				// .oauth2Login()
-				// .and()
-				//
+			//
+			// OAuth2LoginAuthenticationFilter enable
+			// This filter intercepts requests and applies the needed logic for OAuth2 authentication
+			//
+            
+		http
+			.oauth2Login(oauth2Configurer -> {
+				oauth2Configurer
 			
-			// .formLogin().loginProcessingUrl("/user/auth").usernameParameter("email").passwordParameter("password")
-			// .and()
+                    .loginPage("/login")
+                    .successHandler(successHandler());
+			});
 			
+		http	
 			.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
 				authorizationManagerRequestMatcherRegistry
-					.requestMatchers(new RegexRequestMatcher("^/admin$", null)).hasRole("ADMIN")
-					
-					.requestMatchers(new RegexRequestMatcher("^/$", "POST")).hasAnyRole("USER")
-					
-					.anyRequest().permitAll();
+					.antMatchers("/", "/oauth2/**").permitAll()
+					.anyRequest().denyAll();
 			});
+//            .authorizationEndpoint().baseUri("/oauth2/authorization")
+//            .and()
+//            .redirectionEndpoint().baseUri("/oauth2/callback/*");
+//            .and()
+//            .userInfoEndpoint();
+            
+			
+			
+//			http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
+//				authorizationManagerRequestMatcherRegistry
+//					.requestMatchers(new RegexRequestMatcher("^/admin$", null)).hasRole("ADMIN")
+//					
+//					.requestMatchers(new RegexRequestMatcher("^/$", "POST")).hasAnyRole("WRITE")
+//					
+//					.anyRequest().permitAll();
+//			});
 
 		// The oauth2ResourceServer method will validate the bound JWT token against Keycloak Server
-		http.oauth2ResourceServer((oauth2) -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
+		// http.oauth2ResourceServer((oauth2) -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
 
 		return http.build();
 	}
 
+	
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return ((request, response, authentication) -> {
+            DefaultOAuth2User defaultOAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
+            
+            System.out.println(authentication);
+//            String id = defaultOAuth2User.getAttributes().get("id").toString();
+//            String body = """
+//                    {"id":"%s"}
+//                    """.formatted(id);
+ 
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+ 
+            PrintWriter writer = response.getWriter();
+            writer.println("success");
+            writer.flush();
+        });
+    }	
+	
+	
+	
 	@LoadBalanced
 	@Bean
 	RestTemplate restTemplte() {
@@ -194,13 +231,13 @@ public class Config {
 
 	}
 
-	@Bean
-	@ConditionalOnProperty(prefix = "spring.config.activate", name = "on-profile", havingValue = "test")
-	ClientRegistrationRepository clientRegistrationRepository() {
-		ClientRegistration dummyRegistration = ClientRegistration.withRegistrationId("dummy").clientId("dummy")
-				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE).redirectUri("/").scope("openid")
-				.authorizationUri("/").tokenUri("/").build();
-
-		return new InMemoryClientRegistrationRepository(dummyRegistration);
-	}
+//	@Bean
+//	@ConditionalOnProperty(prefix = "spring.config.activate", name = "on-profile", havingValue = "development")
+//	ClientRegistrationRepository clientRegistrationRepository() {
+//		ClientRegistration dummyRegistration = ClientRegistration.withRegistrationId("dummy").clientId("dummy")
+//				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE).redirectUri("/").scope("openid")
+//				.authorizationUri("/").tokenUri("/").build();
+//
+//		return new InMemoryClientRegistrationRepository(dummyRegistration);
+//	}
 }

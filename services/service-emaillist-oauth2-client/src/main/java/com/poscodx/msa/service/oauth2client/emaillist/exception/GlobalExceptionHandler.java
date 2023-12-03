@@ -1,4 +1,4 @@
-package com.poscodx.msa.service.user.exception;
+package com.poscodx.msa.service.oauth2client.emaillist.exception;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import com.poscodx.msa.service.user.dto.JsonResult;
+import com.poscodx.msa.service.oauth2client.emaillist.dto.JsonResult;
 
 import lombok.extern.slf4j.Slf4j;
 
