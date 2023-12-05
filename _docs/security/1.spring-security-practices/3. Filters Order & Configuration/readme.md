@@ -1,7 +1,14 @@
 ## 3. Filters Order & Configuration
+#### Practiccal Configuration
+1. @EnableWebSecurity 사용
+2. FilterChainProxy Bean 암시적 생성
+3. WebSecurityCustomizer: Spring Security Filter Chain에서 제외, Deprecated*
+4. HttpSecurity(SecurityBuilder)를 사용한 SecurityFilterChain 암시적 생성
 
-#### 1. XML Default Configuration
-1. me.kickscar.spring.security.config.configurer.SecurityConfig01.xml
+####  Configuration1 - XML Default
+1. Test
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig01.xml
+	- test: me.kickscar.spring.security.config.configurer.SecurityConfig01Test
 2. filters order
 	<pre>
 	01. ChannelProcessingFilter
@@ -27,8 +34,10 @@
 	21. FilterSecurityInterceptor               (default)  16
 	</pre>
 	
-#### 2. SecurityBuilder Default Configuration
-1. me.kickscar.spring.security.config.configurer.SecurityConfig02
+#### Configuration2 - SecurityBuilder Default 
+1. Test
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig02.xml
+	- test: me.kickscar.spring.security.config.configurer.SecurityConfig02Test
 2. filters order
 	<pre>
 	01. ChannelProcessingFilter
@@ -53,10 +62,14 @@
 	20. ExceptionTranslationFilter              (default)  11
 	21. FilterSecurityInterceptor
 	</pre>
+ 
 	
-#### 3. SecurityBuilder Custom Configuration 01
-1. me.kickscar.spring.security.config.configurer.SecurityConfig03
-2. + formLogin()
+#### Configuration3 - Custom SecurityBuilder
+1. Test
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig03.xml
+	- test: me.kickscar.spring.security.config.configurer.SecurityConfig03Test
+2. formLogin()
+	- FormLoginConfigurer
 3. filters order
 	<pre>
 	01. ChannelProcessingFilter
@@ -82,11 +95,16 @@
 	21. FilterSecurityInterceptor
 	</pre>
 	
-#### 4. SecurityBuilder Custom Configuration 02
-1. me.kickscar.spring.security.config.configurer.SecurityConfig04
-2. + formLogin()
-	+ httpBasic() 
-3. filters order
+#### Configuration4 - Custom SecurityBuilder
+1. Test
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig04.xml
+	- test: me.kickscar.spring.security.config.configurer.SecurityConfig04Test
+2. formLogin()
+	- FormLoginConfigurer
+3. httpBasic()
+	- HttpBasicConfigurer
+	-  configure HTTP Basic authentication  
+4. filters order
 	<pre>
 	01. ChannelProcessingFilter
 	02. DisableEncodeUrlFilter                  (default)  1
@@ -111,12 +129,19 @@
 	21. FilterSecurityInterceptor
 	</pre>
 	
-#### 5. SecurityBuilder Custom Configuration 03
-1. me.kickscar.spring.security.config.configurer.SecurityConfig05
-2. + formLogin()
-	+ httpBasic()
-	+ authorizeRequests() [deprecated]
-3. filters order
+#### Configuration 5 - CustomSecurityBuilder 
+1. Test
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig04.xml
+	- test: me.kickscar.spring.security.config.configurer.SecurityConfig04Test
+2. formLogin()
+	- FormLoginConfigurer
+3. httpBasic()
+	- HttpBasicConfigurer
+	- configure HTTP Basic authentication  
+4. authorizeRequests() [Deprecated]
+	- Access Control
+	- Authorization Configurer
+5. filters order
 	<pre>
 	01. ChannelProcessingFilter
 	02. DisableEncodeUrlFilter                  (default)  1
@@ -141,12 +166,19 @@
 	21. FilterSecurityInterceptor                          16  *  [deprecated]
 	</pre>
 
-#### 6. SecurityBuilder Custom Configuration 04
-1. me.kickscar.spring.security.config.configurer.SecurityConfig06
-2. + formLogin()
-	+ httpBasic()
-	+ authorizeHttpRequests()
-3. filters order
+#### Configuration 6 - Custom SecurityBuilder
+1. Test
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig04.xml
+	- test: me.kickscar.spring.security.config.configurer.SecurityConfig04Test
+2. formLogin()
+	- FormLoginConfigurer
+3. httpBasic()
+	- HttpBasicConfigurer
+	- configure HTTP Basic authentication
+4. authorizeHttpRequests()
+	- Access Control
+	- Authorization Configurer
+5. filters order
 	<pre>
 	01. ChannelProcessingFilter
 	02. DisableEncodeUrlFilter                  (default)  1
@@ -171,12 +203,17 @@
 	21. AuthorizationFilter                                16  *
 	</pre>
 
-#### 7. SecurityBuilder Custom Configuration 05
-1. me.kickscar.spring.security.config.configurer.SecurityConfig07
-2. + formLogin()
-	+ loginpage(...)
-	+ authorizeHttpRequests()
-3. filters order
+#### Configuration 7 - Custom SecurityBuilder
+1. Test
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig07.xml
+	- test: me.kickscar.spring.security.config.configurer.SecurityConfig07Test
+2. formLogin()
+	- FormLoginConfigurer
+	- loginpage(...): the login page to redirect to if authentication is required
+3. authorizeHttpRequests()
+	- Access Control
+	- Authorization Configurer
+4. filters order
 	<pre>
 	01. ChannelProcessingFilter
 	02. DisableEncodeUrlFilter                  (default)  1
@@ -201,5 +238,5 @@
 	21. AuthorizationFilter                                13
 	</pre>
 
-#### 8. SecurityBuilder Custom Configuration (Practical Recommendation)
+#### 8. Practical Configuration (Recommanded) - Custom SecurityBuilder
 [참고] /monolithics/mysite06 

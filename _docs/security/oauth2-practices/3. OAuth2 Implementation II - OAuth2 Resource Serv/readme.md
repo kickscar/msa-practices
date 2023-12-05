@@ -1,1 +1,1 @@
-## 3. OAuth2 Implementation III - OAuth2 Resource Server
+## 3. OAuth2 Implementation II - OAuth2 Resource Server
