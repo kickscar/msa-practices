@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations={"classpath:me/kickscar/web/config/WebConfig.xml", "classpath:me/kickscar/spring/security/config/explicit/SecurityConfig01.xml"})
+@ContextConfiguration(locations={"classpath:me/kickscar/web/config/WebConfig.xml", "classpath:me/kickscar/spring/security/config/configurer/SecurityConfig01.xml"})
 @WebAppConfiguration
 public class SecurityConfig01Test {
     private MockMvc mvc;

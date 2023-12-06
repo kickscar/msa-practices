@@ -1,13 +1,16 @@
 ## 3. Filters Order & Configuration
-#### Practiccal Configuration
+#### Practical Configuration
 1. @EnableWebSecurity 사용
 2. FilterChainProxy Bean 암시적 생성
-3. WebSecurityCustomizer: Spring Security Filter Chain에서 제외, Deprecated*
+3. WebSecurityCustomizer(Deprecated)
+	- Spring Security Filter Chain(SecurityFilterChain)의 제외 대상 URI 설정
+	- SecurityFilterChain의 Access Control로 제외 대상 URI 설정이 가능하기 때문에
+	- 
 4. HttpSecurity(SecurityBuilder)를 사용한 SecurityFilterChain 암시적 생성
 
 ####  Configuration1 - XML Default
 1. Test
-	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig01.xml
+	- configuration: me/kickscar/spring/security/config/configurer/SecurityConfig01.xml
 	- test: me.kickscar.spring.security.config.configurer.SecurityConfig01Test
 2. filters order
 	<pre>
@@ -36,7 +39,7 @@
 	
 #### Configuration2 - SecurityBuilder Default 
 1. Test
-	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig02.xml
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig02
 	- test: me.kickscar.spring.security.config.configurer.SecurityConfig02Test
 2. filters order
 	<pre>
@@ -66,7 +69,7 @@
 	
 #### Configuration3 - Custom SecurityBuilder
 1. Test
-	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig03.xml
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig03
 	- test: me.kickscar.spring.security.config.configurer.SecurityConfig03Test
 2. formLogin()
 	- FormLoginConfigurer
@@ -97,7 +100,7 @@
 	
 #### Configuration4 - Custom SecurityBuilder
 1. Test
-	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig04.xml
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig04
 	- test: me.kickscar.spring.security.config.configurer.SecurityConfig04Test
 2. formLogin()
 	- FormLoginConfigurer
@@ -131,8 +134,8 @@
 	
 #### Configuration 5 - CustomSecurityBuilder 
 1. Test
-	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig04.xml
-	- test: me.kickscar.spring.security.config.configurer.SecurityConfig04Test
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig05
+	- test: me.kickscar.spring.security.config.configurer.SecurityConfig05Test
 2. formLogin()
 	- FormLoginConfigurer
 3. httpBasic()
@@ -168,8 +171,8 @@
 
 #### Configuration 6 - Custom SecurityBuilder
 1. Test
-	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig04.xml
-	- test: me.kickscar.spring.security.config.configurer.SecurityConfig04Test
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig06
+	- test: me.kickscar.spring.security.config.configurer.SecurityConfig06Test
 2. formLogin()
 	- FormLoginConfigurer
 3. httpBasic()
@@ -205,7 +208,7 @@
 
 #### Configuration 7 - Custom SecurityBuilder
 1. Test
-	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig07.xml
+	- configuration: me.kickscar.spring.security.config.configurer.SecurityConfig07
 	- test: me.kickscar.spring.security.config.configurer.SecurityConfig07Test
 2. formLogin()
 	- FormLoginConfigurer
@@ -238,5 +241,5 @@
 	21. AuthorizationFilter                                13
 	</pre>
 
-#### 8. Practical Configuration (Recommanded) - Custom SecurityBuilder
+#### Practical Configuration (Recommanded) - Custom SecurityBuilder
 [참고] /monolithics/mysite06 
