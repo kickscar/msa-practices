@@ -1,1 +1,0 @@
-## 4. OAuth2 Implementation III - OAuth2 Client

@@ -1,4 +1,4 @@
-## 2. OAuth2 Implementation I - OAuth2 Authorization Server
+## 2. Implementation I - Authorization Server
 
 #### 1. [Spring Security Project](https://spring.io/projects/spring-security)
 Spring Security 프레임워크 기반으로 OAuth2 Authorization Server 및 OAuth2 Client 그리고 OAuth2  Resource Server 구현이 가능하였다. 하지만 2022년 6월, Spring Security Project는 Client 및 Resource Server 지원만 남기고 Authorization Server는 Spring Authorization Server 라는 이름의 단독 프로젝트로 이관 시켰다.
