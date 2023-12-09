@@ -1,12 +1,16 @@
 ## 3. Filters Order & Configuration
+
 #### Practical Configuration
 1. @EnableWebSecurity 사용
 2. FilterChainProxy Bean 암시적 생성
-3. WebSecurityCustomizer(Deprecated)
-	- Spring Security Filter Chain(SecurityFilterChain)의 제외 대상 URI 설정
-	- SecurityFilterChain의 Access Control로 제외 대상 URI 설정이 가능하기 때문에
-	- 
-4. HttpSecurity(SecurityBuilder)를 사용한 SecurityFilterChain 암시적 생성
+3. 2개의 SecurityFilterChain 생성
+4. WebSecurityCustomizer \[Deprecated\]
+	- 주로 Security 제외 대상(접근 허용) URI 설정
+	- SecurityFilterChain의 보안 필터가 없음
+	- HttpSecurity로 이 설정이 가능하기 때문에 Deprecated 되었다.
+5. HttpSecurity(SecurityBuilder)를 사용한 SecurityFilterChain 암시적 생성
+	- 실제적인 액세스 제어 설정
+	- 이 설정으로 생성되는 SecurityFilterChain에 Spring Security Filter들이 생성된다.
 
 ####  Configuration1 - XML Default
 1. Test
@@ -141,7 +145,7 @@
 3. httpBasic()
 	- HttpBasicConfigurer
 	- configure HTTP Basic authentication  
-4. authorizeRequests() [Deprecated]
+4. authorizeRequests() \[Deprecate\]
 	- Access Control
 	- Authorization Configurer
 5. filters order

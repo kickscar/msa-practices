@@ -44,16 +44,16 @@
 	```
 
 3. sign & verify
-	- /security/jwt-practices/ex01/01.js
+	- /oauth2-practices/jwt/ex01/01.js
 		
 4.	JsonWebTokenError: invalid token
-	- /security/jwt-practices/ex01/02.js
+	- /oauth2-practices/jwt/ex01/02.js
 	
 5.	JsonWebTokenError: invalid signature
-	- /security/jwt-practices/ex01/03.js
+	- /oauth2-practices/jwt/ex01/03.js
 		
 6.	TokenExpiredError: jwt expired
-	- /security/jwt-practices/ex01/04.js
+	- /oauth2-practices/jwt/ex01/04.js
 
 #### 4. https://jwt.io 에서 decode 하기
 ![3391fb8e2dfc61f583fa56a64c5842dd.png](../../../_resources/3391fb8e2dfc61f583fa56a64c5842dd.png)

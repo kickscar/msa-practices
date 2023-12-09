@@ -2,7 +2,7 @@
 ![c8d352e44262d2618cc7e8ee6a551c3b.png](../../../_resources/c8d352e44262d2618cc7e8ee6a551c3b.png)
 
 #### 예제
-1. /security/spring-security-practices
+1. /oauth2-practices/spring-security-basics
 2. FilterChainProxy Bean 명시적 생성
 3. Security Configuration1
 	- me.kickscar.spring.security.config.explicit.SecurityConfig01

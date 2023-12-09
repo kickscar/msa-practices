@@ -1,4 +1,4 @@
-## 2. JWT Implementation I - JWT Simple Server
+## 2. JWT Simple Server
 
 ![Json-Web-Token.jpg](../../../_resources/Json-Web-Token.jpg)
 (3) 참고
@@ -6,7 +6,7 @@
 #### 1. WorkFlow
 ![5f527d2634b5d4290e36177a37a463ee.png](../../../_resources/5f527d2634b5d4290e36177a37a463ee.png)
 
-#### 2. 간단 구현 서버: /security/jwt-practices/ex02 
+#### 2. 간단 구현 서버: /oauth2-practices/jwt/ex02 
 1. 설치 패키지
 
 	```sh

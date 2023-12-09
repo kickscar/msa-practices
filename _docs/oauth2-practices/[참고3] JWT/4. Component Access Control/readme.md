@@ -1,4 +1,4 @@
-## 4. JWT Implementation III - Component Access Control (Client) 
+## 4. Component Access Control
 
 #### 1. 개요
 1.	URL에 기반한 서버 사이드 API 접근 제어(Access Control)와 마찬가지로 클라이언트에서도 URL에 기반 React Component 접근 제어가 필요하다.
@@ -82,7 +82,7 @@
 7. 기존의 일반적인 중첩 라우팅도 작성 가능하다. 
 
 #### 5. 적용하고 테스트 하기
-1. 예제 : /security/jwt-practices/ex04
+1. 예제 : /oauth2-practices/jwt/ex04
 2. 설치 패키지
 
 	```sh
