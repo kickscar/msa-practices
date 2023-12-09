@@ -72,21 +72,26 @@
 		![d5b742ff3f3692dd1e8a2b95dd1d5df8.png](../../../_resources/d5b742ff3f3692dd1e8a2b95dd1d5df8.png)
 		<br>
 	
+	
 	-	Clinet 설정
-		![555536728c703a029ea2d15dda636a7c.png](../../../_resources/555536728c703a029ea2d15dda636a7c.png)
-		1)	Client ID : emaillist
-		2)	Enabled : ON
-		3)	Client Protocol : openid-connect
-		4)	Access Type : Confidential
-		5)	Standard Flow Enabled : On (Authorization Code Grant)
-		6)	Implicit Flow Enabled: On (Implicit Grant)
-		7)	Direct Access Grant Enabled : On (Resource Owner Password Credentials Grant)
-		8)	Service Account Enabled : On
-		9)	Authorization Grant Enabled : On
-		10)	Valid Redirect URIs: http://localhost:8888/*
-		11)	 Web Origins: *
-		12)	 Backchannel Logout Session Required: On
-
+	
+	![555536728c703a029ea2d15dda636a7c.png](../../../_resources/555536728c703a029ea2d15dda636a7c.png)
+	
+	<pre>
+	1) Client ID : emaillist
+	2) Enabled : ON
+	3) Client Protocol : openid-connect
+	4) Access Type : Confidential
+	5) Standard Flow Enabled : On (Authorization Code Grant)
+	6) Implicit Flow Enabled: On (Implicit Grant)
+	7) Direct Access Grant Enabled : On (Resource Owner Password Credentials Grant)
+	8) Service Account Enabled : On
+	9) Authorization Grant Enabled : On
+	10) Valid Redirect URIs: http://localhost:8888/*
+	11) Web Origins: *
+	12) Backchannel Logout Session Required: On
+	</pre>
+	
 6. Keycloak Security Configuration : roles
 	<p>
 	Keyloak에서는 Role로 표현되는 권한을 Realm Role과 Client Role 이렇게 두 가지로 나눠 생성할 수 있다. OAuth2 에서는 사용자가 클라이언트에게 권한(Role)을 인가한다. Keycloak 설정에서는 생성한 Realm Role과 Client Role을 사용자에게 매핑하는 방식으로 이를 구현한다.
