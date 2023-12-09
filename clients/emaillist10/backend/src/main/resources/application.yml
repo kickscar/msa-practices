@@ -1,0 +1,93 @@
+spring:
+   application:
+      name: emaillist
+   profiles:
+      active: development
+
+
+---
+# configuration: common
+spring:
+   mvc:
+      static-path-pattern: /assets/**
+      throw-exception-if-no-handler-found: true
+   web:
+      resources:
+         static-locations: classpath:/assets/
+   thymeleaf:
+      prefix : classpath:templates/
+      check-template-location: true
+      mode: HTML5
+      suffix : .html
+      cache : false
+      
+
+---
+# configuration: development
+spring:
+   devtools:
+      livereload:
+         enabled: true
+   security:
+      oauth2:
+         client:
+            provider:
+                keycloak-authorization-server:
+                   issuer-uri: http://localhost:5555/realms/poscodx2023-realm
+                   authorization-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/auth
+                   token-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/token
+                   user-name-attribute: preferred_username           
+            registration:
+                emaillist-oauth2-client:
+                   provider: keycloak-authorization-server                  
+                   authorization-grant-type: authorization_code
+                   redirect-uri: "http://localhost:8080/login/oauth2/code/{registrationId}"
+                   client-id: emaillist
+                   client-secret: XQklyMSQ5l2wmKK8wuoa0aV5Os5M2fY1
+                   scope: [openid, profile, email, roles]
+
+server:
+   port: 8080
+   servlet:
+      context-path: /
+      encoding:
+         charset: utf-8
+         enabled: true 
+         
+logging:
+   pattern:
+      console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   level:
+      root: DEBUG
+      
+---
+# configuration: production
+spring:
+   config:
+      activate:
+         on-profile: production
+
+server:
+   port: 8084
+   servlet:
+      context-path: /
+      encoding:
+         charset: UTF-8
+         enabled: true
+
+logging:
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
+         max-file-size: 10MB
+         max-history: 10
+   file:
+      name: logs/${spring.application.name}.log
+   level:
+      root: WARN
+      com:
+         poscodx:
+            emaillist:
+               exception: ERROR
