@@ -83,7 +83,10 @@
 		7)	Authorization Grant Enabled : On
 
 6. Keycloak Security Configuration : roles
-	Keyloak에서는 Role로 표현되는 권한을 Realm Role과 Client Role 이렇게 두 가지로 나눠 생성할 수 있다. OAuth2 에서는 사용자가 클라이언트에게 권한(Role)을 인가한다. Keycloak 설정에서
+	<p>
+	Keyloak에서는 Role로 표현되는 권한을 Realm Role과 Client Role 이렇게 두 가지로 나눠 생성할 수 있다. OAuth2 에서는 사용자가 클라이언트에게 권한(Role)을 인가한다. Keycloak 설정에서는 생성한 Realm Role과 Client Role을 사용자에게 매핑하는 방식으로 이를 구현한다.
+	</p>
+	
 	-	Role 생성
 		![7ce00706ca6e99fbd1f16ed8f63f8150.png](../../_resources/7ce00706ca6e99fbd1f16ed8f63f8150.png)
 		Add Role 버튼 클릭
@@ -162,15 +165,16 @@
 
 9. Issue Access Token
 	<p>
-	지금 까지의 Keycloack 설정이 인가 서버 설정의 대부분으로 앞으로도 별다르게 해 줄 설정은 거의 없다. 남은 것은 각각의 Authorization Grant Type Flow에 맞게 클라이언트를 구현해 주면 된다. 우선, Keycloack 설정 테스트를 위해 비교적 쉽게 Token Endopint 호출로만 Access Token 발급이 가능한 Resource Owner Password Credential Grant 방식으로 테스트 해보자.
+	지금 까지의 Keycloack 설정이 인가 서버 설정의 대부분으로 앞으로도 별다르게 해 줄 설정은 거의 없다. 남은 것은 각각의 Authorization Grant Type Flow에 맞게 클라이언트를 구현해 주면 된다. 우선, Keycloack 설정 테스트를 위해 비교적 쉽게 Token Endpoint 호출로만 Access Token 발급이 가능한 Resource Owner Password Credential Grant 방식으로 테스트 해보자.
 	</p>
 	
 	-	Client 인증
 		<p>
-		Resource Owner Password Credential Grant 방식에서는  Token Endopint 호출에 사용자 자격 증명을 위해 username과 password를 보낸다. 그리고 Client 인증이 추가적으로 필요하다. Client 인증은  HTTP 기본 인증(Basic Authentication) 방식으로 처리한다. 따라서 Client 인증을 위한 헤더 내용은 다음과 같다.
+		Resource Owner Password Credential Grant 방식에서는  Token Endopint 호출에 사용자 자격 증명을 위해 username과 password를 보낸다. 그리고 Client 인증이 추가적으로 필요하다. Client 인증은  HTTP 기본 인증(Basic Authentication) 방식으로 처리한다. 따라서 Client 인증을 위한 다음의 헤더 내용이 추가된다.
 		</p>
 	
 		```
+		
 		Authorization Basic ZW1haWxsaXN0OlhRa2x5TVNRNWwyd30sd...
 		
 		```
@@ -204,7 +208,7 @@
 
 10.	Refresh Access Token via Refresh Token
 	<p>
-	Resource Server의 인가를 목적으로 보내는 Access Token 이 유효 기간이 만료되거나 클라이언트 애플리케이션의 Token 저장 방식에 따라 휘발된 경우 Fresh Token으로 Access Token을 재발급 받아 리소스 접근 인가를 위해 사용할 수 있다.
+	Resource 접근과 함께 보내는 Access Token의 유효 기간이 만료되거나 클라이언트 애플리케이션의 Token 저장 방식에 따라 휘발된 경우에는 Fresh Token으로 Access Token을 재발급 받을 수 있다.
 	</P>
 	
 	- Client 인증
@@ -212,7 +216,7 @@
 	
 	- 사용자 인증
 		<p>
-		Access Token을 재발급 받기 위해 사용자의 Credential은 필요하지 않다. Refresh Token을 사용하기 때문이다. 따라서 grant_type이 password에서 fresh_token으로만 변경하면 된다. post 방식으로 보내야 하는 form data는 다음과 같다
+		Access Token을 재발급 받기 위해 사용자의 Credential은 필요하지 않다. Refresh Token을 사용하기 때문이다. 따라서 grant_type이 password에서 fresh_token으로만 변경한다. post 방식으로 보내야 하는 form data는 다음과 같다
 		</p>
 	
 		1)	grant_type: fresh_token
