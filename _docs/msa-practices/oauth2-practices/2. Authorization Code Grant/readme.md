@@ -1,4 +1,4 @@
-Flow A## 2. Authorization Code  Grant
+## 2. Authorization Code  Grant
 
 ### Flow Diagram
 ![c8e36370cf7eeb49dfb4d5be5ba3fcdc.png](../../../_resources/c8e36370cf7eeb49dfb4d5be5ba3fcdc.png)
