@@ -1,10 +1,12 @@
 package com.poscodx.emaillist.security;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -45,7 +47,7 @@ public class Config {
 				.successHandler(successHandler());						// successHandler가 응답하기 전까지는 OAuth2AuthorizedClientService에 OAuth2AuthorizedClient가 있기 때문에 JWT를 가져올 수 있음
 //				.defaultSuccessUrl("/");								// session을 사용하지 않기 때문에 redirect로 다시 접근할 때는 OAuth2AuthorizedClientService에 OAuth2AuthorizedClient가 없기 때문에 JWT가 없음
 		});
-
+		
 		return http.build();
 	}
 

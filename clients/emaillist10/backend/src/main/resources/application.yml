@@ -25,9 +25,14 @@ spring:
 ---
 # configuration: development
 spring:
+   config:
+      activate:
+         on-profile: development
+         
    devtools:
       livereload:
          enabled: true
+         
    security:
       oauth2:
          client:
@@ -36,7 +41,6 @@ spring:
                    issuer-uri: http://localhost:5555/realms/poscodx2023-realm
                    authorization-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/auth
                    token-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/token
-                   user-name-attribute: preferred_username           
             registration:
                 emaillist-oauth2-client:
                    provider: keycloak-authorization-server                  
