@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -112,10 +113,12 @@ public class OAuthClientController {
 
 			// send request
 			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-			ResponseEntity<?> response = restTemplate.exchange(tokenEndPoint, HttpMethod.POST, requestEntity, Map.class);
+			ParameterizedTypeReference<Map<String, Object>> responseEntity = new ParameterizedTypeReference<Map<String, Object>>() {};
+			
+			ResponseEntity<Map<String, Object>> response = restTemplate.exchange(tokenEndPoint, HttpMethod.POST, requestEntity, responseEntity);
 			
 			// receive response
-			Map<String, Object> map = (Map<String, Object>)response.getBody();
+			Map<String, Object> map = response.getBody();
 			accessToken = (String)map.get("access_token");
 			refreshToken = (String)map.get("refresh_token");
 			
@@ -125,7 +128,7 @@ public class OAuthClientController {
 		
 		// bake refreshToken cookie
         ResponseCookie responseCookie = ResponseCookie
-        		.from("refreshToken",refreshToken)
+        		.from("refreshToken", refreshToken)
                 .httpOnly(true)
                 .secure(false)
                 .path("/")
@@ -139,7 +142,6 @@ public class OAuthClientController {
 	}
 
 		
-	
 	
 //	
 //	Client for Resource Owner Password Credentials Grant Type
@@ -164,10 +166,12 @@ public class OAuthClientController {
 	
 			// send request
 			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-			ResponseEntity<?> response = restTemplate.exchange(tokenEndPoint, HttpMethod.POST, requestEntity, Map.class);
+			ParameterizedTypeReference<Map<String, Object>> responseEntity = new ParameterizedTypeReference<Map<String, Object>>() {};
+			
+			ResponseEntity<Map<String, Object>> response = restTemplate.exchange(tokenEndPoint, HttpMethod.POST, requestEntity, responseEntity);
 			
 			// receive response
-			Map<String, Object> map = (Map<String, Object>)response.getBody();
+			Map<String, Object> map = response.getBody();
 			accessToken = (String)map.get("access_token");
 			refreshToken = (String)map.get("refresh_token");
 			
@@ -192,8 +196,8 @@ public class OAuthClientController {
 
 	
 	//
-	// needs Session Management
-	// if SessionManagementFilter not installed, fails!	
+	// needs session management
+	// if SessionManagementFilter not set, fails!	
 	//
 	@GetMapping("/test-jwt")
 	public ResponseEntity<JsonResult> landing(@RegisteredOAuth2AuthorizedClient("emaillist-oauth2-client") OAuth2AuthorizedClient authorizedClient) {
@@ -202,7 +206,6 @@ public class OAuthClientController {
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)
-//				.header(HttpHeaders.SET_COOKIE, responseCookie.toString())
 				.body(JsonResult.success(Map.of("accessToken", accessToken.getTokenValue(), "refreshToken", refreshToken.getTokenValue())));
 	}	
 }

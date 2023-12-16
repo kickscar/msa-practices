@@ -23,11 +23,16 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2RefreshToken;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.client.RestTemplate;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @SpringBootConfiguration
 @EnableWebSecurity
 public class Config {
@@ -40,11 +45,15 @@ public class Config {
 			.logout()
 			.disable()
 			.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-				authorizationManagerRequestMatcherRegistry.anyRequest().permitAll();
+				authorizationManagerRequestMatcherRegistry
+					.anyRequest()
+					.permitAll();
 			});
-
-//		applies the needed logic for OAuth2 Authorization Code Grant Flow
+		
 		http.oauth2Login(oauth2LoginCustomizer -> {
+			
+			// Applies the Needed Logic for OAuth2 Authorization Code Grant Flow
+			
 			oauth2LoginCustomizer
 				.authorizationEndpoint().baseUri("/oauth2/authorize")
 				
@@ -52,8 +61,21 @@ public class Config {
 				.redirectionEndpoint().baseUri("/login/oauth2/code/*")	// must starts with '/login'
 
 				.and()
-				.successHandler(authenticationSuccessHandler());		// successHandler가 응답하기 전까지는 OAuth2AuthorizedClientService에 OAuth2AuthorizedClient가 있기 때문에 JWT를 가져올 수 있음
-//				.defaultSuccessUrl("/");								// session을 사용하지 않기 때문에 redirect로 다시 접근할 때는 OAuth2AuthorizedClientService에 OAuth2AuthorizedClient가 없기 때문에 JWT가 없음
+				
+				//
+				// session을 사용하지 않기 때문에 redirect로 다시 접근할 때는 
+				// OAuth2AuthorizedClientService에 OAuth2AuthorizedClient가 없기 때문에
+				// AccessToken과 Refresh Token 없음
+				//
+				// .defaultSuccessUrl("/");
+				
+				//
+				// 대신,
+				// SuccessHandler가 응답하기 전까지는 OAuth2AuthorizedClientService에 
+				// OAuth2AuthorizedClient가 있기 때문에 AccessToken과 Refresh Token 가져올 수 있음
+				//
+				.successHandler(authenticationSuccessHandler());
+
 		});
 		
 		return http.build();
@@ -69,30 +91,42 @@ public class Config {
 			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 	            
 				OAuth2AuthenticationToken oAuth2AuthenticationToken = (OAuth2AuthenticationToken)authentication;
-//	            System.out.println(oAuth2AuthenticationToken);
-//				DefaultOAuth2User defaultOAuth2User = (DefaultOAuth2User)oAuth2AuthenticationToken.getPrincipal();
-//	            System.out.println(defaultOAuth2User);
+				DefaultOAuth2User defaultOAuth2User = (DefaultOAuth2User)oAuth2AuthenticationToken.getPrincipal();
+
+				log.info("OIDC: ID JWT:" + oAuth2AuthenticationToken.toString());
+	            log.info("OIDC: Identity of User AuthentiCated:" + defaultOAuth2User);
 
 				OAuth2AuthorizedClientService oAuth2AuthorizedClientService = applicationContext.getBean(OAuth2AuthorizedClientService.class);
 				OAuth2AuthorizedClient oAuth2AuthorizedClient = oAuth2AuthorizedClientService.loadAuthorizedClient(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId(), oAuth2AuthenticationToken.getName());
 				
-//				Discard: Grant Flow의 여기서는 User Agent(Browser)에서 실행되는 클라이언트(React) 애플리케이션에게 Access Token 전달이 부자연스럽기 때문에 버림! 
-//	    		OAuth2AccessToken accessToken = oAuth2AuthorizedClient.getAccessToken();
-	    		OAuth2RefreshToken refreshToken = oAuth2AuthorizedClient.getRefreshToken();
-	    		
-	    		// HTTP Response
-	            Cookie cookie = new Cookie("refreshToken", refreshToken.getTokenValue());	// refresh token는 HttpOnly Cookie로 구워 클라이언트(React) 애플리케이션에게 전달
+				//
+				// Discard Access Token
+				// Grant Flow의 User Agent(Browser)에서 실행되는 JS 클라이언트(React)에게
+				// Access Token 전달이 부자연스럽기 때문에 최초 Access Token은 그냥 버림.
+	    		//
+				OAuth2AccessToken accessToken = oAuth2AuthorizedClient.getAccessToken();
+	            log.info("OAuth2: Authorized JWT: Access Token:" + accessToken.getTokenValue());
+	            
+	            //
+				// refresh token는 HttpOnly Cookie로 구워 클라이언트(React) 애플리케이션에게 전달
+				//
+	            OAuth2RefreshToken refreshToken = oAuth2AuthorizedClient.getRefreshToken();
+	            log.info("OAuth2: Authorized JWT: Refresh Token:" + refreshToken.getTokenValue());
+				
+	            Cookie cookie = new Cookie("refreshToken", refreshToken.getTokenValue());
 	            cookie.setHttpOnly(true);
 	            cookie.setSecure(false);
 	            cookie.setPath("/");
-	            cookie.setMaxAge(60*5); // 5mins is just for testing
+	            cookie.setMaxAge(60*5); // 5mins
 	            
+	            // redirect response (302)
 	            response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 	            response.setHeader("Cache=Control", "no-cache, no-store, must-revalidate");	            
 	            response.setHeader("Pragma", "no-cache");	            
-	            // response.setHeader("Authorization", "Bearer " + accessToken.getTokenValue());
 	            response.addCookie(cookie);
-	            response.sendRedirect("/");													// 클라이언트(React) 애플리케이션 다시 랜딩!
+	            
+	            // 클라이언트(React) 애플리케이션 랜딩!
+	            response.sendRedirect("/");													
 			}
     	};
     }
@@ -102,7 +136,7 @@ public class Config {
 		return new RestTemplate();
 	}	
     
-    // for Testing...
+    // for test...
 	@Bean
 	@ConditionalOnProperty(prefix="spring.config.activate", name="on-profile", havingValue="test")
 	ClientRegistrationRepository clientRegistrationRepository() {

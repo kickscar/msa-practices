@@ -25,14 +25,15 @@ public class GlobalExceptionHandler {
 	
 	@ResponseBody
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<?> handlerException(Exception e) {		
-		// 로깅(Logging)
+	public ResponseEntity<JsonResult> handlerException(Exception e) {		
+		// logging
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
 		log.error(errors.toString());
 
-		// 응답
-		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail(errors.toString()));
+		// response
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.fail(errors.toString()));
 	}
 }
-
