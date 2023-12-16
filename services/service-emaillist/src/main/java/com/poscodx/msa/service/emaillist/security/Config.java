@@ -231,13 +231,5 @@ public class Config {
 
 	}
 
-//	@Bean
-//	@ConditionalOnProperty(prefix = "spring.config.activate", name = "on-profile", havingValue = "development")
-//	ClientRegistrationRepository clientRegistrationRepository() {
-//		ClientRegistration dummyRegistration = ClientRegistration.withRegistrationId("dummy").clientId("dummy")
-//				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE).redirectUri("/").scope("openid")
-//				.authorizationUri("/").tokenUri("/").build();
-//
-//		return new InMemoryClientRegistrationRepository(dummyRegistration);
-//	}
+
 }

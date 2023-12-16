@@ -4,7 +4,6 @@ spring:
    profiles:
       active: development
 
-
 ---
 # configuration: common
 spring:
@@ -63,6 +62,7 @@ logging:
       console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
    level:
       root: DEBUG
+
       
 ---
 # configuration: production
@@ -95,3 +95,27 @@ logging:
          poscodx:
             emaillist:
                exception: ERROR
+               
+---
+# configuration: test
+spring:
+   config:
+      activate:
+         on-profile: test
+         
+   security:
+      oauth2:
+         client:
+            provider:
+                keycloak-authorization-server:
+                   issuer-uri: http://localhost:5555/realms/poscodx2023-realm
+                   authorization-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/auth
+                   token-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/token
+            registration:
+                emaillist-oauth2-client:
+                   provider: keycloak-authorization-server                  
+                   authorization-grant-type: authorization_code
+                   redirect-uri: "http://localhost:8080/login/oauth2/code/{registrationId}"
+                   client-id: emaillist
+                   client-secret: XQklyMSQ5l2wmKK8wuoa0aV5Os5M2fY1
+                   scope: [openid, profile, email, roles]
