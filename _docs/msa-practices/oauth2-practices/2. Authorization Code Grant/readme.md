@@ -319,18 +319,15 @@ OAuth2의 인가 모델 위에 자연스럽게 인증 모델이 통합된 것이
 	02. SecurityContextPersistenceFilter        (default)   2
 	03. WebAsyncManagerIntegrationFilter        (default)   3
 	04. HeaderWriterFilter                      (default)   4
-	05. LogoutFilter                                        5
-    06. OAuth2AuthorizationRequestRedirectFilter            6*
-    07. OAuth2LoginAuthenticationFilter                     7*
-	08. UsernamePasswordAuthenticationFilter                8   
-	09. DefaultLoginPageGeneratingFilter                    9       
-	10. DefaultLogoutPageGeneratingFilter                  10     
-	11. RequestCacheAwareFilter                 (default)  11
-	12. SecurityContextHolderAwareRequestFilter (default)  12
-	13. AnonymousAuthenticationFilter           (default)  13
-	14. SessionManagementFilter                 (default)  14
-	15. ExceptionTranslationFilter              (default)  15
-	16. AuthorizationFilter                                16
+    05. OAuth2AuthorizationRequestRedirectFilter            5*
+    06. OAuth2LoginAuthenticationFilter                     6*
+	07. DefaultLogoutPageGeneratingFilter                   7      
+	08. RequestCacheAwareFilter                 (default)   8
+	09. SecurityContextHolderAwareRequestFilter (default)   9
+	10. AnonymousAuthenticationFilter           (default)  10
+	11. SessionManagementFilter                 (default)  11
+	12. ExceptionTranslationFilter              (default)  12
+	13. AuthorizationFilter                                13
 	</pre>
 
 #### 3. emaillist10 : Client Registration & Grant Provider Configuration
@@ -429,20 +426,16 @@ Client emaillist10에 설정된 /oauth2/authorize/{registrationId} URI를 감시
 	3. scope
 	4. redirect_uri
 
-등 앞의  application.yml에 설정한 Client Registration 내용임을 알 수 있다.
+앞의  application.yml에 설정한 Client Registration 내용임을 알 수 있다.
 
 
 ### Flow "B"
+인가 서버(Keycloak)의 Authorization Endpoint의 응답 화면 즉, 사용자 인증(Authentication)을 위한 입력폼에 사용자가 인증을 하는 플로우이다. 사용자는 자신의 자격 증명(Credentials)을 인가 서버에 제출해야 한다. 
 
+인증이 되었다는 것은 인증된 사용자(Resource Owner)가 이 플로우를 진행하고 있는 클라인언트에게 자신의 자원에 접근할 수 있는 권한을 인가(Authorization) 하겠다는 의미이며 인가 서버는 인가를 클라이언트에게 승인(Grant) 해준다. 그 증거로 토큰을 발급하지만 Authorization Code Grant Flow 에서는 인가 코드(Athorization Code)를 현재 브라우저 주소창의 URI(인가 서버의 인가 Endpoint )의 파라미터로 보낸 리다이렉트 주소로 되돌려 준다.  
 
-### Flow "C"
-
-
-
-5. Redirection URI
-	- 로그인 화면(B)에서 사용자가 인증(로그인)한 것은 1번의 URL에 포함된 클라이언트에게 권한 인가를 하겠다는 의미다.
-	- 인가 서버는 사용자 인증이 성공하고 4번에서 보내온 Client Id가 미리 인가 서버에 등록된 클라이언트라면 사용자의 권한 인가를 승인하게 된다. 
-	- Authorization Code  Grant 플로우에서는 바로 승인의 증거인 액세스 토큰을 
+### Flow "C", "D", "E"
+클라이언트의 OAuth2LoginAuthenticationFilter는 인가 승인 코드(Authorization Code)를 받는 클라이언트 URI(/login/oauth2/code/emaillist-oauth2-client)를 감시한다. 이 필터에서 URI와 함께 전달된 인가 코드를 가지고 Access Token를 발급받기 위한 flow(C, D, E)를 진행한다.
 	
 
   
