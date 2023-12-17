@@ -45,7 +45,7 @@ const syncFetchToken = () => {
 
         // 정상적으로 발급받은 access token을 메모리(전역변수)에 저장.
         ACCESSTOKEN = json.data;
-        console.log(`access token issued: ${ACCESSTOKEN}`)
+        console.log(`access token issued: ${ACCESSTOKEN}`);
     });
 
     xhr.open('get', REFRESH_TOKEN_ENDPOINT, false);

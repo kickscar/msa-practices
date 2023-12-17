@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,10 +18,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -135,21 +130,4 @@ public class Config {
     RestTemplate restTemplte() {
 		return new RestTemplate();
 	}	
-    
-    // for test...
-	@Bean
-	@ConditionalOnProperty(prefix="spring.config.activate", name="on-profile", havingValue="test")
-	ClientRegistrationRepository clientRegistrationRepository() {
-		ClientRegistration dummyRegistration = ClientRegistration
-				.withRegistrationId("dummy")
-				.clientId("dummy")
-				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-				.authorizationUri("/dummy")
-				.redirectUri("/dummy")
-				.scope("openid")
-				.tokenUri("/dummy")
-				.build();
-
-		return new InMemoryClientRegistrationRepository(dummyRegistration);
-	}
 }

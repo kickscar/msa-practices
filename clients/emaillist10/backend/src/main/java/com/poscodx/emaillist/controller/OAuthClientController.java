@@ -105,6 +105,7 @@ public class OAuthClientController {
 			headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 			headers.setBasicAuth(Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes(Charset.forName("US-ASCII"))));	         
 			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+			
 	
 			// body
 			MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
@@ -125,8 +126,7 @@ public class OAuthClientController {
 		} catch(HttpClientErrorException ex) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(JsonResult.fail(ex.toString()));
 		}
-		
-		// bake refreshToken cookie
+		// Bake RefreshToken Cookie
         ResponseCookie responseCookie = ResponseCookie
         		.from("refreshToken", refreshToken)
                 .httpOnly(true)

@@ -2,14 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../assets/scss/Error.scss';
 
-function Error404() {
+function Error() {
     const navigate = useNavigate();
-    
+
     return (
-        <div id={'App'} className={styles.error404}>
-            <h1>404 Not Found</h1>
+        <div id={'App'} className={styles.error}>
+            <h1>Sorry but Error</h1>
             <p className={styles.desc}>
-                로그인 유무와 상관 없이 렌더링 되는 컴포넌트 예제(주로 에러 페이지)
+            사용 중에 불편을 어쩌고... 저쩌고...
             </p>
             <a onClick={(event) => {
                 event.preventDefault();
@@ -19,4 +19,4 @@ function Error404() {
     );
 }
 
-export default Error404;
+export default Error;

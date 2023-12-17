@@ -1,10 +1,10 @@
 package com.poscodx.msa.service.emaillist.security;
 
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.stream.Stream;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,115 +12,88 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
+import com.poscodx.msa.service.emaillist.dto.JsonResult;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @SpringBootConfiguration
 @EnableWebSecurity
 public class Config {
 
 	@Bean
-	SecurityFilterChain scurityFilterChain(HttpSecurity http,
-			Converter<Jwt, JwtAuthenticationToken> jwtAuthenticationConverter,
-			LogoutHandler keycloakLogoutHandler)
-			throws Exception {
+	SecurityFilterChain scurityFilterChain(HttpSecurity http, Converter<Jwt, JwtAuthenticationToken> jwtAuthenticationConverter, AccessDeniedHandler accessDeniedHandler, AuthenticationEntryPoint authenticationEntryPoint) throws Exception {		
 
-		//http
-			//.csrf(csrf -> csrf.disable())
-			//.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-			
-			//.logout().addLogoutHandler(keycloakLogoutHandler).logoutSuccessUrl("/");
-
-			//
-			// OAuth2LoginAuthenticationFilter enable
-			// This filter intercepts requests and applies the needed logic for OAuth2 authentication
-			//
-            
 		http
-			.oauth2Login(oauth2Configurer -> {
-				oauth2Configurer
-			
-                    .loginPage("/login")
-                    .successHandler(successHandler());
-			});
-			
-		http	
+			.csrf(csrf -> csrf.disable())
+			.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.logout().disable()
+			.anonymous().disable()
 			.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
 				authorizationManagerRequestMatcherRegistry
-					.antMatchers("/", "/oauth2/**").permitAll()
-					.anyRequest().denyAll();
+					.requestMatchers(new RegexRequestMatcher("^/(\\?kw=.*)?$", "GET")).hasRole("READ")					
+					.requestMatchers(new RegexRequestMatcher("^/$", "POST")).hasRole("WRITE")
+					.anyRequest().denyAll();				
 			});
-//            .authorizationEndpoint().baseUri("/oauth2/authorization")
-//            .and()
-//            .redirectionEndpoint().baseUri("/oauth2/callback/*");
-//            .and()
-//            .userInfoEndpoint();
-            
-			
-			
-//			http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-//				authorizationManagerRequestMatcherRegistry
-//					.requestMatchers(new RegexRequestMatcher("^/admin$", null)).hasRole("ADMIN")
-//					
-//					.requestMatchers(new RegexRequestMatcher("^/$", "POST")).hasAnyRole("WRITE")
-//					
-//					.anyRequest().permitAll();
-//			});
-
-		// The oauth2ResourceServer method will validate the bound JWT token against Keycloak Server
-		// http.oauth2ResourceServer((oauth2) -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
+		
+		http
+			.oauth2ResourceServer(oauth2 -> {
+				oauth2
+					// The oauth2ResourceServer Method will Validate the Bound JWT Token against Keycloak Server
+					.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter))
+					// 403
+					.accessDeniedHandler(accessDeniedHandler)
+					// 401:  
+					.authenticationEntryPoint(authenticationEntryPoint);
+			});
 
 		return http.build();
 	}
-
 	
-    @Bean
-    public AuthenticationSuccessHandler successHandler() {
-        return ((request, response, authentication) -> {
-            DefaultOAuth2User defaultOAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
-            
-            System.out.println(authentication);
-//            String id = defaultOAuth2User.getAttributes().get("id").toString();
-//            String body = """
-//                    {"id":"%s"}
-//                    """.formatted(id);
- 
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
- 
-            PrintWriter writer = response.getWriter();
-            writer.println("success");
-            writer.flush();
-        });
-    }	
+	@Component
+	static private class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
+		@Override
+		public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401(Invalid Token...)
+		    response.setContentType("application/json");
+		    response.setCharacterEncoding("utf-8");
+		    
+			String json = new ObjectMapper().writeValueAsString(JsonResult.fail("401 Unauthorized"));
+			response.getOutputStream().write(json.getBytes("utf-8"));
+		}
+	}
 	
-	
-	
-	@LoadBalanced
-	@Bean
-	RestTemplate restTemplte() {
-		return new RestTemplate();
+	@Component
+	static private class CustomAccessDeniedHandler implements AccessDeniedHandler {
+		@Override
+		public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403(Wrong API Endpoint...)
+			response.setContentType("application/json");
+		    response.setCharacterEncoding("utf-8");
+		    
+			String json = new ObjectMapper().writeValueAsString(JsonResult.fail("403 Forbidden"));
+			response.getOutputStream().write(json.getBytes("utf-8"));
+		}
 	}
 
 	@Component
@@ -133,13 +106,11 @@ public class Config {
 		public JwtAuthenticationToken convert(Jwt jwt) {
 			final var authorities = jwtGrantedAuthoritiesConverter.convert(jwt);
 			final String username = JsonPath.read(jwt.getClaims(), "preferred_username");
-
-			System.out.println("authorities--->" + authorities);
-			System.out.println("username--->" + username);
-
 			JwtAuthenticationToken token = new JwtAuthenticationToken(jwt, authorities, username);
 
-			System.out.println("token-->" + token);
+			log.info("authorities:" + authorities);
+			log.info("username:" + username);
+			log.info("token:" + token);
 
 			return token;
 		}
@@ -197,39 +168,18 @@ public class Config {
 					return Stream.empty();
 					
 				}).map(strAuthority -> {
-					System.out.println(strAuthority);
-					return "ROLE_" + strAuthority;
+					
+					// supporting Spring Securit's Checking Authority "ROLE_" Based.
+					return ("ROLE_" + strAuthority);
+					
 				}).map(SimpleGrantedAuthority::new).map(GrantedAuthority.class::cast).toList();
 			}
 		}
 	}
-
-	@Slf4j
-	@Component
-	@RequiredArgsConstructor
-	static private class KeycloakLogoutHandler implements LogoutHandler {
-		private final RestTemplate restTemplate;
-
-		@Override
-		public void logout(HttpServletRequest request, HttpServletResponse response, Authentication auth) {
-			logoutFromKeycloak((OidcUser) auth.getPrincipal());
-		}
-
-		private void logoutFromKeycloak(OidcUser user) {
-			String endSessionEndpoint = user.getIssuer() + "/protocol/openid-connect/logout";
-
-			UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(endSessionEndpoint)
-					.queryParam("id_token_hint", user.getIdToken().getTokenValue());
-
-			ResponseEntity<String> logoutResponse = restTemplate.getForEntity(builder.toUriString(), String.class);
-			if (logoutResponse.getStatusCode().is2xxSuccessful()) {
-				log.info("Successfulley logged out from Keycloak");
-			} else {
-				log.error("Could not propagate logout to Keycloak");
-			}
-		}
-
+	
+	@LoadBalanced
+	@Bean
+	RestTemplate restTemplte() {
+		return new RestTemplate();
 	}
-
-
 }

@@ -11,9 +11,11 @@ export const AuthRequired = () => {
         return;
     }
 
+    const claims = jwtDecode(token);
     return <Outlet context={{
         token,
-        claims: jwtDecode(token)
+        username: claims.preferred_username,
+        roles: claims.resource_access.emaillist.roles
     }}/>; 
 }
 

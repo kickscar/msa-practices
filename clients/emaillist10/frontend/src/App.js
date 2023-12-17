@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router';
 import { AuthContextRouter, AuthRoutes } from './auth';
 import { Welcome } from './component/main';
 import { EmaillistApp } from './component/emaillist';
-import { Error404 } from './component/error';
+import { Error, Error404 } from './component/error';
 
 function App() {
     return (
@@ -18,6 +18,7 @@ function App() {
             </AuthRoutes>
 
             <Routes>
+                <Route path={'/error'} element={<Error />} />
                 <Route path={'/*'} element={<Error404 />} />
             </Routes>
         </AuthContextRouter>

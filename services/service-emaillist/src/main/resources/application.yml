@@ -43,21 +43,20 @@ spring:
    cloud:
       config:
          enabled: false
-                  
+
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mariadb://localhost:3306/webdb?characterEncoding=utf8
+      username: webdb
+      password: webdb
+      hikari:
+         minimum-idle: 10
+         maximum-pool-size: 20
+
    security:
       oauth2:
-         client:
-            registration:
-               keyclock:
-                  client-id: emaillist
-                  client-secret: XQklyMSQ5l2wmKK8wuoa0aV5Os5M2fY1
-                  scope: [ openid, profile, email ]
-                  authorization-grant-type: authorization_code
-                  redirect-uri: "http://localhost:8888/api/emaillist/oauth2/code/{registrationId}"
-            provider:
-                keyclock:
-                   authorization-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/auth
-                   token-uri: http://localhost:5555/realms/poscodx2023-realm/protocol/openid-connect/token
-                   issuer-uri: http://localhost:5555/realms/poscodx2023-realm
-                   user-name-attribute: preferred_username
+         resourceserver:
+           jwt:
+              issuer-uri: http://localhost:5555/realms/poscodx2023-realm
+              jwk-set-uri: ${spring.security.oauth2.resource-server.jwt.issuer-uri}/protocol/openid-connect/certs         
                       

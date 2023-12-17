@@ -30,12 +30,18 @@
         text-align: center;
         line-height: 8px;
         padding-top: 2px;
+        cursor: pointer;
 
         &:before {
             content:'X'
         }
 
-        &:hover, &:visited, &:active {
+        &:hover {
+            text-decoration: none;
+            color: #ccc;
+        }
+
+        &:visited, &:active {
             text-decoration: none;
             color: #fff;
         }

@@ -1,7 +1,6 @@
 package com.poscodx.emaillist.security;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
@@ -10,7 +9,7 @@ import javax.servlet.Filter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -22,9 +21,11 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @ActiveProfiles("test")
 public class ConfigTest {
-    private FilterChainProxy filterChainProxy;
-    private ClientRegistrationRepository clientRegistrationRepository;
+ 	@MockBean
+	private ClientRegistrationRepository clientRegistrationRepository;
 
+    private FilterChainProxy filterChainProxy;
+    
     @BeforeEach
     public void setup(WebApplicationContext context) {
         filterChainProxy = (FilterChainProxy)context.getBean("springSecurityFilterChain", Filter.class);
@@ -48,11 +49,5 @@ public class ConfigTest {
         for(Filter filter : filters) {
             System.out.println(filter.getClass());
         }
-    }
-    
-    @Test
-    public void testEmaillistOAuth2ClientRegistrationNotNull() {
-    	 ClientRegistration c = clientRegistrationRepository.findByRegistrationId("dummy");
-    	 assertNotNull(c);
     }
 }
