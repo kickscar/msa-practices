@@ -82,9 +82,7 @@ public class OAuthClientController {
 		
 		// reomove refreshToken cookie
         ResponseCookie responseCookie = ResponseCookie
-        		.from("refreshToken",refreshToken)
-                .httpOnly(true)
-                .secure(false)
+        		.from("refreshToken", "")
                 .path("/")
                 .maxAge(0)
                 .build();
@@ -128,17 +126,18 @@ public class OAuthClientController {
 		}
 		// Bake RefreshToken Cookie
         ResponseCookie responseCookie = ResponseCookie
-        		.from("refreshToken", refreshToken)
-                .httpOnly(true)
-                .secure(false)
-                .path("/")
-                .maxAge(60*60*24) // 1days
-                .build();
+        	.from("refreshToken", refreshToken)
+        	.path("/")
+        	.maxAge(60*60*24)	// 1day
+        	.secure(false)		// over HTTPS (x)
+        	.httpOnly(true)		// Prevent Cross-site scripting (XSS): JavaScript code cannot read or modify
+        	.sameSite("strict")	// Prevent CSRF attacks
+        	.build();
 		
 		return ResponseEntity
-				.status(HttpStatus.OK)
-				.header(HttpHeaders.SET_COOKIE, responseCookie.toString())
-				.body(JsonResult.success(accessToken));
+			.status(HttpStatus.OK)
+			.header(HttpHeaders.SET_COOKIE, responseCookie.toString())
+			.body(JsonResult.success(accessToken));
 	}
 
 		
@@ -180,17 +179,18 @@ public class OAuthClientController {
 		}
 		
         ResponseCookie responseCookie = ResponseCookie
-        		.from("refreshToken",refreshToken)
-                .httpOnly(true)
-                .secure(false)
-                .path("/")
-                .maxAge(60*5) // 5mins
-                .build();
+        	.from("refreshToken", refreshToken)
+            .path("/")
+            .maxAge(60*60*24)	// 1day
+            .secure(false)		// over HTTPS (x)
+            .httpOnly(true)		// Prevent Cross-site scripting (XSS): JavaScript code cannot read or modify
+            .sameSite("strict")	// Prevent CSRF attacks
+            .build();
 		
 		return ResponseEntity
-				.status(HttpStatus.OK)
-				.header(HttpHeaders.SET_COOKIE, responseCookie.toString())
-				.body(JsonResult.success(accessToken));
+			.status(HttpStatus.OK)
+			.header(HttpHeaders.SET_COOKIE, responseCookie.toString())
+			.body(JsonResult.success(accessToken));
 	}
 	
 

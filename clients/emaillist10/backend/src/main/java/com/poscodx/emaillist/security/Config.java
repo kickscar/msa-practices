@@ -3,7 +3,6 @@ package com.poscodx.emaillist.security;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -110,18 +111,31 @@ public class Config {
 	            OAuth2RefreshToken refreshToken = oAuth2AuthorizedClient.getRefreshToken();
 	            log.info("OAuth2: Authorized JWT: Refresh Token:" + refreshToken.getTokenValue());
 				
-	            Cookie cookie = new Cookie("refreshToken", refreshToken.getTokenValue());
-	            cookie.setHttpOnly(true);
-	            cookie.setSecure(false);
-	            cookie.setPath("/");
-	            cookie.setMaxAge(60*60*24); // 1day
+	            
 	            
 	            // redirect response (302)
 	            response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-	            response.setHeader("Cache=Control", "no-cache, no-store, must-revalidate");	            
-	            response.setHeader("Pragma", "no-cache");	            
-	            response.addCookie(cookie);
+	            // response.setHeader("Cache=Control", "no-cache, no-store, must-revalidate");	            
+	            // response.setHeader("Pragma", "no-cache");	            
 	            
+//	            Cookie cookie = new Cookie("refreshToken", refreshToken.getTokenValue());
+//	            cookie.setHttpOnly(true);
+//	            cookie.setSecure(false);
+//	            cookie.setPath("/");
+//	            cookie.setMaxAge(60*60*24); // 1day
+//	            response.addCookie(cookie);
+	            
+	            ResponseCookie cookie = ResponseCookie
+	                    .from("refreshToken", refreshToken.getTokenValue())
+	                	.path("/")
+	                	.maxAge(60*60*24)	// 1day
+	                	.secure(false)		// over HTTPS (x)
+	                	.httpOnly(true)		// Prevent Cross-site scripting (XSS): JavaScript code cannot read or modify
+	                	.sameSite("strict")	// Prevent CSRF attacks
+	                	.build();
+	            
+	            response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());	
+
 	            // 클라이언트(React) 애플리케이션 랜딩!
 	            response.sendRedirect("/");													
 			}
