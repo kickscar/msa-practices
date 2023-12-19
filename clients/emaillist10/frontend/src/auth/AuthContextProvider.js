@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext('');
 
@@ -6,13 +7,22 @@ export const AuthContextProvider = ({ children }) => {
     // 새 access token 발급받음: 반드시 동기 통신!
     syncFetchToken();
 
-    // 발급받은 새 access token을 Context State 으로 저장
-    const tokenState = useState(ACCESSTOKEN);
+    // token이 바낀 경우 전체를 선택적 Re-Rendering
+    const [rerender, reRender] = useState(false);
 
     return (
-        <AuthContext.Provider value={{
-            token: tokenState[0],
-            storeToken: tokenState[1]
+        // <AuthContext.Provider value={{
+        //     token: tokenState[0],
+        //     storeToken: tokenState[1]
+        // }}>
+        //     {children}
+        // </AuthContext.Provider>
+        <AuthContext.Provider value={{  // 발급받은 새 access token을 Context에 저장
+            token: ACCESSTOKEN,
+            storeToken: (token, render = false) => {
+                ACCESSTOKEN = token;
+                render && reRender((re) => !re);
+            }
         }}>
             {children}
         </AuthContext.Provider>
@@ -22,6 +32,69 @@ export const AuthContextProvider = ({ children }) => {
 // Auth Context Hook
 export const useAuthContext = () => {
     return useContext(AuthContext);
+}
+
+// Fetch Hook
+export const useAuthFetch = (url, options, auth=true) => {
+    const navigate = useNavigate();
+
+    const f = async (param) => {
+        options = options || {};
+        options.method = (options?.method || 'get').toLowerCase();
+        options.headers = Object.assign(
+            {},
+            options.headers,
+            auth ? {'Authorization': `Bearer ${ACCESSTOKEN}`} : null,
+            options.headers?.['Content-Type'] ? null : {'Content-Type': 'application/json'}
+        );
+
+        if(options.method === "get" && param) {
+            url = `${url}?${new URLSearchParams(param).toString()}`;
+        } else if(options.method === "post" && param) {
+            options.body = JSON.stringify(param);
+        }
+
+        // console.log(url, options);
+        let response = null;
+        let json = null;
+
+        try {
+            response = await fetch(url, options);
+
+            if(auth && response.status === 401) { // Unauthorized (Invalid or Expired Token)!
+                response = await fetch(REFRESH_TOKEN_ENDPOINT, {method: 'get', headers: {'Accept': 'application/json', credentials: 'include'}}); 
+                json = await response.json();
+
+                ACCESSTOKEN = json.data;
+                options.headers = Object.assign(
+                    {},
+                    options.headers,
+                    {'Authorization': `Bearer ${ACCESSTOKEN}`});
+
+                response = await fetch(url, options);
+            }
+
+            if(!response.ok) {
+                throw new Error(`${response.status} ${response.statusText}`)
+            }
+
+            json = await response.json();
+
+            if(json.result !== 'success') {
+                throw new Error(`${json.result} ${json.message}`);
+            }
+        } catch(err) {
+            // 통신 에러가 나면 error 컴포넌트로 돌리고
+            // 개발 중에는 화면에 내용 확인!
+            // console.* 함수들은 development mode 일때는 작동하지만 production 모드일 때는 작동 안함(src/index.js 확인)
+            console.error(err);
+            navigate("/error");
+        };
+
+        return json;
+    }
+
+    return f;
 }
 
 // Fetch new access token issued with refresh token based (synchronous fetch) 

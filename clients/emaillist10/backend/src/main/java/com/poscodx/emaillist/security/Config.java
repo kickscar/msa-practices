@@ -114,7 +114,7 @@ public class Config {
 	            cookie.setHttpOnly(true);
 	            cookie.setSecure(false);
 	            cookie.setPath("/");
-	            cookie.setMaxAge(60*5); // 5mins
+	            cookie.setMaxAge(60*60*24); // 1day
 	            
 	            // redirect response (302)
 	            response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);

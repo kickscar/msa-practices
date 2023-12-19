@@ -12,8 +12,8 @@ export const AuthRequired = () => {
     }
 
     const claims = jwtDecode(token);
+    
     return <Outlet context={{
-        token,
         username: claims.preferred_username,
         roles: claims.resource_access.emaillist.roles
     }}/>; 
@@ -21,10 +21,5 @@ export const AuthRequired = () => {
 
 export const AuthNotRequired = () => {
     const {token} = useAuthContext();
-
-    if(!token) {
-        return <Outlet />;
-    }
-    
-    return <Navigate to="/" />
+    return token ? <Navigate to="/" /> : <Outlet />
 }

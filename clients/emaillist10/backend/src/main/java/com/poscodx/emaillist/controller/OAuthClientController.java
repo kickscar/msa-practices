@@ -132,7 +132,7 @@ public class OAuthClientController {
                 .httpOnly(true)
                 .secure(false)
                 .path("/")
-                .maxAge(60*5) // 5mins
+                .maxAge(60*60*24) // 1days
                 .build();
 		
 		return ResponseEntity
