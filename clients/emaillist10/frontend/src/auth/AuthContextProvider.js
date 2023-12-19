@@ -35,7 +35,7 @@ export const useAuthContext = () => {
 }
 
 // Fetch Hook
-export const useAuthFetch = (url, options, auth=true) => {
+export const useAuthFetch = (url, options, authorized=true) => {
     const navigate = useNavigate();
 
     const f = async (param) => {
@@ -44,7 +44,7 @@ export const useAuthFetch = (url, options, auth=true) => {
         options.headers = Object.assign(
             {},
             options.headers,
-            auth ? {'Authorization': `Bearer ${ACCESSTOKEN}`} : null,
+            authorized ? {'Authorization': `Bearer ${ACCESSTOKEN}`} : null,
             options.headers?.['Content-Type'] ? null : {'Content-Type': 'application/json'}
         );
 
@@ -61,7 +61,7 @@ export const useAuthFetch = (url, options, auth=true) => {
         try {
             response = await fetch(url, options);
 
-            if(auth && response.status === 401) { // Unauthorized (Invalid or Expired Token)!
+            if(response.status === 401 && authorized) { // Unauthorized (Invalid or Expired Token)!
                 response = await fetch(REFRESH_TOKEN_ENDPOINT, {method: 'get', headers: {'Accept': 'application/json', credentials: 'include'}}); 
                 json = await response.json();
 

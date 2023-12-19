@@ -53,7 +53,7 @@ public class OAuthClientController {
 	}
 
 	@GetMapping("/logout")
-	public ResponseEntity<JsonResult> logout(@RequestHeader("Authorization") String bearerToken, @CookieValue(name = "refreshToken", defaultValue = "") String refreshToken) {
+	public ResponseEntity<JsonResult> logout(@RequestHeader(value="Authorization", required=true, defaultValue="") String bearerToken, @CookieValue(name = "refreshToken", defaultValue = "") String refreshToken) {
 		String endSessionEndpoint = issuerUri + "/protocol/openid-connect/logout";
 		String accessToken = Pattern.compile("(?i)Bearer ", Pattern.UNICODE_CASE).matcher(bearerToken).replaceAll("");
 		
@@ -61,7 +61,9 @@ public class OAuthClientController {
 			// header
 			HttpHeaders headers = new HttpHeaders();
 			headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-			headers.set("Authorization", "Bearer " + accessToken);
+			if(!"".equals(bearerToken)) {
+				headers.set("Authorization", "Bearer " + accessToken);
+			}
 			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 	
 			// body
