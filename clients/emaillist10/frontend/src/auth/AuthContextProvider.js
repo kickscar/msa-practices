@@ -19,9 +19,9 @@ export const AuthContextProvider = ({ children }) => {
         // </AuthContext.Provider>
         <AuthContext.Provider value={{  // 발급받은 새 access token을 Context에 저장
             token: ACCESSTOKEN,
-            storeToken: (token, render = false) => {
+            storeToken: (token, render=false) => {
                 ACCESSTOKEN = token;
-                render && reRender((re) => !re);
+                render && reRender((rr) => !rr);
             }
         }}>
             {children}
@@ -38,27 +38,27 @@ export const useAuthContext = () => {
 export const useAuthFetch = (url, options, authorized=true) => {
     const navigate = useNavigate();
 
-    const f = async (param) => {
-        options = options || {};
-        options.method = (options?.method || 'get').toLowerCase();
-        options.headers = Object.assign(
-            {},
-            options.headers,
-            authorized ? {'Authorization': `Bearer ${ACCESSTOKEN}`} : null,
-            options.headers?.['Content-Type'] ? null : {'Content-Type': 'application/json'}
-        );
-
-        if(options.method === "get" && param) {
-            url = `${url}?${new URLSearchParams(param).toString()}`;
-        } else if(options.method === "post" && param) {
-            options.body = JSON.stringify(param);
-        }
-
-        // console.log(url, options);
-        let response = null;
-        let json = null;
-
+    return async (param) => {
         try {
+            options = options || {};
+            options.method = (options?.method || 'get').toLowerCase();
+            options.headers = Object.assign(
+                {},
+                options.headers,
+                authorized ? {'Authorization': `Bearer ${ACCESSTOKEN}`} : null,
+                options.headers?.['Content-Type'] ? null : {'Content-Type': 'application/json'}
+            );
+
+            if(param && options.method === "get") {
+                url = `${url}?${new URLSearchParams(param).toString()}`;
+            } else if(param) {
+                options.body = JSON.stringify(param);
+            }
+
+            // console.log(url, options);
+            let response = null;
+            let json = null;
+
             response = await fetch(url, options);
 
             if(response.status === 401 && authorized) { // Unauthorized (Invalid or Expired Token)!
@@ -83,6 +83,9 @@ export const useAuthFetch = (url, options, authorized=true) => {
             if(json.result !== 'success') {
                 throw new Error(`${json.result} ${json.message}`);
             }
+
+            return json;
+
         } catch(err) {
             // 통신 에러가 나면 error 컴포넌트로 돌리고
             // 개발 중에는 화면에 내용 확인!
@@ -90,11 +93,7 @@ export const useAuthFetch = (url, options, authorized=true) => {
             console.error(err);
             navigate("/error");
         };
-
-        return json;
     }
-
-    return f;
 }
 
 // Fetch new access token issued with refresh token based (synchronous fetch) 

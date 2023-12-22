@@ -78,10 +78,12 @@ public class SecurityConfig {
 
         return new ProviderManager(authenticationProvider);
     }
+    
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(16);
     }
+    
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();

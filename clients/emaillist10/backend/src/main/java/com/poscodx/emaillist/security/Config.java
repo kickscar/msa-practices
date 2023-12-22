@@ -112,9 +112,13 @@ public class Config {
 	            log.info("OAuth2: Authorized JWT: Refresh Token:" + refreshToken.getTokenValue());
 				
 	            
+//	            PrintWriter pw = response.getWriter();
+//	            pw.println("AccessToken:" + accessToken.getTokenValue());
+//	            pw.println("Refresh Token:" + refreshToken.getTokenValue());
 	            
 	            // redirect response (302)
 	            response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+	            
 	            // response.setHeader("Cache=Control", "no-cache, no-store, must-revalidate");	            
 	            // response.setHeader("Pragma", "no-cache");	            
 	            
