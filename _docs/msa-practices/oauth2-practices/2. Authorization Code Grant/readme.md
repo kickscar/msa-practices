@@ -5,9 +5,9 @@
 
 
 ### Flow "A"
-1. 사용자(Resource Owner)는 브라우저(User-Agent)를 통해 클라이언트(Client)에게 권한 인가를 하기 위한 URI(/oauth2/authorize)로 접근한다.
+1. 사용자(Resource Owner)는 브라우저(User-Agent)를 통해 클라이언트(Client)에게 권한을 인가하기 위한 URI(/oauth2/authorize)로 접근한다.
 
-2. 클라이언트에게 주는 권한 인가와 동시에 이 인가에 대한 인가 서버(Authorization Server)의 승인(Grant)도 필요하기 때문에 클라이언트는 사용자의 권한 인가 URI 접근을 인가 서버의 인가 엔드포인트(Authorization Endpoint, authorization-uri)로 리다이렉트 할 한다.
+2. 권한을 클라이언트에게 인가하는 동시에 이 인가에 대한 인가 서버(Authorization Server)의 승인(Grant)도 필요하기 때문에 사용자의 권한 인가 클라이언트 엔드포인트는 인가 서버의 인가 엔드포인트(Authorization Endpoint, authorization-uri)로 리다이렉트 된다.
 
 3. 클라이언트가 인가 서버의 인가 엔드포인트로 리다이렉트 할 때, 함께 전달되어야 하는 파라미터는 다음과 같다.
 	- 인가 서버에 미리 등록된 클라이언트 고유 아이디(Clinet Identifier, client-id)
@@ -331,7 +331,7 @@ OAuth2의 인가 모델 위에 자연스럽게 인증 모델이 통합된 것이
 	</pre>
 
 #### 3. emaillist10 : Client Registration & Grant Provider Configuration
-사용자는 emaillist10 클라이언트에게 권한 인가를 하기 위해 emaillist10의 인가 엔드포인트(Authorization Endpoint)에 접근한다. 이 접근 자체가 사용자가 클라이언트를 인가를 목적으로 하지만 인가 서버로의 사용자 인증으로 최종 인가 승인이 난다. emaillist10는 사용자의 인가 접근을 인가 서버의 인가 승인 엔드포인트로 리다이렉트 한다.
+사용자는 emaillist10 클라이언트에게 권한 인가를 하기 위해 emaillist10의 인가 엔드포인트(Authorization Endpoint)에 접근한다. 이 접근 자체가 사용자가 클라이언트를 인가를 목적으로 하지만 인가 서버로의 사용자 인증으로 최종 인가 승인이 된다. emaillist10는 사용자의 인가 접근을 인가 서버의 인가 승인 엔드포인트로 리다이렉트 한다.
 
 이를 위해 인가 서버(Grant Provider)를 emaillist10에 설정해야 한다. 또 인가 서버에게 유효한 클라인언트 임을 입증하기 위해 인가 서버에 등록된 클라이언트 정보를 emaillist10에 설정해야 한다. application.yml 에 그 설정 내용을 확인해 보자.
 
@@ -357,7 +357,7 @@ OAuth2의 인가 모델 위에 자연스럽게 인증 모델이 통합된 것이
 
 ```
 
-Provider ID,  'keycloak-authorization-server' 그리고 Registration ID, 'emaillist-oauth2-client'은 각각 임의로 네이밍해도 상관 없다. 단, registration.emaillist-oauth2-client.provider 에는 당연히 네이밍한 Provider ID를 설정해야 한다.
+Provider ID,  'keycloak-authorization-server' 그리고 Registration ID, 'emaillist-oauth2-client'는 각각 임의로 네이밍해도 상관 없다. 단, registration.emaillist-oauth2-client.provider 에는 당연히 네이밍한 Provider ID를 설정해야 한다.
 
 1. Grant Provider
 	<p>
