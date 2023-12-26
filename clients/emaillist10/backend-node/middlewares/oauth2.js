@@ -1,5 +1,6 @@
 
-const configClient = require('../config/oauth2.json');
+const configClient = require(`../config/oauth2${process.env.NODE_ENV ? '-' + process.env.NODE_ENV : ''}.json`);
+const configJWT = require(`../config/jwt${process.env.NODE_ENV ? '-' + process.env.NODE_ENV : ''}.json`);
 
 exports.oAuth2AuthorizationRequestRedirect = (req, res, next) => {
     const authorizationRequestUriPattern = new RegExp(`(${configClient['endpoint-baseUri'].authorization}/)(.*)`);
@@ -29,7 +30,6 @@ exports.oAuth2AuthorizationRequestRedirect = (req, res, next) => {
         redirect_uri: clientRegistration["redirect-uri"].replace("{registrationId}", registrationId)
     })}`;
 
-    console.log(authorizationRequestUri);
     res.redirect(authorizationRequestUri);
 }
 
@@ -43,20 +43,6 @@ exports.oAuth2LoginAuthentication = async (req, res, next) => {
 
     const registrationId = req.path.replace(authenticationRedirectUriPattern, "$2");
     const clientRegistration = configClient.registration[registrationId];
-
-    console.log(clientRegistration.provider['token-uri']);
-    console.log((obj => {
-        var qs = [];
-        for(prop in obj) {
-            qs.push(prop + "=" + obj[prop]);
-        }       
-        return qs.join("&");
-    })({
-        grant_type: clientRegistration["authorization-grant-type"],
-        client_id: clientRegistration["client-id"],
-        client_secret: clientRegistration["client-secret"],
-        code: req.query['code']
-    }));
 
     const response = await fetch(clientRegistration.provider['token-uri'], {
         method: 'post', 
@@ -85,9 +71,10 @@ exports.oAuth2LoginAuthentication = async (req, res, next) => {
         return;
     }
 
-    json = await response.json();
+    tokens = await response.json();
+    console.log(`tokens issued ${JSON.stringify(tokens)}`);
 
-    console.log(json);
-
-    res.end();
+    res
+        .cookie('refreshToken', tokens['refresh_token'], Object.assign({}, configJWT['refresh-token-cookie-options'], { maxAge: tokens['refresh_expires_in'] }))
+        .redirect('/');
 }

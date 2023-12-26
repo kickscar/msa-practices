@@ -5,7 +5,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 
 // 1. application environment variables
-dotenv.config({ path: path.join(__dirname, 'config/app.env') });
+dotenv.config({ path: path.join(__dirname, `config/app${process.env.NODE_ENV ? '-' + process.env.NODE_ENV : ''}.env`) });
 
 // 2. web application based on express
 const app = express();

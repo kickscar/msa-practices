@@ -1,0 +1,8 @@
+{
+    "refresh-token-cookie-options": {
+        "path": "/", 
+        "httpOnly": true,
+        "secure": false,
+        "sameSite": "strict"
+    }
+}

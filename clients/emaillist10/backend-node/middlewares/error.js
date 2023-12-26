@@ -18,5 +18,5 @@ exports.error500 = (error, req, res, next) => {
     }
 
     /* if request with accept json */
-    res.status(process.env.NODE_ENV === "development" ? 200 : 500).json(new Error(error.stack));
+    res.status(500).json(new Error(error.stack));
 }
