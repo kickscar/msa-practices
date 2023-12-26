@@ -4,13 +4,13 @@ const dotenv = require('dotenv');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 
-// 1. application environment variables
+// application environment variables
 dotenv.config({ path: path.join(__dirname, `config/app${process.env.NODE_ENV ? '-' + process.env.NODE_ENV : ''}.env`) });
 
-// 2. web application based on express
+// web application based on express
 const app = express();
 
-// 3. application setup
+// application setup
 app
   .use(express.static(path.join(__dirname, process.env.STATIC_RESOURCES_DIRECTORY)))
   .set('views', path.join(__dirname, 'views'))
@@ -19,9 +19,9 @@ app
   .use(express.urlencoded({ extended: true }))
   .use(cookieParser());
 
-// 8. build application router
-const appRouter = require('./routes');
-appRouter(app);
+// build application router
+const buildRouter = require('./routes');
+buildRouter(app);
 
 // 9. server startup
 http

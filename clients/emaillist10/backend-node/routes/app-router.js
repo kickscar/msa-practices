@@ -2,7 +2,7 @@ const express = require('express');
 const { error404, error500, jsonResult, acceptOnlyJsonRequest, oAuth2AuthorizationRequestRedirect, oAuth2LoginAuthentication } = require('../middlewares');
 const { dispatcher } = require('./dispatcher');
 
-exports.appRouter = (app) => app
+exports.buildRouter = (app) => app
     .use(oAuth2AuthorizationRequestRedirect)
     .use(oAuth2LoginAuthentication)
     .use(jsonResult)

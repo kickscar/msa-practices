@@ -1,3 +1,3 @@
-const { appRouter } = require("./app-router");
+const { buildRouter } = require("./app-router");
 
-module.exports = appRouter;
+module.exports = buildRouter;
