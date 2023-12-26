@@ -1,5 +1,5 @@
 const express = require('express');
-const { error404, error500, jsonResult, acceptOnlyJsonRequest, oAuth2AuthorizationRequestRedirect, oAuth2LoginAuthentication } = require('../middlewares');
+const { error404, error500, jsonResult, oAuth2AuthorizationRequestRedirect, oAuth2LoginAuthentication } = require('../middlewares');
 const { dispatcher } = require('./dispatcher');
 
 exports.buildRouter = (app) => app
