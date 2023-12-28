@@ -72,9 +72,7 @@ exports.oAuth2LoginAuthentication = async (req, res, next) => {
     }
 
     tokens = await response.json();
-    console.log(`tokens issued ${JSON.stringify(tokens)}`);
-
     res
-        .cookie('refreshToken', tokens['refresh_token'], Object.assign({}, configJWT['refresh-token-cookie-options'], { maxAge: tokens['refresh_expires_in'] }))
+        .cookie(configJWT['refresh-token-cookie-name'], tokens['refresh_token'], Object.assign({}, configJWT['refresh-token-cookie-options'], { maxAge: tokens['refresh_expires_in'] * 1000 }))
         .redirect('/');
 }

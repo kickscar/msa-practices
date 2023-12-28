@@ -3,8 +3,8 @@ const configJWT = require(`../config/jwt${process.env.NODE_ENV ? '-' + process.e
 
 exports.refreshToken = async (req, res) => {
     try {
-        const cookieRefreshToken = req.cookies['refreshToken'];
-    
+        const cookieRefreshToken = req.cookies[configJWT['refresh-token-cookie-name']];
+        
         if (!cookieRefreshToken) {
            throw new Error('Refresh Token Not Exist in Cookie');
         }
@@ -35,10 +35,9 @@ exports.refreshToken = async (req, res) => {
         }
     
         tokens = await response.json();
-        console.log(`token refreshed: ${JSON.stringify(tokens)}`);
 
         res
-            .cookie('refreshToken', tokens['refresh_token'], Object.assign({}, configJWT['refresh-token-cookie-options'], { maxAge: tokens['refresh_expires_in'] }))
+            .cookie(configJWT['refresh-token-cookie-name'], tokens['refresh_token'], Object.assign({}, configJWT['refresh-token-cookie-options'], { maxAge: tokens['refresh_expires_in'] * 1000 }))
             .json(tokens['access_token']);
     
     } catch (err) {
@@ -48,5 +47,40 @@ exports.refreshToken = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-    res.json({});
+    try {
+        const cookieRefreshToken = req.cookies[configJWT['refresh-token-cookie-name']];    
+        const authHeader = req.headers['authorization'];
+        const accessToken = authHeader?.split(' ')[1];
+
+        const clientRegistration = configClient.registration['emaillist-oauth2-client'];
+        const response = await fetch(clientRegistration.provider['logout-uri'], {
+            method: 'post', 
+            headers: Object.assign({}, {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }, accessToken ? {'Authorization': `Bearer ${accessToken}`} : null),
+            body: (obj => {
+                var qs = [];
+                for(prop in obj) {
+                    qs.push(prop + "=" + obj[prop]);
+                }       
+                return qs.join("&");
+            })({
+                client_id: clientRegistration["client-id"],
+                client_secret: clientRegistration["client-secret"],
+                refresh_token: cookieRefreshToken
+            })
+        });
+        
+        // receive response(204 NO_CONTENT) 
+
+        // response
+        res
+            .cookie(configJWT['refresh-token-cookie-name'], '', Object.assign({}, configJWT['refresh-token-cookie-options'], { maxAge: 0 }))
+            .json(null);
+
+      } catch (err) {
+        // 401 Unauthorized: Empty, Invalid, Expired
+        res.status(401).json(err);
+      }
 };
