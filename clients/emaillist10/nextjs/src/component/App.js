@@ -5,7 +5,6 @@ import '../assets/scss/App.scss';
 import RegisterForm from './RegisterForm';
 import SearchBar from './SearchBar';
 import Emaillist from './Emaillist';
-// import data from './assets/json/data';
 
 function App() {
     const [emails, setEmails] = useState(null);

@@ -18,8 +18,8 @@ exports.oAuth2AuthorizationRequestRedirect = (req, res, next) => {
     }
 
     const authorizationRequestUri = `${clientRegistration.provider["authorization-uri"]}?${(obj => {
-        var qs = [];
-        for(prop in obj) {
+        const qs = [];
+        for(let prop in obj) {
             qs.push(prop + "=" + obj[prop]);
         }       
         return qs.join("&");
@@ -51,8 +51,8 @@ exports.oAuth2LoginAuthentication = async (req, res, next) => {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: (obj => {
-            var qs = [];
-            for(prop in obj) {
+            const qs = [];
+            for(let prop in obj) {
                 qs.push(prop + "=" + obj[prop]);
             }       
             return qs.join("&");
@@ -71,7 +71,7 @@ exports.oAuth2LoginAuthentication = async (req, res, next) => {
         return;
     }
 
-    tokens = await response.json();
+    const tokens = await response.json();
     res
         .cookie(configJWT['refresh-token-cookie-name'], tokens['refresh_token'], Object.assign({}, configJWT['refresh-token-cookie-options'], { maxAge: tokens['refresh_expires_in'] * 1000 }))
         .redirect('/');
