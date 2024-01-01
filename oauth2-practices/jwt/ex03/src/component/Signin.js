@@ -4,7 +4,6 @@ import { Layout } from '../layout';
 
 export default function Signin() {
     const {storeToken} = useAuthContext();
-
     return (
             <Layout>
                 <h2>로그인</h2>

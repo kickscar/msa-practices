@@ -12,7 +12,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig02 {
+	
     public WebSecurityCustomizer webSecurityCustomizer() {
+    	
         return new WebSecurityCustomizer() {
             @Override
             public void customize(WebSecurity web) {

@@ -128,6 +128,7 @@ public class Config {
 //	            cookie.setPath("/");
 //	            cookie.setMaxAge(60*60*24); // 1day
 //	            response.addCookie(cookie);
+
 	            
 	            ResponseCookie cookie = ResponseCookie
 	                    .from("refreshToken", refreshToken.getTokenValue())
@@ -141,7 +142,7 @@ public class Config {
 	            response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());	
 
 	            // 클라이언트(React) 애플리케이션 랜딩!
-	            response.sendRedirect("/");													
+	            response.sendRedirect("/");
 			}
     	};
     }

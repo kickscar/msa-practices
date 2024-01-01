@@ -7,8 +7,8 @@ module.exports = function(env) {
         mode: "none",
         entry: path.resolve(`src/index.js`),
         output: {
-//            path: path.resolve('../backend/src/main/resources'),
-            path: path.resolve('../backend-node/public'),
+            path: path.resolve('../backend/src/main/resources'),
+//            path: path.resolve('../backend-node/public'),
             filename: 'assets/js/main.js',
             assetModuleFilename: 'assets/images/[hash][ext]'
         },

@@ -31,6 +31,11 @@ public class SecurityConfig04 {
 
                 // BasicAuthenticationFilter
                 .httpBasic();
+        
+        
+        
+        //http.formLogin();
+        //http.httpBasic();
 
         return http.build();
     }

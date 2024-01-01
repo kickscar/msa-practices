@@ -116,6 +116,7 @@ const syncFetchToken = () => {
         }
 
         // 정상적으로 발급받은 access token을 메모리(전역변수)에 저장.
+        console.log("-------->" + json.data);
         ACCESSTOKEN = json.data;
         console.log(`access token issued: ${ACCESSTOKEN}`);
     });
