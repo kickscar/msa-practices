@@ -17,16 +17,10 @@ exports.oAuth2AuthorizationRequestRedirect = (req, res, next) => {
         return;
     }
 
-    const authorizationRequestUri = `${clientRegistration.provider["authorization-uri"]}?${(obj => {
-        const qs = [];
-        for(let prop in obj) {
-            qs.push(prop + "=" + obj[prop]);
-        }       
-        return qs.join("&");
-    })({
+    const authorizationRequestUri = `${clientRegistration.provider["authorization-uri"]}?${new URLSearchParams({
         response_type: "code",
         client_id: clientRegistration["client-id"],
-        scope: encodeURIComponent(clientRegistration["scope"].join(" ")),
+        scope: clientRegistration["scope"].join(" "),
         redirect_uri: clientRegistration["redirect-uri"].replace("{registrationId}", registrationId)
     })}`;
 
@@ -50,13 +44,7 @@ exports.oAuth2LoginAuthentication = async (req, res, next) => {
             'Accept': 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: (obj => {
-            const qs = [];
-            for(let prop in obj) {
-                qs.push(prop + "=" + obj[prop]);
-            }       
-            return qs.join("&");
-        })({
+        body: new URLSearchParams({
             grant_type: clientRegistration["authorization-grant-type"],
             client_id: clientRegistration["client-id"],
             client_secret: clientRegistration["client-secret"],

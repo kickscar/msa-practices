@@ -63,16 +63,10 @@ const oAuth2AuthorizationRequestRedirect = (registrationId) => {
   }
 
   const authorizationRequestUri = new URL(clientRegistration.provider["authorization-uri"]);
-  authorizationRequestUri.search = (obj => {
-    const qs = [];
-    for (let prop in obj) {
-      qs.push(prop + "=" + obj[prop]);
-    }
-    return qs.join("&");
-  })({
+  authorizationRequestUri.search = new URLSearchParams({
     response_type: "code",
     client_id: clientRegistration["client-id"],
-    scope: encodeURIComponent(clientRegistration["scope"].join(" ")),
+    scope: clientRegistration["scope"].join(" "),
     redirect_uri: clientRegistration["redirect-uri"].replace("{registrationId}", registrationId)
   });
 
@@ -97,13 +91,7 @@ const oAuth2LoginAuthentication = async (registrationId, authorizationCode) => {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: (obj => {
-      const qs = [];
-      for (let prop in obj) {
-        qs.push(prop + "=" + obj[prop]);
-      }
-      return qs.join("&");
-    })({
+    body: new URLSearchParams({
       grant_type: clientRegistration["authorization-grant-type"],
       client_id: clientRegistration["client-id"],
       client_secret: clientRegistration["client-secret"],
