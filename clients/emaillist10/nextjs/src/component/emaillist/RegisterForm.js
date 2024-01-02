@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import styles from '../assets/scss/RegisterForm.module.scss';
+import styles from '../../assets/scss/RegisterForm.module.scss';
 
 function RegisterForm({addEmail}) {
     const refForm = useRef(null);

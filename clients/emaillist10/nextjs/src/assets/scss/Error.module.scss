@@ -1,0 +1,26 @@
+:global(#App) {
+    &.error {
+        background-color: #f22;
+        color: #fee;
+        
+        .desc {
+            height: 60px;
+            line-height: 60px;
+        }
+        
+        a {
+            cursor: pointer;
+        }
+    }
+
+    &.error404 {
+        .desc {
+            height: 60px;
+            line-height: 60px;
+        }
+        
+        a {
+            cursor: pointer;
+        }
+    }    
+}

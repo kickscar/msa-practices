@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../assets/scss/SearchBar.module.scss';
+import styles from '../../assets/scss/SearchBar.module.scss';
 
 function SearchBar({fetchEmails}) {
     return (
