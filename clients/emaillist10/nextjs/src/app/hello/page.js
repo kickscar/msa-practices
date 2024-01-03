@@ -1,6 +1,9 @@
 import Head from 'next/head'
+// import {useState} from 'react';
 
 export default function Hello() {
+//    const [a, setA] = useState(false);
+
     return (
         <>
             <Head>

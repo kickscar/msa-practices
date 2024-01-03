@@ -8,6 +8,7 @@ import Header from './Header';
 
 function EmaillistApp() {
     const {storeToken} = useAuthContext();
+    
     const {username, roles} = useOutletContext();
     const [emails, setEmails] = useState(null);
 
