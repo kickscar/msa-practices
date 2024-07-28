@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "mysite.upload.location",
+    "type": "java.lang.String",
+    "description": "A description for 'mysite.upload.location'"
+  },
+  {
+    "name": "mysite.static.path-base",
+    "type": "java.lang.String",
+    "description": "A description for 'mysite.static.path-base'"
+  }
+]}

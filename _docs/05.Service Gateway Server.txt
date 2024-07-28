@@ -1,0 +1,74 @@
+Spring Cloud Gateway
+
+
+
+===
+1. Spring Cloud Starter
+
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-gateway</artifactId>
+</dependency>
+
+
+
+
+===
+2. Configuration
+
+1) Tomcat Server
+
+
+server:
+   port: 8888
+
+
+2) Gateway Management
+
+management:
+   endpoint:
+      gateway:
+         enabled: true
+   endpoints:
+      web:
+         exposure:
+            include: "*"
+
+3) Eureka Client(fetch ant Register)
+	
+eureka:
+   client:
+      registerWithEureka: false
+      fetchRegistry: true
+      serviceUrl:
+         defaultZone: http://{serverip}:{serverport}/eureka/
+
+
+4) Gateway Configuration(Route)
+
+spring:
+   cloud:
+      gateway:
+         globalcors:
+            cors-configurations:
+               '[/**]':
+                  allowedOrigins: '*'
+                  allowedHeaders: '*'
+                  allow-credentials: true
+                  allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - OPTIONS                         
+         discovery.locator:
+            enabled: true
+            lowerCaseServiceId: true 
+         routes:
+         - id: service-emaillist
+           uri: lb://service-emaillist
+           predicates:
+           - Path=/api/emaillist/**
+           filters:
+           - RewritePath=/api/emaillist/?(?<remaining>.*), /$\{remaining}
+

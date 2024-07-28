@@ -1,0 +1,101 @@
+CORS(Cross Orign Resource Sharing)
+
+<1> origin(출처)
+	
+1. URL에서 protocol + host + port 를 합친 것
+2. 확인 해보기 (브라우저 F12-console)      
+
+   > location.origin
+   < 'http://localhost:9999
+   
+3. Same Origin Policy(SOP)에 대한 위배
+
+   1) 브라우저가 동일 출처 정책(SOP)를 지켜서 다른 출처의 리소스 접근을 금지
+   2) 외부 리소스를 못 가져오는 단점
+   3) XSS 등과 같은 보안 취약점을 사전에 방지할 수 있다.**
+
+
+<2> error 예
+
+Access to fetch at 'http://localhost:8888/api' from origin 'http://localhost:9999' has been blocked by CORS policy:
+
+Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+
+
+
+
+<3> 해결방법1: simple request
+
+1. HTTP Flow
+ 
+
+                JS Engine                                  Browser                      Server
+  
+
+call fetch('http://localhost:8888/api')
+                                          ------------->             --------------->
+                                                                     GET /api                              
+
+                                 
+                                                                     <---------------
+                                                                     200 OK
+                                                                     Access-Control-Allow-origin:*
+                                                                     \n
+                                                                     "{JSON}"
+
+const response = {JSON}                   <-------------                                 
+
+
+
+2. 제약조건:
+
+   1) GET, HEAD, POST 중의 하나의 method를 쓰는 경우
+   2) Accept, Accept-Language, Content-Type 등의 헤더만 사용하는 경우
+   3) Content-Type 헤더에 application/x-www-form-urlencoded, multipart/for-data, text/palin 인 경우
+
+ 
+
+
+
+<4> 해결방법2: preflight request
+
+1. HTTP Flow
+ 
+
+                JS Engine                                  Browser                      Server
+  
+
+call fetch('http://localhost:8888/api')
+                                          ------------->             --------------->
+                                                                     OPTIONS /api
+                                                                     Access-Control-Request-Headers: GET
+                                                                     ...
+
+
+                                                                    <---------------
+                                                                    200 OK
+                                                                    Access-Control-Allow-Origin: *
+
+
+                                                                    --------------->
+                                                                    GET /api
+
+
+                                                                    <---------------
+                                                                    200 OK
+                                                                    Access-Control-Allow-origin:*
+                                                                    \n
+                                                                    "{JSON}"
+
+const response = {JSON}                 <-------------
+
+
+
+
+
+
+
+
+   

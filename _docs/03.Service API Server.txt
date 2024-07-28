@@ -1,0 +1,63 @@
+01. Service API Server
+
+<1> Spring Cloud Discovery (Netflix Eureka Client) --------------------------
+
+
+
+
+
+
+<2> Spring Cloud Dependency -----------------------------------------------
+
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+
+
+
+
+
+
+<3> Configuration ---------------------------------------------------------
+
+1. Tomcat
+
+server:
+   port: 0
+
+
+2. Eureka
+	
+eureka:
+   instance:
+      preferIpAddress: true
+   client:
+      fetchRegistry: true
+      registerWithEureka: true
+      serviceUrl:
+         defaultZone: http://localhost:8761/eureka
+
+
+- eureka.instance.preferIpAddress
+  
+- eureka.client.fetchRegistry
+  서비스 레지스트리를 캐시한다. 한 개만 운용할 경우 다른 Eureka서버로 부터 내릴 수 없기 때문에 false로 설정한다. 
+  
+- eureka.client.registerWithEureka
+  모든 서비스가 등록되고 서비스 레지스트리를 모든 서비스에 내리는 시간(기본 5분)으로 개발시에는 짧게 설정하는 것이 편하다.
+
+- eureka.client.serviceUrl.defaultZone
+  Zone의 의미는 한 개 서비스 레지스트에 등록된 서비스들의 모임이다.	
+
+
+
+<5> Dashboard --------------------------------------------------------------
+
+1. 서비스 등록 상태를 확인 할 수 있다.
+
+2. 접근
+http://server:8761
+
+
+

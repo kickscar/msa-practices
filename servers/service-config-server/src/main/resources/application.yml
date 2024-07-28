@@ -1,0 +1,73 @@
+spring:
+   application:
+      name: service-config-server
+   profiles:
+      active: native
+
+---
+# configuration: common       
+server:
+   port: 7777
+
+encrypt:
+   key-store:
+      alias: selfsigned
+      location: classpath:keystore.jks
+      password: password
+    
+    
+---
+# configuration: git
+spring:
+   config:
+      activate:
+         on-profile: git
+   cloud:
+      config:
+         server:
+            encrypt.enabled: true
+            git:
+               uri: https://github.com/poscodx-bitacademy/msa-practices-config-repo
+               searchPaths: service-emaillist,
+                            service-storage,
+                            service-gallery,
+                            service-guestbook,
+                            service-gateway-server
+
+logging:
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
+         max-file-size: 10MB
+         max-history: 10
+   file:
+      name: logs/${spring.application.name}.log
+   level:
+      root: WARN
+               
+
+---
+# configuration: native(file system)
+spring:
+   config:
+      activate:
+         on-profile: native
+   
+   cloud:
+     config:
+       server:
+          encrypt.enabled: true
+          native:
+              searchLocations: file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-emaillist,
+                               file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-storage,
+                               file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-gallery,
+                               file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-guestbook,
+                               file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-gateway-server
+
+logging:
+   pattern:
+      console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   level:
+      root: INFO

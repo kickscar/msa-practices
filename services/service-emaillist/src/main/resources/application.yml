@@ -1,0 +1,33 @@
+# spring configuration
+spring:
+   application:
+      name: service-emaillist
+   profiles:
+      active: development
+
+
+---
+# configuration: common(default)
+spring:
+   cloud:
+      config:
+         enabled: true
+         uri: http://localhost:7777
+
+
+---
+# configuration: development
+spring:
+   config:
+      activate:
+         on-profile: development
+      import: optional:configserver:http://localhost:7777
+    
+                            
+---
+# configuration: production
+spring:
+   config:
+      activate:
+         on-profile: production
+      import: optional:configserver:http://192.168.66.4:7777

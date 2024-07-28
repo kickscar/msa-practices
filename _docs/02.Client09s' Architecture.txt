@@ -1,0 +1,13 @@
+                                   +-----------------------------------+  
+                                   |        emaillist09 backend        |                                               +--------------------+
+                                   |         (discovery client)        |            +--------------------+             |  emaillist service |
+                                   |                                   |            |   eureka server    |             |     (api server)   |
+                                   |                                   |            | (service registry) |   register  |                    |
+                                   | 1. eureka client(only fetch)      | <--------- |                    | <---------> | 1. eureka client   |
+                                   |                                   |    fetch   +--------------------+    fetch    |                    |  
+                                   | 2. lb(spring cloud load balancer) |                                               |                    |
+  +----------------------+         | 3. rest template(rest API client) | <-------------------------------------------> | 2. rest api server |  
+  | emaillist09 frontend | <------ | 4. landing frontend app(react)    |                                               +--------------------+
+  |                      |         |                                   |
+  | rest api client      | <-----> | 5. rest api server                |                                             
+  +----------------------+         +-----------------------------------+                                             
