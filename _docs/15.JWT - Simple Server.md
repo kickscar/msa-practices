@@ -1,0 +1,49 @@
+## 2. JWT Simple Server
+
+![Json-Web-Token.jpg](../../../../_resources/Json-Web-Token.jpg)
+(3) 참고
+
+#### 1. WorkFlow
+![5f527d2634b5d4290e36177a37a463ee.png](../../../../_resources/5f527d2634b5d4290e36177a37a463ee.png)
+
+#### 2. 간단 구현 서버: /oauth2-practices/jwt/ex02 
+1. 설치 패키지
+
+	```sh
+	$ npm i express jsonwebtoken dotenv
+	```
+
+2. .env
+	
+	```
+	ACCESS_TOKEN_SECRET=d7d34917fbd11fdd89357d ...
+	REFRESH_TOKEN_SECRET=3a13ce20d9e44269e1a01 ...
+	```
+
+3. package json script
+	
+	```json
+	"scripts": {
+		"start": "node basic-jwt-server"
+	}
+	```
+
+4. 서버 시작
+
+```sh
+$ npm start
+```
+
+
+#### 3. 테스트
+1. /auth
+![f556e152ce5d9934581928135809a9f2.png](../../../../_resources/f556e152ce5d9934581928135809a9f2.png)
+
+2. /profile
+![50b2b3e11331363b63850ebf87018856.png](../../../../_resources/50b2b3e11331363b63850ebf87018856.png)
+
+3. access token expired
+![a29df18cbceeb3d1d04653c4444c5671.png](../../../../_resources/a29df18cbceeb3d1d04653c4444c5671.png)
+
+4. /refresh-token
+![101e6fed4c59a6cd4ec03b78e00a6156.png](../../../../_resources/101e6fed4c59a6cd4ec03b78e00a6156.png)
