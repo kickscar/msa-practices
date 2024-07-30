@@ -52,6 +52,5 @@ public class WhitelabelErrorController implements ErrorController {
 	    }
 	    
 	    return JsonResult.fail(errorMessage);
-	}	
-	
+	}
 }
