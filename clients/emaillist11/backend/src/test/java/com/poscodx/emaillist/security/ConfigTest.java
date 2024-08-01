@@ -19,7 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
 @WebAppConfiguration
-@ActiveProfiles("test")
+// @ActiveProfiles("test")
 public class ConfigTest {
  	@MockBean
 	private ClientRegistrationRepository clientRegistrationRepository;

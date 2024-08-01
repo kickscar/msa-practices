@@ -60,11 +60,11 @@ spring:
        server:
           encrypt.enabled: true
           native:
-              searchLocations: file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-emaillist,
-                               file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-storage,
-                               file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-gallery,
-                               file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-guestbook,
-                               file:///Users/kickscar/DoWork/STS-Workspace/msa-practices-config-repo/service-gateway-server
+              searchLocations: file:///Users/kickscar/DoWork/STS-PoscoDx2024-Workspace/msa-practices-config-repo/service-emaillist,
+                               file:///Users/kickscar/DoWork/STS-PoscoDx2024-Workspace/msa-practices-config-repo/service-storage,
+                               file:///Users/kickscar/DoWork/STS-PoscoDx2024-Workspace/msa-practices-config-repo/service-gallery,
+                               file:///Users/kickscar/DoWork/STS-PoscoDx2024-Workspace/msa-practices-config-repo/service-guestbook,
+                               file:///Users/kickscar/DoWork/STS-PoscoDx2024-Workspace/msa-practices-config-repo/service-gateway-server
 
 logging:
    pattern:

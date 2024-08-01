@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../assets/scss/Welcome.scss';
+
 function Welcome() {
     return (
         <div id={'App'}>

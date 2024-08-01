@@ -47,7 +47,7 @@ public class Config {
 		
 		http.oauth2Login(oauth2LoginCustomizer -> {
 			
-			// OAuth2 Authorization Code Grant Type 적
+			// OAuth2 Authorization Code Grant Type 적용
 			oauth2LoginCustomizer
 				.authorizationEndpoint().baseUri("/oauth2/authorize")
 				
@@ -71,8 +71,6 @@ public class Config {
 				.successHandler(authenticationSuccessHandler());
 
 		});
-		
-//		OAuth2LoginAuthenticationFilter a;
 		
 		return http.build();
 	}
@@ -98,7 +96,7 @@ public class Config {
 				//
 				// Discard Access Token
 				// Grant Flow의 User Agent(Browser)에서 실행되는 JS 클라이언트(React)에게
-				// Access Token 전달이 부자연스럽기 때문에 최초 Access Token은 그냥 버림.
+				// Access Token 전달이 부자연스럽기 때문에 최초 Access Token은 폐기
 	    		//
 				OAuth2AccessToken accessToken = oAuth2AuthorizedClient.getAccessToken();
 	            log.info("OAuth2: Authorized JWT: Access Token:" + accessToken.getTokenValue());
@@ -110,7 +108,7 @@ public class Config {
 	            log.info("OAuth2: Authorized JWT: Refresh Token:" + refreshToken.getTokenValue());
 	            
 	            
-	            //*
+	            /*
 	            response.getWriter().println("AccessToken:" + accessToken.getTokenValue());
 	            response.getWriter().println("Refresh Token:" + refreshToken.getTokenValue());
 	            /*/ 
