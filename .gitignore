@@ -26,7 +26,6 @@
 # vercel
 **/.vercel
 
-
 ## eclipse, sts
 **/.apt_generated
 **/.classpath
@@ -53,3 +52,6 @@
 
 ## application
 **/logs
+
+## private technotes
+**/technotes

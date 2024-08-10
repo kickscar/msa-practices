@@ -40,14 +40,17 @@ public class SecurityConfigTest {
 	        SecurityFilterChain securityFilterChain = filterChainProxy.getFilterChains().get(0);
 	        List<Filter> filters =  securityFilterChain.getFilters();
 
-	        assertEquals(11, filters.size());
+	        assertEquals(10, filters.size());
 
 	        // All Filters
 	        for(Filter filter : filters) {
 	            System.out.println(filter.getClass());
 	        }
 
+	        // 7th BearerTokenAuthenticationFilter
+	        assertEquals("BearerTokenAuthenticationFilter", filters.get(4).getClass().getSimpleName());
+
 	        // 10th AuthorizationFilter
-	        assertEquals("AuthorizationFilter", filters.get(10).getClass().getSimpleName());
+	        assertEquals("AuthorizationFilter", filters.get(9).getClass().getSimpleName());
 	    }	    
 }

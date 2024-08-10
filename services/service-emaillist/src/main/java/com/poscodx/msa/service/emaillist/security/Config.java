@@ -45,6 +45,7 @@ public class Config {
         http
         	.csrf(csrf -> csrf.disable())
         	.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        	.logout(logout -> logout.disable())
         	.anonymous(anonymous -> anonymous.disable())
         	.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
         		authorizationManagerRequestMatcherRegistry
@@ -128,7 +129,6 @@ public class Config {
 					try {
 						claim = JsonPath.read(jwt.getClaims(), claimPaths);
 					} catch (PathNotFoundException e) {
-						/* handle nothing */
 					}
 
 					if (claim == null) {
@@ -160,8 +160,7 @@ public class Config {
 					}
 
 					if (Collection.class.isAssignableFrom(firstItem.getClass())) {
-						return (Stream<String>) ((Collection) claim).stream()
-								.flatMap(colItem -> ((Collection) colItem).stream()).map(String.class::cast);
+						return (Stream<String>) ((Collection) claim).stream().flatMap(colItem -> ((Collection) colItem).stream()).map(String.class::cast);
 					}
 
 					return Stream.empty();
