@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import RegisterForm from './RegisterForm';
 import SearchBar from './SearchBar';
 import Emaillist from './Emaillist';
 import './assets/scss/App.scss';
 
 function App() {
-    const [emails, setEmails] = useState(null);   
+    const [emails, setEmails] = useState(null);
 
     const addEmail = async (email) => {
         try {
@@ -18,18 +18,18 @@ function App() {
                 body: JSON.stringify(email)
             });
 
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error(`${response.status} ${response.statusText}`)
             }
 
             const json = await response.json();
 
-            if(json.result !== 'success') {
+            if (json.result !== 'success') {
                 throw new Error(`${json.result} ${json.message}`)
             }
 
             setEmails([json.data, ...emails]);
-        } catch(err) {
+        } catch (err) {
             console.error(err);
         }
     }
@@ -45,19 +45,19 @@ function App() {
                 body: null
             });
 
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error(`${response.status} ${response.statusText}`)
             }
 
             const json = await response.json();
 
-            if(json.result !== 'success') {
+            if (json.result !== 'success') {
                 throw new Error(`${json.result} ${json.message}`)
             }
 
             setEmails(json.data);
 
-        } catch(err) {
+        } catch (err) {
             console.error(err);
         }
     }
@@ -68,8 +68,8 @@ function App() {
 
     return (
         <div id={'App'}>
-            <RegisterForm addEmail={addEmail} />
-            <SearchBar fetchEmails={fetchEmails} />
+            <RegisterForm addEmail={addEmail}/>
+            <SearchBar fetchEmails={fetchEmails}/>
             <Emaillist
                 emails={emails}
                 deleteEmail={no => {

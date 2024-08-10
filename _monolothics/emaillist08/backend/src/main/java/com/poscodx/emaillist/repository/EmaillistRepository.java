@@ -1,24 +1,23 @@
 package com.poscodx.emaillist.repository;
 
-import java.util.List;
-
+import com.poscodx.emaillist.vo.EmaillistVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.poscodx.emaillist.vo.EmaillistVo;
+import java.util.List;
 
 @Repository
 public class EmaillistRepository {
-	
-	@Autowired
-	private SqlSession sqlSession;
 
-	public List<EmaillistVo> findAll(String keyword) {
-		return sqlSession.selectList("emaillist.findAll", keyword);
-	}
+    @Autowired
+    private SqlSession sqlSession;
 
-	public Boolean insert(EmaillistVo vo) {
-		return sqlSession.insert("emaillist.insert", vo) == 1;
-	}
+    public List<EmaillistVo> findAll(String keyword) {
+        return sqlSession.selectList("emaillist.findAll", keyword);
+    }
+
+    public Boolean insert(EmaillistVo vo) {
+        return sqlSession.insert("emaillist.insert", vo) == 1;
+    }
 }

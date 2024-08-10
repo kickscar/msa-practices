@@ -1,7 +1,7 @@
 const path = require('path');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
-module.exports = function(env) {
+module.exports = function (env) {
     return {
         mode: "none",
         entry: path.resolve(`src/index.js`),
@@ -11,7 +11,7 @@ module.exports = function(env) {
             assetModuleFilename: 'assets/images/[hash][ext]'
         },
         module: {
-            rules:[{
+            rules: [{
                 test: /\.js/i,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
@@ -20,14 +20,14 @@ module.exports = function(env) {
                 }
             }, {
                 test: /\.(c|sa|sc)ss$/i,
-                use:[
+                use: [
                     'style-loader',
                     {
                         loader: 'css-loader',
                         options: {
                             modules: true
                         }
-                    }, 
+                    },
                     'sass-loader'
                 ]
             }, {
@@ -38,7 +38,7 @@ module.exports = function(env) {
         plugins: [
             new CaseSensitivePathsPlugin()
         ],
-        devtool: "eval-source-map",        
+        devtool: "eval-source-map",
         devServer: {
             host: '0.0.0.0',
             port: 9090,
@@ -48,11 +48,11 @@ module.exports = function(env) {
             proxy: [{
                 context: ['/api'],
                 target: 'http://localhost:8080',
-            }],            
+            }],
             static: {
                 directory: path.resolve('./public')
             },
             historyApiFallback: true
-        }    
+        }
     };
 }
