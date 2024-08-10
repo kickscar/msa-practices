@@ -1,0 +1,4 @@
+{
+    "watch": ["src/", "config/"],
+    "ext": "js, ts, jsx, tsx, html, htm, json, scss, sass, css, png, svg, jpg, jpeg, gif"
+}

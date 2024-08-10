@@ -1,0 +1,9 @@
+{
+    "refresh-token-cookie-name": "refreshToken",
+    "refresh-token-cookie-options": {
+        "path": "/", 
+        "httpOnly": true,
+        "secure": false,
+        "sameSite": "strict"
+    }
+}
