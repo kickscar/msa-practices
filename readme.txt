@@ -1,5 +1,6 @@
 msa-practices
    |
+   |--- _docs
    |--- _monolothics
    |       |--- emaillist08             [8080, 8091]
    |       |--- mysite08                [8080, 8092]
@@ -19,7 +20,13 @@ msa-practices
    |       |--- emaillist10             [8080, 8095]
    |       |--- mysite10                [8080, 8096]
    |       |--- emaillist11             [8080, 8097]
+   |       |      |--- nextjs
+   |       |      |--- node-react
+   |       |      |--- spring-react
    |       |--- mysite11                [8080, 8098]
+   |       |      |--- nextjs
+   |       |      |--- node-react
+   |       |      |--- spring-react
 
 
 
